@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Home • Hutzell Creative Co.</title>
+<link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700..900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<style>
+h1,h2,h3,.brand .name{font-family:'Playfair Display',serif}
+body{font-family:'Inter',system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial}
+</style>
+</head>
+<body>
+<header>
+  <div class="container nav">
+    <div class="brand">
+      <img src="assets/img/421DC667-9230-4897-A1E5-7C52B2A8B5DA.png" alt="Hutzell Creative Co. logo" onerror="this.src='assets/img/favicon.svg'">
+      <div class="name">Hutzell Creative Co.</div>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="portfolio.html" class="">Portfolio</a></li>
+        <li><a href="about.html" class="">About</a></li>
+        <li><a href="contact.html" class="">Inquiry</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container hero-inner">
+    <div>
+      <h1>Cinematic wedding films & timeless design in soft, natural tones.</h1>
+      <p>We craft elegant stories and visuals — from wedding videography to curated photography and brand design — with a calm, candid approach.</p>
+      <div class="cta">
+        <a href="portfolio.html" class="button">See our work</a>
+        <a href="contact.html" class="button secondary">Request an inquiry</a>
+      </div>
+    </div>
+    <div>
+      <img src="assets/img/9D021425-18D5-4E4D-9A73-8A82FBDC540E.png" alt="Green floral monogram" />
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2>Services</h2>
+    <p class="lead">Video • Photo • Graphic Design</p>
+    <div class="grid-3">
+      <div class="card">
+        <img src="assets/img/06DA406A-7FA2-414F-B5F2-58E083F62977.png" alt="Price card vibe">
+        <div class="pad">
+          <div class="badge">Videography</div>
+          <h3>Wedding Films</h3>
+          <p>Full-day coverage with heirloom edits that feel true-to-you.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="pad">
+          <div class="badge">Photography</div>
+          <h3>Portraits & Events</h3>
+          <p>Soft, natural light and gentle color grading for timeless images.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="pad">
+          <div class="badge">Design</div>
+          <h3>Brand & Print</h3>
+          <p>Minimal, nature-inspired graphics and type with a crafted feel.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2>Featured Film</h2>
+    <p class="lead">Drop in your latest YouTube or Vimeo link below.</p>
+    <div class="card">
+      <div class="pad">
+        <div style="position:relative;padding-top:56.25%">
+          <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Featured Film" allowfullscreen style="position:absolute;inset:0;width:100%;height:100%;border:0"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container small">© <span id="year"></span> Hutzell Creative Co. • Weddings • Films • Design • Photography</div>
+</footer>
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+<script src="assets/js/main.js"></script>
+</body>
+</html>

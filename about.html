@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>About • Hutzell Creative Co.</title>
+<link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700..900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<style>
+h1,h2,h3,.brand .name{font-family:'Playfair Display',serif}
+body{font-family:'Inter',system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial}
+</style>
+</head>
+<body>
+<header>
+  <div class="container nav">
+    <div class="brand">
+      <img src="assets/img/421DC667-9230-4897-A1E5-7C52B2A8B5DA.png" alt="Hutzell Creative Co. logo" onerror="this.src='assets/img/favicon.svg'">
+      <div class="name">Hutzell Creative Co.</div>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="index.html" class="">Home</a></li>
+        <li><a href="portfolio.html" class="">Portfolio</a></li>
+        <li><a href="about.html" class="active">About</a></li>
+        <li><a href="contact.html" class="">Inquiry</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<section class="section">
+  <div class="container">
+    <h2>About Us</h2>
+    <p class="lead">A calm, story-first studio based in Georgia.</p>
+    <div class="grid-3" style="grid-template-columns:2fr 1fr">
+      <div>
+        <p>Hutzell Creative Co. is a boutique studio crafting cinematic wedding films, soft-light photography, and nature-inspired graphic design. We love the quiet, in-between moments — the look before the vows, the laughter during speeches, the details you worked so hard to plan.</p>
+        <p>Our style leans organic: pastel greens, clean type, and gentle motion. We keep timelines smooth, communication easy, and delivery dependable. Whether it’s an intimate ceremony or a full-day celebration, our approach is relaxed and intentional.</p>
+        <p class="small">This is a placeholder bio — replace with your real story, credentials, and approach. Consider adding a short video intro here, too.</p>
+      </div>
+      <div class="card">
+        <div class="pad">
+          <div class="badge">Est. 2024</div>
+          <h3>Based in Georgia</h3>
+          <p>Serving the Southeast and beyond.</p>
+          <a class="button" href="contact.html">Start an inquiry</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container small">© <span id="year"></span> Hutzell Creative Co. • Weddings • Films • Design • Photography</div>
+</footer>
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+<script src="assets/js/main.js"></script>
+</body>
+</html>

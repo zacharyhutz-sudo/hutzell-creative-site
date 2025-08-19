@@ -1,0 +1,5 @@
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 800'>
+  <defs><linearGradient id='g' x1='0' x2='1'><stop offset='0' stop-color='#7ea493'/><stop offset='1' stop-color='#5e8f7d'/></linearGradient></defs>
+  <rect width='1200' height='800' fill='url(#g)'/>
+  <text x='50%' y='50%' font-family='Inter, Arial' font-size='72' fill='white' text-anchor='middle'>Photo 5</text>
+</svg>

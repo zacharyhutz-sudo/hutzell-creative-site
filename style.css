@@ -168,3 +168,25 @@ nav ul{display:flex;list-style:none;gap:22px;margin:0;padding:0} nav a{padding:1
 /* Honeypot (hidden field) */
 .hp { position: absolute; left: -9999px; opacity: 0; pointer-events: none; }
 
+/* Contact polish */
+.contact-wrap { row-gap: 28px; }
+.contact-form { margin-top: 10px; }
+.contact-form input, .contact-form select, .contact-form textarea {
+  width: 100%;
+  background: #fff;
+}
+.contact-form input, .contact-form select {
+  height: 44px;
+}
+.contact-form .button {
+  min-height: 44px;
+}
+
+/* Mobile tweaks */
+@media (max-width: 560px) {
+  .contact-title { font-size: clamp(28px, 8vw, 48px); }
+  .contact-form { padding: 16px; }
+  .form-grid { gap: 12px; }
+  .contact-intro .lead { font-size: 16px; }
+  .contact-form .button { width: 100%; } /* full-width button on phones */
+}

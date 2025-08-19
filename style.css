@@ -127,8 +127,18 @@ nav a:hover, nav a.active { background: var(--accent); }
 .lb .close { position: fixed; top: 16px; right: 20px; background: #fff; border: 1px solid var(--accent); border-radius: 999px; padding: 10px 12px; cursor: pointer; font-weight: 700; }
 
 /* Inquiry */
-.contact-title { font-family: var(--title-font); }
-.contact-intro .script { font-family: var(--script-font); color: var(--green-2); }
+.contact-title { 
+  font-family: var(--title-font); 
+  text-align: center; 
+  font-size: clamp(36px, 5vw, 64px); 
+  margin-bottom: 20px; 
+}
+.contact-intro .script { 
+  font-family: var(--script-font); 
+  color: var(--green-2); 
+  text-align: center; 
+  display: block; 
+}
 .contact-notes { font-family: var(--body-font); }
 
 /* Form */

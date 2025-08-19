@@ -5,6 +5,20 @@
   font-weight: normal;
   font-style: normal;
 }
+/* Titles */
+h1, h2, h3, .brand .name {
+  font-family: 'TheGrenhil', serif;
+}
+
+/* Subtitles & body */
+body, p, li {
+  font-family: 'Della Respira', serif;
+}
+
+/* Special script titles */
+.script-title {
+  font-family: 'Pinyon Script', cursive;
+}
 
 
 

@@ -1,31 +1,41 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Services — Hutzell Creative Co.</title>
-<link href="https://fonts.googleapis.com/css2?family=Della+Respira&family=Pinyon+Script&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Services — Hutzell Creative Co.</title>
+
+  <!-- Brand Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Della+Respira&family=Pinyon+Script&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <header>
   <div class="container nav">
     <div class="brand"><div class="name">Hutzell Creative Co.</div></div>
-    <nav><ul><li><a href="index.html">Home</a></li><li><a class="active" href="services.html">Services</a></li><li><a href="about.html">About</a></li><li><a href="contact.html">Inquiry</a></li></ul></nav>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a class="active" href="services.html">Services</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Inquiry</a></li>
+      </ul>
+    </nav>
   </div>
 </header>
 
 <section class="section">
   <div class="container">
-    <h2>Videography</h2>
+    <h2 class="script">Videography</h2>
     <p class="lead">Highlight films with gentle color and story-first edits.</p>
     <div class="grid-2">
       <div class="video-wrap">
-        <!-- Replace VIDEO_1 with your YouTube ID or Vimeo embed -->
+        <!-- Video 1 -->
         <iframe src="https://www.youtube.com/embed/Vpdc_gn-qrw" title="Film One" allowfullscreen></iframe>
       </div>
       <div class="video-wrap">
-        <!-- Replace VIDEO_2 with your YouTube ID or Vimeo embed -->
-        <iframe src="https://www.youtube.com/embed/Vpdc_gn-qrw" title="Film Two" allowfullscreen></iframe>
+        <!-- Video 2 -->
+        <iframe src="https://www.youtube.com/embed/fQBHS2ZIFLU" title="Film Two" allowfullscreen></iframe>
       </div>
     </div>
   </div>
@@ -33,19 +43,26 @@
 
 <section class="section">
   <div class="container">
-    <h2>Photography & Design</h2>
+    <h2 class="script">Photography & Design</h2>
     <p class="lead">Soft-light portraits and nature-led graphics. Click any image to view larger.</p>
     <div class="tilt gallery" id="gallery"></div>
   </div>
 </section>
 
+<!-- Lightbox -->
 <div class="lb" id="lightbox">
   <button class="close" id="lbClose">Close ✕</button>
   <img id="lbImg" alt="">
 </div>
 
-<footer class="footer"><div class="container">© <span id="year"></span> Hutzell Creative Co.</div></footer>
-<script>document.getElementById('year').textContent=new Date().getFullYear();</script>
+<footer class="footer">
+  <div class="container">© <span id="year"></span> Hutzell Creative Co.</div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
 <script src="assets/js/gallery.js"></script>
 </body>
 </html>
+

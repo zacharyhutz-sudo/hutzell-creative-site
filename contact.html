@@ -1,137 +1,100 @@
 <!doctype html>
 <html lang="en">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Inquiry — Hutzell Creative Co.</title>
-<link href="https://fonts.googleapis.com/css2?family=Della+Respira&family=Pinyon+Script&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css"></head>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Inquiry — Hutzell Creative Co.</title>
+  <link href="https://fonts.googleapis.com/css2?family=Della+Respira&family=Pinyon+Script&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .contact-wrapper {
+      max-width: 700px;
+      margin: 60px auto;
+      background: #fff;
+      border: 1px solid var(--accent);
+      border-radius: 16px;
+      padding: 40px;
+      box-shadow: 0 8px 30px rgba(0,0,0,.05);
+    }
+    .contact-wrapper h2 {
+      font-family: "THE GRENHIL REGULAR", serif;
+      font-size: 36px;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+    .contact-wrapper p {
+      font-family: "Della Respira", serif;
+      text-align: center;
+      margin-bottom: 30px;
+      color: var(--muted);
+    }
+    form label {
+      display: block;
+      margin: 14px 0 6px;
+      font-weight: 600;
+      font-family: "Della Respira", serif;
+    }
+    form input, form textarea {
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid var(--accent);
+      font-family: "Della Respira", serif;
+    }
+    form textarea { min-height: 140px; }
+    .submit-btn {
+      margin-top: 20px;
+      display: inline-block;
+      background: var(--green);
+      color: #fff;
+      padding: 14px 28px;
+      border-radius: 8px;
+      border: none;
+      font-family: "Della Respira", serif;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background .2s ease;
+    }
+    .submit-btn:hover {
+      background: var(--green-2);
+    }
+  </style>
+</head>
 <body>
-<header>
-  <div class="container nav">
-    <div class="brand"><div class="name">Hutzell Creative Co.</div></div>
-    <nav>
-      <ul>
-        <li><a href="index.html">Work</a></li>
-        <li><a href="services.html">Services</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a class="active" href="contact.html">Inquiry</a></li>
-      </ul>
-    </nav>
-  </div>
-</header>
-
-<section class="section">
-  <div class="container contact-wrap">
-    <div class="contact-intro">
-      <h1 class="contact-title"><span class="script">Inquiry</span></h1>
-      <p class="lead">
-        Tell us about your date and vision. We reply from
-        <strong>hutzellcreativeco@gmail.com</strong>.
-      </p>
-      <ul class="contact-notes">
-        <li>Typical response within 24–48 hours</li>
-        <li>Serving Georgia & the Southeast</li>
-        <li>Films • Photography • Graphic Design</li>
-      </ul>
+  <header>
+    <div class="container nav">
+      <div class="brand"><div class="name">Hutzell Creative Co.</div></div>
+      <nav>
+        <ul>
+          <li><a href="index.html">Work</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a class="active" href="contact.html">Inquiry</a></li>
+        </ul>
+      </nav>
     </div>
+  </header>
 
-    <form
-      class="contact-form"
-      action="https://formspree.io/f/xvgqjkno"
-      method="POST"
-      id="inquiryForm"
-    >
-      <!-- Anti-bot honeypot (invisible to humans) -->
-      <input type="text" name="_gotcha" class="hp" tabindex="-1" autocomplete="off">
+  <div class="contact-wrapper">
+    <h2>Let’s Connect</h2>
+    <p>We’d love to hear from you. Fill out the form below and we’ll be in touch soon.</p>
+    <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+      <label for="name">Your Name</label>
+      <input type="text" id="name" name="name" required>
 
-      <div class="form-grid">
-        <div class="form-group">
-          <label for="name">Name *</label>
-          <input id="name" name="name" type="text" required>
-        </div>
+      <label for="email">Your Email</label>
+      <input type="email" id="email" name="_replyto" required>
 
-        <div class="form-group">
-          <label for="email">Email *</label>
-          <input id="email" name="_replyto" type="email" required>
-        </div>
+      <label for="message">Message</label>
+      <textarea id="message" name="message" required></textarea>
 
-        <div class="form-group">
-          <label for="phone">Phone</label>
-          <input id="phone" name="phone" type="tel" placeholder="Optional">
-        </div>
-
-        <div class="form-group">
-          <label for="date">Event Date</label>
-          <input id="date" name="date" type="date">
-        </div>
-
-        <div class="form-group">
-          <label for="location">Location</label>
-          <input id="location" name="location" type="text" placeholder="City / Venue">
-        </div>
-
-        <div class="form-group">
-          <label for="service">Service</label>
-          <select id="service" name="service">
-            <option>Wedding Videography</option>
-            <option>Photography</option>
-            <option>Graphic Design</option>
-            <option>Other</option>
-          </select>
-        </div>
-
-        <div class="form-group form-span-2">
-          <label for="message">Inquiry *</label>
-          <textarea id="message" name="message" rows="6" required placeholder="Share your date, timeline, and what you’re envisioning."></textarea>
-        </div>
-      </div>
-
-      <!-- Email subject line you’ll see -->
-      <input type="hidden" name="_subject" value="New Inquiry — Hutzell Creative Co.">
-
-      <button type="submit" class="button">Send Inquiry</button>
-
-      <p class="form-footnote">By submitting, you agree we may contact you about your inquiry.</p>
-
-      <!-- Success / error inline messages (used by the tiny JS below) -->
-      <div id="formStatus" class="form-status" aria-live="polite"></div>
+      <button type="submit" class="submit-btn">Send Inquiry</button>
     </form>
   </div>
-</section>
 
-<footer class="footer">
-  <div class="container">© <span id="year"></span> Hutzell Creative Co.</div>
-</footer>
-<script>
-  document.getElementById('year').textContent = new Date().getFullYear();
-
-  // Optional: submit via fetch to keep users on your site (instead of Formspree redirect)
-  const form = document.getElementById('inquiryForm');
-  const status = document.getElementById('formStatus');
-
-  form.addEventListener('submit', async (e) => {
-    // Remove this block if you prefer Formspree’s default redirect
-    e.preventDefault();
-    status.textContent = 'Sending…';
-    try {
-      const data = new FormData(form);
-      const resp = await fetch(form.action, {
-        method: 'POST',
-        body: data,
-        headers: { 'Accept': 'application/json' }
-      });
-      if (resp.ok) {
-        form.reset();
-        status.classList.add('ok');
-        status.textContent = 'Thanks! We received your inquiry and will reply shortly.';
-      } else {
-        status.classList.remove('ok');
-        status.textContent = 'Hmm, something went wrong. Email us directly at hutzellcreativeco@gmail.com.';
-      }
-    } catch (err) {
-      status.classList.remove('ok');
-      status.textContent = 'Network error — try again or email us directly.';
-    }
-  });
-</script>
-
-</body></html>
+  <footer class="footer">
+    <div class="container">© <span id="year"></span> Hutzell Creative Co.</div>
+  </footer>
+  <script>document.getElementById('year').textContent=new Date().getFullYear();</script>
+</body>
+</html>

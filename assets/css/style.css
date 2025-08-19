@@ -1,3 +1,21 @@
+
+/* ===== Brand Fonts Setup (auto-injected) ===== */
+@font-face{
+  font-family:'TheGrenhil';
+  src:url('assets/fonts/TheGrenhil-Regular.ttf') format('truetype');
+  font-weight:400;
+  font-style:normal;
+}
+:root{
+  --title-font:'TheGrenhil', serif;
+  --body-font:'Della Respira', serif;
+  --script-font:'Pinyon Script', cursive;
+}
+/* Apply brand fonts */
+h1, h2, h3, header .brand .name{ font-family: var(--title-font); letter-spacing:.5px }
+body, p, li, .lead, label, input, textarea, button{ font-family: var(--body-font); }
+.script, .script-title{ font-family: var(--script-font); font-weight:400 }
+
 :root{
   --green:#7ea493;
   --green-2:#5e8f7d;

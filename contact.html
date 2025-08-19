@@ -5,16 +5,133 @@
 <link href="https://fonts.googleapis.com/css2?family=Della+Respira&family=Pinyon+Script&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css"></head>
 <body>
-<header><div class="container nav"><div class="brand"><div class="name">Hutzell Creative Co.</div></div>
-<nav><ul><li><a href="index.html">Work</a></li><li><a href="services.html">Services</a></li><li><a href="about.html">About</a></li><li><a class="active" href="contact.html">Inquiry</a></li></ul></nav></div></header>
-<section class="section"><div class="container"><h2>Inquiry</h2><p class="lead">We’ll reply from <strong>hutzellcreativeco@gmail.com</strong>.</p>
-<form class="form" method="POST" action="https://formspree.io/f/YOUR_FORM_ID">
-<label>Name</label><input name="name" required>
-<label>Email</label><input name="email" type="email" required>
-<label>Service</label><select name="service"><option>Wedding Videography</option><option>Photography</option><option>Graphic Design</option><option>Other</option></select>
-<label>Inquiry</label><textarea name="message"></textarea>
-<div style="margin-top:14px"><button class="button" type="submit">Send Inquiry</button></div></form>
-</div></section>
-<footer class="footer"><div class="container">© <span id='year'></span> Hutzell Creative Co.</div></footer>
-<script>document.getElementById('year').textContent=new Date().getFullYear();</script>
+<header>
+  <div class="container nav">
+    <div class="brand"><div class="name">Hutzell Creative Co.</div></div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Work</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a class="active" href="contact.html">Inquiry</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<section class="section">
+  <div class="container contact-wrap">
+    <div class="contact-intro">
+      <h1 class="contact-title"><span class="script">Inquiry</span></h1>
+      <p class="lead">
+        Tell us about your date and vision. We reply from
+        <strong>hutzellcreativeco@gmail.com</strong>.
+      </p>
+      <ul class="contact-notes">
+        <li>Typical response within 24–48 hours</li>
+        <li>Serving Georgia & the Southeast</li>
+        <li>Films • Photography • Graphic Design</li>
+      </ul>
+    </div>
+
+    <form
+      class="contact-form"
+      action="https://formspree.io/f/YOUR_FORM_ID"
+      method="POST"
+      id="inquiryForm"
+    >
+      <!-- Anti-bot honeypot (invisible to humans) -->
+      <input type="text" name="_gotcha" class="hp" tabindex="-1" autocomplete="off">
+
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="name">Name *</label>
+          <input id="name" name="name" type="text" required>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email *</label>
+          <input id="email" name="_replyto" type="email" required>
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Phone</label>
+          <input id="phone" name="phone" type="tel" placeholder="Optional">
+        </div>
+
+        <div class="form-group">
+          <label for="date">Event Date</label>
+          <input id="date" name="date" type="date">
+        </div>
+
+        <div class="form-group">
+          <label for="location">Location</label>
+          <input id="location" name="location" type="text" placeholder="City / Venue">
+        </div>
+
+        <div class="form-group">
+          <label for="service">Service</label>
+          <select id="service" name="service">
+            <option>Wedding Videography</option>
+            <option>Photography</option>
+            <option>Graphic Design</option>
+            <option>Other</option>
+          </select>
+        </div>
+
+        <div class="form-group form-span-2">
+          <label for="message">Inquiry *</label>
+          <textarea id="message" name="message" rows="6" required placeholder="Share your date, timeline, and what you’re envisioning."></textarea>
+        </div>
+      </div>
+
+      <!-- Email subject line you’ll see -->
+      <input type="hidden" name="_subject" value="New Inquiry — Hutzell Creative Co.">
+
+      <button type="submit" class="button">Send Inquiry</button>
+
+      <p class="form-footnote">By submitting, you agree we may contact you about your inquiry.</p>
+
+      <!-- Success / error inline messages (used by the tiny JS below) -->
+      <div id="formStatus" class="form-status" aria-live="polite"></div>
+    </form>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">© <span id="year"></span> Hutzell Creative Co.</div>
+</footer>
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Optional: submit via fetch to keep users on your site (instead of Formspree redirect)
+  const form = document.getElementById('inquiryForm');
+  const status = document.getElementById('formStatus');
+
+  form.addEventListener('submit', async (e) => {
+    // Remove this block if you prefer Formspree’s default redirect
+    e.preventDefault();
+    status.textContent = 'Sending…';
+    try {
+      const data = new FormData(form);
+      const resp = await fetch(form.action, {
+        method: 'POST',
+        body: data,
+        headers: { 'Accept': 'application/json' }
+      });
+      if (resp.ok) {
+        form.reset();
+        status.classList.add('ok');
+        status.textContent = 'Thanks! We received your inquiry and will reply shortly.';
+      } else {
+        status.classList.remove('ok');
+        status.textContent = 'Hmm, something went wrong. Email us directly at hutzellcreativeco@gmail.com.';
+      }
+    } catch (err) {
+      status.classList.remove('ok');
+      status.textContent = 'Network error — try again or email us directly.';
+    }
+  });
+</script>
+
 </body></html>

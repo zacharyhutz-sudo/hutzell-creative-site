@@ -16,6 +16,36 @@ h1, h2, h3, header .brand .name{ }
 body, p, li, .lead{ font-family: var(--body-font); }
 .script-title, .script{ font-family: var(--script-font); font-weight:400 }
 
+/* Font imports */
+@font-face {
+  font-family: 'Grenhil';
+  src: url('assets/fonts/the-grenhil-regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  font-family: 'Della Respira', serif;
+  color: var(--ink);
+  background: var(--cream);
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2, h3, .brand .name {
+  font-family: 'Grenhil', serif;
+  font-weight: normal;
+}
+
+p, li, label, input, textarea, button {
+  font-family: 'Della Respira', serif;
+}
+
+.script {
+  font-family: 'Pinyon Script', cursive;
+  font-size: 26px;
+}
+
 
 /* --- Base styles from previous build (trimmed for brevity) --- */
 :root{

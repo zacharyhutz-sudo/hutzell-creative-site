@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Portfolio — Hutzell Creative Co.</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700..900&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <div class="container nav">
+    <div class="brand"><div class="name">Hutzell Creative Co.</div></div>
+    <nav><ul><li><a href="index.html">Work</a></li><li><a class="active" href="portfolio.html">Portfolio</a></li><li><a href="about.html">About</a></li><li><a href="contact.html">Inquiry</a></li></ul></nav>
+  </div>
+</header>
+<section class="section">
+  <div class="container">
+    <h2>Portfolio</h2>
+    <p class="lead">Browse a selection of films, photography, and identity design.</p>
+    <div class="grid-3">
+      <a class="card" href="#">
+        <div class="pad"><div class="badge">Video</div><h3>Elizabeth & Peyton — Highlight</h3><p>Emotive edit with warm color.</p></div>
+      </a>
+      <a class="card" href="#"><div class="pad"><div class="badge">Photo</div><h3>Golden-hour portraits</h3><p>Soft light and natural tones.</p></div></a>
+      <a class="card" href="#"><div class="pad"><div class="badge">Design</div><h3>Minimal floral mark</h3><p>Refined identity and typography.</p></div></a>
+    </div>
+  </div>
+</section>
+<footer class="footer"><div class="container">© <span id="year"></span> Hutzell Creative Co.</div></footer>
+<script>document.getElementById('year').textContent=new Date().getFullYear();</script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Inquiry — Hutzell Creative Co.</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700..900&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <div class="container nav">
+    <div class="brand"><div class="name">Hutzell Creative Co.</div></div>
+    <nav><ul><li><a href="index.html">Work</a></li><li><a href="portfolio.html">Portfolio</a></li><li><a href="about.html">About</a></li><li><a class="active" href="contact.html">Inquiry</a></li></ul></nav>
+  </div>
+</header>
+<section class="section">
+  <div class="container">
+    <h2>Inquiry</h2>
+    <p class="lead">Tell us about your date and vision. We’ll reply from <strong>hutzellcreativeco@gmail.com</strong>.</p>
+    <form class="form" method="POST" action="https://formspree.io/f/YOUR_FORM_ID">
+      <div class="row">
+        <div>
+          <label for="name">Name</label>
+          <input id="name" name="name" required placeholder="First & Last">
+        </div>
+        <div>
+          <label for="email">Email</label>
+          <input id="email" type="email" name="email" required placeholder="you@example.com">
+        </div>
+      </div>
+      <label for="service">Service</label>
+      <select id="service" name="service">
+        <option>Wedding Videography</option>
+        <option>Photography</option>
+        <option>Graphic Design</option>
+        <option>Other</option>
+      </select>
+      <label for="message">Inquiry</label>
+      <textarea id="message" name="message" placeholder="Share your date, location, and what you’re envisioning."></textarea>
+      <input type="hidden" name="_subject" value="New Inquiry – Hutzell Creative Co.">
+      <div style="margin-top:14px">
+        <button class="button" type="submit">Send Inquiry</button>
+      </div>
+      <div class="small" style="margin-top:10px">By submitting, you agree we may contact you about your inquiry.</div>
+    </form>
+    <p class="small" style="margin-top:16px">Prefer email? <a href="mailto:hutzellcreativeco@gmail.com?subject=Inquiry">hutzellcreativeco@gmail.com</a></p>
+  </div>
+</section>
+<footer class="footer"><div class="container">© <span id="year"></span> Hutzell Creative Co.</div></footer>
+<script>document.getElementById('year').textContent=new Date().getFullYear();</script>
+</body>
+</html>

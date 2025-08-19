@@ -39,3 +39,52 @@ nav ul{display:flex;list-style:none;gap:22px;margin:0;padding:0} nav a{padding:1
 .lb.open{display:flex}
 .lb img{max-width:92vw;max-height:88vh;border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,.4);background:#fff}
 .lb .close{position:fixed;top:16px;right:20px;background:#fff;border:1px solid var(--accent);border-radius:999px;padding:10px 12px;cursor:pointer;font-weight:700}
+
+/* Inquiries */
+.contact-form {
+  max-width: 600px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.contact-form label {
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.contact-form input,
+.contact-form textarea {
+  padding: 12px 14px;
+  border: 1px solid var(--accent);
+  border-radius: 10px;
+  font-size: 16px;
+  font-family: Inter, sans-serif;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  outline: 2px solid var(--green-2);
+}
+
+.contact-form .button {
+  align-self: flex-start;
+  padding: 12px 22px;
+  border-radius: 12px;
+  border: 1px solid var(--green-2);
+  background: var(--green);
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+}
+.contact-form .button:hover {
+  background: var(--green-2);
+}
+

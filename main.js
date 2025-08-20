@@ -1,66 +1,44 @@
+// Hutzell Creative Co. — core UX behaviors
+document.addEventListener('DOMContentLoaded', () => {
+  // Footer year
+  const yearEl = document.getElementById('year');
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-// Mobile nav toggle (simple)
-document.addEventListener('click', (e) => {
-  const btn = e.target.closest('[data-nav-toggle]');
-  if(btn){
-    document.querySelector('nav ul').classList.toggle('open');
+  // 1) Runtime emphasize specific words in the hero H1
+  //    Keeps your source text exact while styling those words.
+  const heroH1 = document.querySelector('.hero h1');
+  if (heroH1) {
+    const original = heroH1.textContent; // exact copy preserved
+    const re = /\b(photography|videography|design)\b(?=[^\w]|$)/gi;
+    heroH1.innerHTML = original.replace(re, (m) => `<em class="hero-key">${m}</em>`);
+  }
+
+  // 2) Bubbles: reveal in sequence, and hide when scrolled away
+  const bubbles = Array.from(document.querySelectorAll('.bubble.reveal'));
+  if (bubbles.length) {
+    const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (reduceMotion) {
+      // Respect reduced-motion: just show them without animation
+      bubbles.forEach((el) => el.classList.add('visible'));
+      return;
+    }
+
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        const el = entry.target;
+        const idx = Number(el.dataset.seq) || 0;
+
+        if (entry.isIntersecting) {
+          clearTimeout(el._revealTimer);
+          el._revealTimer = setTimeout(() => el.classList.add('visible'), idx * 150);
+        } else {
+          clearTimeout(el._revealTimer);
+          el.classList.remove('visible'); // hide when out of view
+        }
+      });
+    }, { threshold: 0.18, rootMargin: '0px 0px -10% 0px' });
+
+    bubbles.forEach((b) => io.observe(b));
   }
 });
-
-// Contact form handler for Formspree (fallback shows mailto compose if fetch fails)
-const form = document.querySelector('form[data-formspree]');
-if(form){
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const status = document.getElementById('form-status');
-    status.textContent = 'Sending...';
-    const data = new FormData(form);
-    try{
-      const res = await fetch(form.action, {
-        method: 'POST',
-        headers: { 'Accept': 'application/json' },
-        body: data
-      });
-      if(res.ok){
-        form.reset();
-        status.textContent = 'Thanks! Your inquiry was sent.';
-      }else{
-        status.textContent = 'Could not send via form service. Opening your email app...';
-        window.location.href = 'mailto:hutzellcreativeco@gmail.com?subject=New%20Inquiry&body=' + encodeURIComponent(
-          [...data.entries()].map(([k,v]) => k + ': ' + v).join('\n')
-        );
-      }
-    }catch(err){
-      status.textContent = 'Network error. Opening your email app...';
-      window.location.href = 'mailto:hutzellcreativeco@gmail.com?subject=New%20Inquiry&body=' + encodeURIComponent(
-        [...data.entries()].map(([k,v]) => k + ': ' + v).join('\n')
-      );
-    }
-  });
-}
-
-
-// Scroll reveal for bubbles in sequence
-// Scroll reveal for bubbles in sequence + hide when out of view
-document.addEventListener('DOMContentLoaded', () => {
-  const bubbles = Array.from(document.querySelectorAll('.bubble.reveal'));
-  if (!bubbles.length) return;
-
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      const el = entry.target;
-      const idx = Number(el.dataset.seq) || 0;
-
-      if (entry.isIntersecting) {
-        clearTimeout(el._revealTimer);
-        el._revealTimer = setTimeout(() => el.classList.add('visible'), idx * 150);
-      } else {
-        clearTimeout(el._revealTimer);
-        el.classList.remove('visible'); // fade/slide back out
-      }
-    });
-  }, { threshold: 0.18, rootMargin: '0px 0px -10% 0px' });
-
-  bubbles.forEach(b => io.observe(b));
-});
-

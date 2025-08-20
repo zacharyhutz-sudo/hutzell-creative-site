@@ -214,3 +214,13 @@ nav a.nav-script { font-family: var(--script-font); font-weight: normal; }
 /* Scroll reveal */
 .reveal { opacity: 0; transform: translateY(18px); transition: opacity .6s ease, transform .6s ease; }
 .reveal.visible { opacity: 1; transform: translateY(0); }
+
+
+/* Emphasized keywords in hero */
+.hero .hero-key {
+  color: var(--green-2);      /* darker green */
+  font-style: italic;
+}
+
+/* Hero subtitle uses Della Respira */
+.hero p.subtitle { font-family: var(--subhead-font); }

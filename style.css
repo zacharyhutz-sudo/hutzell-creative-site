@@ -171,13 +171,16 @@ nav a:hover, nav a.active { background: var(--accent); }
 
 h4, h5 { font-family: var(--subhead-font); }
 
-/* Occasional headline in TheGrenhil */
+/* Occasional headline */
 .headline-alt { font-family: var(--display-font); }
 
-/* Nav labels script font */
+/* Nav labels in script */
 nav a.nav-script { font-family: var(--script-font); font-weight: normal; }
 
-/* Center hero text on homepage */
+/* Force EB Garamond for specific headings */
+.headline-eb { font-family: var(--headline-font); font-weight: 400; }
+
+/* Center hero */
 .hero { text-align: center; }
 .hero h1, .hero p { margin-left:auto; margin-right:auto; }
 
@@ -208,6 +211,6 @@ nav a.nav-script { font-family: var(--script-font); font-weight: normal; }
   .features-bubbles .bubble-copy { text-align: center; }
 }
 
-/* Scroll reveal sequence */
+/* Scroll reveal */
 .reveal { opacity: 0; transform: translateY(18px); transition: opacity .6s ease, transform .6s ease; }
 .reveal.visible { opacity: 1; transform: translateY(0); }

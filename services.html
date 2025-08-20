@@ -1,7 +1,6 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
+<head><meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Services — Hutzell Creative Co.</title>
 
@@ -9,17 +8,19 @@
   <link href="https://fonts.googleapis.com/css2?family=Della+Respira&family=Pinyon+Script&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap" rel="stylesheet">
-</head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;600;700&family=Della+Respira&display=swap" rel="stylesheet">
+  <link rel="preload" href="assets/fonts/SloopScriptPro-Regular.otf" as="font" type="font/otf" crossorigin></head>
 <body>
 <header>
   <div class="container nav">
     <div class="brand"><div class="name">Hutzell Creative Co.</div></div>
     <nav>
       <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a class="active" href="services.html">Services</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="contact.html">Inquiry</a></li>
+        <li><a class="nav-script" href="index.html" class="nav-script">Home</a></li>
+        <li><a class="nav-script" href="services.html" class="nav-script active">Services</a></li>
+        <li><a class="nav-script" href="contact.html" class="nav-script">Inquiry</a></li>
       </ul>
     </nav>
   </div>
@@ -64,6 +65,7 @@
   document.getElementById('year').textContent = new Date().getFullYear();
 </script>
 <script src="assets/js/gallery.js"></script>
+<script src="main.js"></script>
 </body>
 </html>
 

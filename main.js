@@ -1,34 +1,44 @@
-// Hutzell Creative Co. — core UX behaviors
+// Hutzell Creative Co. — Core UX behaviors
 document.addEventListener('DOMContentLoaded', () => {
-  // Footer year
+  /* ---------------------------------------------
+   * 0) Footer year
+   * --------------------------------------------- */
   const yearEl = document.getElementById('year');
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-  // 1) Runtime emphasize specific words in the hero H1
-  //    Keeps your source text exact while styling those words.
+  /* ---------------------------------------------
+   * 1) Hero: emphasize specific words (non-destructive)
+   * --------------------------------------------- */
   const heroH1 = document.querySelector('.hero h1');
-  if (heroH1) {
-    const original = heroH1.textContent; // exact copy preserved
+  if (heroH1 && !heroH1.querySelector('.hero-key')) {
+    const original = heroH1.textContent; // preserve exact text
     const re = /\b(photography|videography|design)\b(?=[^\w]|$)/gi;
     heroH1.innerHTML = original.replace(re, (m) => `<em class="hero-key">${m}</em>`);
   }
 
-// Scroll reveal for bubbles in sequence + subtle hide when out of view
-document.addEventListener('DOMContentLoaded', () => {
+  /* ---------------------------------------------
+   * 2) Bubbles: reveal/hide with gentle motion
+   * --------------------------------------------- */
   const bubbles = Array.from(document.querySelectorAll('.bubble.reveal'));
   if (!bubbles.length) return;
 
-  // Respect prefers-reduced-motion
-  const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (reduceMotion) {
-    bubbles.forEach(el => el.classList.add('visible'));
+  const reduceMotion =
+    window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (reduceMotion || typeof IntersectionObserver === 'undefined') {
+    bubbles.forEach((el) => el.classList.add('visible'));
     return;
   }
 
-  // Hysteresis: show at a higher ratio than we hide to avoid “popping”
-  const SHOW_RATIO = 0.22;  // become visible once ~22% in view
-  const HIDE_RATIO = 0.08;  // hide only when <8% in view (more forgiving)
-  const STAGGER = 150;      // ms per item when entering
+  const SHOW_RATIO = 0.22; // show when > 22% visible
+  const HIDE_RATIO = 0.08; // hide only when < 8% visible
+  const STAGGER_MS = 150;  // entrance delay per item index
+  const HIDE_DELAY = 120;  // tiny delay before hiding to avoid blink
+
+  const clearTimers = (el) => {
+    if (el._showTimer) { clearTimeout(el._showTimer); el._showTimer = null; }
+    if (el._hideTimer) { clearTimeout(el._hideTimer); el._hideTimer = null; }
+  };
 
   const io = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
@@ -36,20 +46,30 @@ document.addEventListener('DOMContentLoaded', () => {
       const idx = Number(el.dataset.seq) || 0;
 
       if (entry.intersectionRatio > SHOW_RATIO) {
-        clearTimeout(el._hideTimer);
-        // stagger entrance a bit
-        el._showTimer = setTimeout(() => el.classList.add('visible'), idx * STAGGER);
+        if (!el.classList.contains('visible')) {
+          clearTimers(el);
+          el._showTimer = setTimeout(() => {
+            el.classList.add('visible');
+          }, idx * STAGGER_MS);
+        }
       } else if (entry.intersectionRatio < HIDE_RATIO) {
-        clearTimeout(el._showTimer);
-        // slight delay before removing to avoid “blink” on micro scrolls
-        el._hideTimer = setTimeout(() => el.classList.remove('visible'), 120);
+        if (el.classList.contains('visible')) {
+          clearTimers(el);
+          el._hideTimer = setTimeout(() => {
+            el.classList.remove('visible');
+          }, HIDE_DELAY);
+        }
       }
     });
   }, {
-    // root margin keeps them “visible” a touch longer near edges, esp. on mobile
+    root: null,
     rootMargin: '4% 0px -10% 0px',
-    threshold: [0, 0.08, 0.22, 0.5, 0.75, 1]
+    threshold: [0, HIDE_RATIO, SHOW_RATIO, 0.5, 0.75, 1]
   });
 
-  bubbles.forEach(b => io.observe(b));
+  bubbles.forEach((b) => io.observe(b));
+
+  // Safety: clear timers on page hide/unload
+  window.addEventListener('pagehide', () => bubbles.forEach(clearTimers));
+  window.addEventListener('beforeunload', () => bubbles.forEach(clearTimers));
 });

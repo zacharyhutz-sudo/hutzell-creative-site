@@ -1,2 +1,8 @@
+@font-face {
+  font-family: 'Sloop Script Pro';
+  src: url('assets/fonts/SloopScriptPro-Regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
 /* Use root style.css only */
 @import url('../../style.css');

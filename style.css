@@ -1,54 +1,46 @@
-/* ===== Brand Fonts Setup ===== */
+/* ===========================
+   Brand Fonts Setup
+   =========================== */
 @font-face {
   font-family: 'TheGrenhil';
   src: url('assets/fonts/TheGrenhil-Regular.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
 }
-
-
 @font-face {
   font-family: 'Sloop Script Pro';
   src: url('assets/fonts/SloopScriptPro-Regular.otf') format('opentype');
   font-weight: normal;
   font-style: normal;
 }
-:root {
-  --title-font: 'TheGrenhil', serif;
-  --body-font: 'EB Garamond', serif;
-  --script-font: 'Sloop Script Pro', cursive;
 
+/* ===========================
+   Design Tokens
+   =========================== */
+:root {
+  /* Typography families */
+  --script-font: 'Sloop Script Pro', cursive;  /* Page headings & nav */
+  --display-font: 'TheGrenhil', serif;         /* Occasional headline via .headline-alt */
+  --headline-font: 'EB Garamond', serif;       /* Hero H1 / headlines */
+  --body-font: 'EB Garamond', serif;           /* Body copy */
+  --subhead-font: 'Della Respira', serif;      /* Sub headlines & subtitle */
+
+  /* Colors */
   --green: #7ea493;
   --green-2: #5e8f7d;
+  --green-3: #3d6b5c; /* darker green for emphasis */
   --cream: #f7faf8;
   --ink: #1b2a23;
   --muted: #51645c;
   --accent: #e6efe9;
+
+  /* Layout */
   --max: 1240px;
-
-  --display-font: 'TheGrenhil', serif;
-
-  --headline-font: 'EB Garamond', serif;
-
-  --subhead-font: 'Della Respira', serif;
 }
 
-/* Apply brand fonts */
-body, p, li, label, input, textarea, button {
-  font-family: var(--body-font);
-}
-
-h1, h2, h3, header .brand .name {
-  font-family: var(--script-font);
-  font-weight: normal;
-}
-
-.script, .script-title {
-  font-family: var(--script-font);
-  font-weight: 400;
-}
-
-/* Global resets */
+/* ===========================
+   Base / Resets
+   =========================== */
 * { box-sizing: border-box; }
 html, body {
   margin: 0;
@@ -60,7 +52,19 @@ img { max-width: 100%; display: block; }
 a { color: inherit; text-decoration: none; }
 .container { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
 
-/* Header */
+/* Typography mapping */
+body, p, li, label, input, textarea, button { font-family: var(--body-font); }
+h1, h2, h3, header .brand .name { font-family: var(--script-font); font-weight: normal; }
+h4, h5 { font-family: var(--subhead-font); }
+
+/* Utilities */
+.script, .script-title { font-family: var(--script-font); font-weight: 400; }
+.headline-alt { font-family: var(--display-font); }            /* TheGrenhil */
+.headline-eb { font-family: var(--headline-font); font-weight: 400; } /* EB Garamond */
+
+/* ===========================
+   Header / Nav
+   =========================== */
 header {
   position: sticky; top: 0;
   background: rgba(247,250,248,.9);
@@ -73,11 +77,14 @@ header {
 nav ul { display: flex; list-style: none; gap: 22px; margin: 0; padding: 0; }
 nav a { padding: 10px 12px; border-radius: 999px; }
 nav a:hover, nav a.active { background: var(--accent); }
+nav a.nav-script { font-family: var(--script-font); font-weight: normal; }
 
-/* Hero */
-.hero { padding: 64px 0 36px; border-bottom: 1px solid var(--accent); }
+/* ===========================
+   Hero
+   =========================== */
+.hero { padding: 64px 0 36px; border-bottom: 1px solid var(--accent); text-align: center; }
 .hero h1 {
-  font-family: var(--headline-font);
+  font-family: var(--headline-font); /* EB Garamond in hero */
   font-size: clamp(36px, 6vw, 72px);
   line-height: 1.05;
   margin: 10px 0 14px;
@@ -86,9 +93,16 @@ nav a:hover, nav a.active { background: var(--accent); }
   font-size: clamp(16px, 1.7vw, 20px);
   color: var(--muted);
   max-width: 800px;
+  margin-left: auto; margin-right: auto;
 }
+/* Subtitle (Della Respira) */
+.hero p.subtitle { font-family: var(--subhead-font); }
+/* Emphasized keywords in hero (darker green + italic) */
+.hero h1 .hero-key { color: var(--green-3); font-style: italic; }
 
-/* Buttons */
+/* ===========================
+   Buttons
+   =========================== */
 .button {
   display: inline-block;
   padding: 12px 18px;
@@ -100,12 +114,16 @@ nav a:hover, nav a.active { background: var(--accent); }
 }
 .button.secondary { background: transparent; color: var(--green-2); }
 
-/* Sections */
+/* ===========================
+   Sections
+   =========================== */
 .section { padding: 72px 0; border-bottom: 1px solid var(--accent); }
-.section h2 { font-size: 28px; margin: 0 0 8px; font-family: var(--title-font); }
+.section h2 { font-size: 28px; margin: 0 0 8px; font-family: var(--script-font); }
 .section p.lead { color: var(--muted); max-width: 800px; }
 
-/* Grids */
+/* ===========================
+   Grids
+   =========================== */
 .grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 22px; }
 .grid-2 { display: grid; grid-template-columns: repeat(2,1fr); gap: 22px; }
 @media (max-width: 900px) {
@@ -113,274 +131,157 @@ nav a:hover, nav a.active { background: var(--accent); }
   .grid-2 { grid-template-columns: 1fr; }
 }
 
-/* Cards */
-.card { background: #fff; border: 1px solid var(--accent); border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; transition: transform .15s ease, box-shadow .15s ease; }
+/* ===========================
+   Cards
+   =========================== */
+.card {
+  background: #fff; border: 1px solid var(--accent); border-radius: 16px;
+  overflow: hidden; display: flex; flex-direction: column;
+  transition: transform .15s ease, box-shadow .15s ease;
+}
 .card:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0,0,0,.06); }
 .card .pad { padding: 18px; }
 .badge { display: inline-block; font-size: 12px; padding: 6px 10px; border-radius: 999px; background: var(--accent); color: var(--muted); font-weight: 600; }
 
-/* Footer */
+/* ===========================
+   Footer
+   =========================== */
 .footer { padding: 28px 0; text-align: center; color: var(--muted); }
 
-/* Services page */
-.video-wrap { border-radius: 16px; overflow: hidden; border: 1px solid var(--accent); background: #fff; position: relative; padding-top: 56.25%; }
+/* ===========================
+   Services (video)
+   =========================== */
+.video-wrap {
+  border-radius: 16px; overflow: hidden; border: 1px solid var(--accent);
+  background: #fff; position: relative; padding-top: 56.25%;
+}
 .video-wrap iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
 
-/* Gallery */
+/* ===========================
+   Gallery
+   =========================== */
 .gallery { columns: 1; column-gap: 16px; }
 @media (min-width: 700px) { .gallery { columns: 2; } }
 @media (min-width: 1000px) { .gallery { columns: 3; } }
-.gallery .tile { break-inside: avoid; margin: 0 0 16px; border-radius: 14px; overflow: hidden; border: 1px solid var(--accent); background: #fff; transition: transform .12s ease, box-shadow .12s ease; }
+.gallery .tile {
+  break-inside: avoid; margin: 0 0 16px; border-radius: 14px; overflow: hidden;
+  border: 1px solid var(--accent); background: #fff;
+  transition: transform .12s ease, box-shadow .12s ease;
+}
 .gallery .tile:hover { box-shadow: 0 14px 40px rgba(0,0,0,.10); }
 
-/* Lightbox */
+/* ===========================
+   Lightbox
+   =========================== */
 .lb { position: fixed; inset: 0; display: none; align-items: center; justify-content: center; background: rgba(0,0,0,.6); z-index: 2000; }
 .lb.open { display: flex; }
 .lb img { max-width: 92vw; max-height: 88vh; border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,.4); background: #fff; }
 .lb .close { position: fixed; top: 16px; right: 20px; background: #fff; border: 1px solid var(--accent); border-radius: 999px; padding: 10px 12px; cursor: pointer; font-weight: 700; }
 
-/* Inquiry */
-.contact-title { 
-  font-family: var(--title-font); 
-  text-align: center; 
-  font-size: clamp(36px, 5vw, 64px); 
-  margin-bottom: 20px; 
+/* ===========================
+   Inquiry / Form
+   =========================== */
+.contact-title {
+  font-family: var(--title-font);
+  text-align: center;
+  font-size: clamp(36px, 5vw, 64px);
+  margin-bottom: 20px;
 }
-.contact-intro .script { 
-  font-family: var(--script-font); 
-  color: var(--green-2); 
-  text-align: center; 
-  display: block; 
+.contact-intro .script {
+  font-family: var(--script-font);
+  color: var(--green-2);
+  text-align: center;
+  display: block;
 }
 .contact-notes { font-family: var(--body-font); }
 
-/* Form */
 .contact-form label,
 .contact-form input,
 .contact-form select,
-.contact-form textarea {
-  font-family: var(--body-font);
-}
+.contact-form textarea { font-family: var(--body-font); }
 .contact-form .button { font-family: var(--body-font); }
 
-/* Inquiry bubbles */
+/* ===========================
+   Inquiry bubbles (buttons)
+   =========================== */
 .service-options { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; margin-bottom: 30px; }
-.service-btn { padding: 10px 18px; border-radius: 999px; border: 2px solid var(--green); background: #fff; color: var(--green); font-family: var(--body-font); font-size: 15px; cursor: pointer; transition: all .2s ease; }
+.service-btn {
+  padding: 10px 18px; border-radius: 999px; border: 2px solid var(--green);
+  background: #fff; color: var(--green); font-family: var(--body-font); font-size: 15px;
+  cursor: pointer; transition: all .2s ease;
+}
 .service-btn.active { background: var(--green); color: #fff; }
 
-
-h4, h5 { font-family: var(--subhead-font); }
-
-/* Occasional headline */
-.headline-alt { font-family: var(--display-font); }
-
-/* Nav labels in script */
-nav a.nav-script { font-family: var(--script-font); font-weight: normal; }
-
-/* Force EB Garamond for specific headings */
-.headline-eb { font-family: var(--headline-font); font-weight: 400; }
-
-/* Center hero */
-.hero { text-align: center; }
-.hero h1, .hero p { margin-left:auto; margin-right:auto; }
-
-/* --- Feature Bubbles (alternating layout) --- */
-/* --- Feature Bubbles (refined layout) --- */
-.features-bubbles .bubble-seq {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 28px;
-}
-
-.features-bubbles .bubble {
-  background: #f3f4e7;
-  border: 1px solid var(--accent);
-  border-radius: 24px;
-  padding: clamp(18px, 2.6vw, 36px);
-  display: grid;
-  grid-template-columns: minmax(120px, clamp(140px, 18vw, 180px)) 1fr; /* image | copy */
-  gap: clamp(16px, 2vw, 28px);
-  align-items: center;
-  box-shadow: 0 8px 24px rgba(0,0,0,.04);
-}
-
-.features-bubbles .bubble-icon {
-  width: 100%;
-  max-width: clamp(110px, 16vw, 160px);
-  height: auto;
-  aspect-ratio: 1 / 1;             /* consistent footprint */
-  object-fit: contain;
-  object-position: left center;
-  mix-blend-mode: multiply;         /* blends any white edges into #f3f4e7 */
-  display: block;
-}
-
-.features-bubbles .bubble-copy h3 {
-  margin: 0 0 6px;
-  font-size: clamp(22px, 2.2vw, 28px);
-  line-height: 1.1;
-}
-
-.features-bubbles .bubble-copy p {
-  margin: 0;
-  font-size: clamp(16px, 1.6vw, 18px);
-  line-height: 1.55;
-  color: var(--ink);
-  max-width: 60ch;                  /* comfortable measure */
-}
-
-/* Neutralize any old "right" layout (all images left now) */
-.features-bubbles .bubble.right .bubble-icon { order: initial; }
-.features-bubbles .bubble.right {
-  grid-template-columns: minmax(120px, clamp(140px, 18vw, 180px)) 1fr;
-}
-
-@media (max-width: 780px) {
-  .features-bubbles .bubble {
-    grid-template-columns: 1fr;
-    text-align: center;
-  }
-  .features-bubbles .bubble-icon {
-    max-width: clamp(90px, 24vw, 120px);
-    margin: 0 auto 10px;
-    object-position: center;
-  }
-  .features-bubbles .bubble-copy h3 { font-size: clamp(20px, 5vw, 24px); }
-}
-
-
-/* Scroll reveal */
+/* ===========================
+   Scroll reveal (generic)
+   =========================== */
 .reveal { opacity: 0; transform: translateY(18px); transition: opacity .6s ease, transform .6s ease; }
 .reveal.visible { opacity: 1; transform: translateY(0); }
 
-
-/* Emphasized keywords in hero */
-.hero .hero-key {
-  color: var(--green-2);      /* darker green */
-  font-style: italic;
+/* ===========================
+   Feature Bubbles — refined
+   =========================== */
+.features-bubbles .bubble-seq {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
 }
-
-/* Hero subtitle uses Della Respira */
-.hero p.subtitle { font-family: var(--subhead-font); }
-
-/* Darker green for hero emphasized words */
-.hero h1 .hero-key {
-  color: #3d6b5c !important;  /* darker green */
-  font-style: italic;
-}
-
-/* --- Bubbles: larger icon + type, all images left --- */
 .features-bubbles .bubble {
-  padding: clamp(22px, 3vw, 44px);
-  grid-template-columns: minmax(160px, clamp(200px, 20vw, 220px)) 1fr;
-  gap: clamp(18px, 2.4vw, 36px);
-}
-
-.features-bubbles .bubble.right,
-.features-bubbles .bubble.right .bubble-icon {
-  /* neutralize any old "right" layout so everything is left-aligned */
-  grid-template-columns: minmax(160px, clamp(200px, 20vw, 220px)) 1fr;
-  order: initial;
-}
-
-.features-bubbles .bubble-icon {
-  width: 100%;
-  max-width: clamp(140px, 20vw, 200px);
-  height: auto;
-  aspect-ratio: 1 / 1;
-  object-fit: contain;
-  object-position: left center;
-}
-
-/* Larger, crisper headings and copy */
-.features-bubbles .bubble-copy h3 {
-  margin: 0 0 8px;
-  font-size: clamp(26px, 2.6vw, 34px);
-  line-height: 1.1;
-}
-
-.features-bubbles .bubble-copy p {
-  margin: 0;
-  font-size: clamp(18px, 1.8vw, 20px);
-  line-height: 1.6;
-  max-width: 62ch;
-}
-
-/* Big screens: give it a bit more presence */
-@media (min-width: 1400px) {
-  .features-bubbles .bubble {
-    padding: 48px;
-    grid-template-columns: 240px 1fr;
-    gap: 36px;
-  }
-  .features-bubbles .bubble-icon { max-width: 220px; }
-  .features-bubbles .bubble-copy h3 { font-size: 36px; }
-  .features-bubbles .bubble-copy p { font-size: 20px; }
-}
-
-/* Mobile: keep hierarchy but avoid overwhelming */
-@media (max-width: 780px) {
-  .features-bubbles .bubble { grid-template-columns: 1fr; text-align: center; }
-  .features-bubbles .bubble-icon {
-    max-width: clamp(110px, 28vw, 140px);
-    margin: 0 auto 10px;
-    object-position: center;
-  }
-  .features-bubbles .bubble-copy h3 { font-size: clamp(22px, 5vw, 26px); }
-  .features-bubbles .bubble-copy p { font-size: 17px; }
-}
-
-/* === Bubbles: slightly smaller boxes, centered text, bigger titles === */
-.features-bubbles .bubble {
-  /* smaller overall footprint, but keep generous type */
+  background: #f3f4e7;
+  border: 1px solid var(--accent);
+  border-radius: 22px;
+  /* slightly smaller box but generous type */
   padding: clamp(14px, 2vw, 28px);
-  grid-template-columns: minmax(120px, clamp(150px, 15vw, 170px)) 1fr; /* smaller image column */
+  display: grid;
+  grid-template-columns: minmax(120px, clamp(150px, 15vw, 170px)) 1fr; /* image | copy */
   gap: clamp(14px, 1.8vw, 24px);
   align-items: center;
-  text-align: center; /* center text globally */
+  text-align: center;
+  box-shadow: 0 8px 24px rgba(0,0,0,.04);
+  transition: transform .18s ease, box-shadow .18s ease;
+  will-change: transform;
 }
-
-/* all images stay on the LEFT */
+/* Hover lift */
+.features-bubbles .bubble:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 36px rgba(0,0,0,.08);
+}
+/* All images left (neutralize any "right" layout) */
 .features-bubbles .bubble.right,
 .features-bubbles .bubble.right .bubble-icon {
   grid-template-columns: minmax(120px, clamp(150px, 15vw, 170px)) 1fr;
   order: initial;
 }
-
-/* icon size a touch smaller to match new box, still prominent */
+/* Icons: consistent footprint, blend whites into bubble bg */
 .features-bubbles .bubble-icon {
   width: 100%;
   max-width: clamp(120px, 18vw, 170px);
   height: auto;
   aspect-ratio: 1 / 1;
   object-fit: contain;
-  object-position: left center; /* image left */
+  object-position: left center;
   display: block;
-  mix-blend-mode: multiply; /* keep the “no white box” look */
+  mix-blend-mode: multiply; /* removes "white box" look on PNGs */
 }
-
-/* center the copy and keep line-length comfy */
+/* Copy: centered and readable */
 .features-bubbles .bubble-copy {
   text-align: center;
   margin: 0 auto;
   max-width: 62ch;
 }
-
-/* titles slightly larger relative to body */
+/* Titles larger relative to body */
 .features-bubbles .bubble-copy h3 {
   margin: 0 0 10px;
-  font-size: clamp(28px, 3vw, 38px);  /* up from ~26–34 */
+  font-size: clamp(28px, 3vw, 38px);
   line-height: 1.1;
 }
-
-/* keep body nice and readable (already large) */
+/* Body stays generously sized */
 .features-bubbles .bubble-copy p {
   margin: 0;
   font-size: clamp(18px, 1.8vw, 20px);
   line-height: 1.6;
 }
-
-/* mobile stays centered; icon scales down a bit */
+/* Responsive tweaks */
 @media (max-width: 780px) {
   .features-bubbles .bubble { grid-template-columns: 1fr; }
   .features-bubbles .bubble-icon {
@@ -390,3 +291,9 @@ nav a.nav-script { font-family: var(--script-font); font-weight: normal; }
   }
   .features-bubbles .bubble-copy h3 { font-size: clamp(24px, 6vw, 30px); }
 }
+/* Accessibility: respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .features-bubbles .bubble { transition: none; }
+  .features-bubbles .bubble:hover { transform: none; box-shadow: 0 8px 24px rgba(0,0,0,.04); }
+}
+

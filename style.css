@@ -224,3 +224,10 @@ nav a.nav-script { font-family: var(--script-font); font-weight: normal; }
 
 /* Hero subtitle uses Della Respira */
 .hero p.subtitle { font-family: var(--subhead-font); }
+
+/* Darker green for hero emphasized words */
+.hero h1 .hero-key {
+  color: #3d6b5c !important;  /* darker green */
+  font-style: italic;
+}
+

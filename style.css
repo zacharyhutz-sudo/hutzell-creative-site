@@ -330,3 +330,63 @@ nav a.nav-script { font-family: var(--script-font); font-weight: normal; }
   .features-bubbles .bubble-copy p { font-size: 17px; }
 }
 
+/* === Bubbles: slightly smaller boxes, centered text, bigger titles === */
+.features-bubbles .bubble {
+  /* smaller overall footprint, but keep generous type */
+  padding: clamp(14px, 2vw, 28px);
+  grid-template-columns: minmax(120px, clamp(150px, 15vw, 170px)) 1fr; /* smaller image column */
+  gap: clamp(14px, 1.8vw, 24px);
+  align-items: center;
+  text-align: center; /* center text globally */
+}
+
+/* all images stay on the LEFT */
+.features-bubbles .bubble.right,
+.features-bubbles .bubble.right .bubble-icon {
+  grid-template-columns: minmax(120px, clamp(150px, 15vw, 170px)) 1fr;
+  order: initial;
+}
+
+/* icon size a touch smaller to match new box, still prominent */
+.features-bubbles .bubble-icon {
+  width: 100%;
+  max-width: clamp(120px, 18vw, 170px);
+  height: auto;
+  aspect-ratio: 1 / 1;
+  object-fit: contain;
+  object-position: left center; /* image left */
+  display: block;
+  mix-blend-mode: multiply; /* keep the “no white box” look */
+}
+
+/* center the copy and keep line-length comfy */
+.features-bubbles .bubble-copy {
+  text-align: center;
+  margin: 0 auto;
+  max-width: 62ch;
+}
+
+/* titles slightly larger relative to body */
+.features-bubbles .bubble-copy h3 {
+  margin: 0 0 10px;
+  font-size: clamp(28px, 3vw, 38px);  /* up from ~26–34 */
+  line-height: 1.1;
+}
+
+/* keep body nice and readable (already large) */
+.features-bubbles .bubble-copy p {
+  margin: 0;
+  font-size: clamp(18px, 1.8vw, 20px);
+  line-height: 1.6;
+}
+
+/* mobile stays centered; icon scales down a bit */
+@media (max-width: 780px) {
+  .features-bubbles .bubble { grid-template-columns: 1fr; }
+  .features-bubbles .bubble-icon {
+    max-width: clamp(100px, 26vw, 130px);
+    margin: 0 auto 10px;
+    object-position: center;
+  }
+  .features-bubbles .bubble-copy h3 { font-size: clamp(24px, 6vw, 30px); }
+}

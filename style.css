@@ -297,3 +297,22 @@ nav a.nav-script { font-family: var(--script-font); font-weight: normal; }
   .features-bubbles .bubble:hover { transform: none; box-shadow: 0 8px 24px rgba(0,0,0,.04); }
 }
 
+/* Smooth, subtle bubble motion */
+.reveal {
+  opacity: 0;
+  transform: translateY(12px) scale(.995);
+  transition: opacity .85s ease, transform .85s cubic-bezier(.19,1,.22,1);
+  will-change: transform, opacity;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* On mobile: even softer + shorter travel */
+@media (max-width: 780px) {
+  .reveal {
+    transform: translateY(8px) scale(.995);
+    transition-duration: .95s;
+  }
+}

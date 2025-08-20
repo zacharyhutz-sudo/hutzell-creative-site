@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Inquiry — Hutzell Creative Co.</title>
+  <link href="https://fonts.googleapis.com/css2?family=Della+Respira&family=Pinyon+Script&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .contact-wrapper {
+      max-width: 700px;
+      margin: 60px auto;
+      background: #fff;
+      border: 1px solid var(--accent);
+      border-radius: 16px;
+      padding: 40px;
+      box-shadow: 0 8px 30px rgba(0,0,0,.05);
+    }
+    .contact-wrapper h2 {
+      font-family: "THE GRENHIL REGULAR", serif;
+      font-size: 42px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .contact-wrapper p {
+      font-family: "Della Respira", serif;
+      text-align: center;
+      margin-bottom: 30px;
+      color: var(--muted);
+    }
+    .service-options {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 30px;
+    }
+    .service-btn {
+      padding: 10px 18px;
+      border-radius: 999px;
+      border: 2px solid var(--green);
+      background: #fff;
+      color: var(--green);
+      font-family: "Della Respira", serif;
+      font-size: 15px;
+      cursor: pointer;
+      transition: all .2s ease;
+    }
+    .service-btn.active {
+      background: var(--green);
+      color: #fff;
+    }
+    form label {
+      display: block;
+      margin: 14px 0 6px;
+      font-weight: 600;
+      font-family: "Della Respira", serif;
+    }
+    form input, form textarea {
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid var(--accent);
+      font-family: "Della Respira", serif;
+    }
+    form textarea { min-height: 140px; }
+    .submit-btn {
+      margin-top: 20px;
+      display: inline-block;
+      background: var(--green);
+      color: #fff;
+      padding: 14px 28px;
+      border-radius: 8px;
+      border: none;
+      font-family: "Della Respira", serif;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background .2s ease;
+    }
+    .submit-btn:hover {
+      background: var(--green-2);
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;600;700&family=Della+Respira&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" href="assets/fonts/SloopScriptPro-Regular.otf" as="font" type="font/otf" crossorigin>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="brand"><div class="name">Hutzell Creative Co.</div></div>
+      <nav>
+        <ul>
+          <li><a class="nav-script" href="index.html">Home</a></li>
+          <li><a class="nav-script" href="services.html">Services</a></li>
+          
+          <li><a class="nav-script" class="active" href="contact.html">Inquiry</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <div class="contact-wrapper">
+    <h1>Let’s Connect</h1>
+    <p>We’d love to hear from you. Select a service and fill out the form below.</p>
+    
+    <!-- Service Selection -->
+    <div class="service-options">
+      <button type="button" class="service-btn" data-value="Photography">Photography</button>
+      <button type="button" class="service-btn" data-value="Videography">Videography</button>
+      <button type="button" class="service-btn" data-value="Graphic Design">Graphic Design</button>
+      <button type="button" class="service-btn" data-value="Other">Other</button>
+    </div>
+    
+    <form action="https://formspree.io/f/xvgqjkno" method="POST">
+      <!-- hidden field to capture service -->
+      <input type="hidden" name="service" id="serviceField">
+
+      <label for="name">Your Name</label>
+      <input type="text" id="name" name="name" required>
+
+      <label for="email">Your Email</label>
+      <input type="email" id="email" name="_replyto" required>
+
+      <label for="message">Message</label>
+      <textarea id="message" name="message" required></textarea>
+
+      <button type="submit" class="submit-btn">Send Inquiry</button>
+    </form>
+  </div>
+
+  <footer class="footer">
+    <div class="container">© <span id="year"></span> Hutzell Creative Co.</div>
+  </footer>
+  <script>document.getElementById('year').textContent=new Date().getFullYear();</script>
+
+  <script>
+    const serviceBtns = document.querySelectorAll('.service-btn');
+    const serviceField = document.getElementById('serviceField');
+    
+    serviceBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        serviceBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        serviceField.value = btn.dataset.value;
+      });
+    });
+  </script>
+</body>
+</html>
+

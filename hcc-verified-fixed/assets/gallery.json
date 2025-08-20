@@ -1,0 +1,26 @@
+[
+  {
+    "src": "assets/img/gallery/placeholder-1.svg",
+    "alt": "Portrait 1"
+  },
+  {
+    "src": "assets/img/gallery/placeholder-2.svg",
+    "alt": "Portrait 2"
+  },
+  {
+    "src": "assets/img/gallery/placeholder-3.svg",
+    "alt": "Portrait 3"
+  },
+  {
+    "src": "assets/img/gallery/placeholder-4.svg",
+    "alt": "Design 1"
+  },
+  {
+    "src": "assets/img/gallery/placeholder-5.svg",
+    "alt": "Design 2"
+  },
+  {
+    "src": "assets/img/gallery/placeholder-6.svg",
+    "alt": "Wedding details"
+  }
+]

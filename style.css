@@ -34,11 +34,11 @@
 }
 
 /* Apply brand fonts */
-body, p, li, label, input, textarea, button {
+body, p, h1, li, label, input, textarea, button {
   font-family: var(--body-font);
 }
 
-h1, h2, h3, header .brand .name {
+h2, h3, header .brand .name {
   font-family: var(--script-font);
   font-weight: normal;
 }

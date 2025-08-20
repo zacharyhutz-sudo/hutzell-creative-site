@@ -13,32 +13,43 @@ document.addEventListener('DOMContentLoaded', () => {
     heroH1.innerHTML = original.replace(re, (m) => `<em class="hero-key">${m}</em>`);
   }
 
-  // 2) Bubbles: reveal in sequence, and hide when scrolled away
+// Scroll reveal for bubbles in sequence + subtle hide when out of view
+document.addEventListener('DOMContentLoaded', () => {
   const bubbles = Array.from(document.querySelectorAll('.bubble.reveal'));
-  if (bubbles.length) {
-    const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!bubbles.length) return;
 
-    if (reduceMotion) {
-      // Respect reduced-motion: just show them without animation
-      bubbles.forEach((el) => el.classList.add('visible'));
-      return;
-    }
-
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        const el = entry.target;
-        const idx = Number(el.dataset.seq) || 0;
-
-        if (entry.isIntersecting) {
-          clearTimeout(el._revealTimer);
-          el._revealTimer = setTimeout(() => el.classList.add('visible'), idx * 150);
-        } else {
-          clearTimeout(el._revealTimer);
-          el.classList.remove('visible'); // hide when out of view
-        }
-      });
-    }, { threshold: 0.18, rootMargin: '0px 0px -10% 0px' });
-
-    bubbles.forEach((b) => io.observe(b));
+  // Respect prefers-reduced-motion
+  const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduceMotion) {
+    bubbles.forEach(el => el.classList.add('visible'));
+    return;
   }
+
+  // Hysteresis: show at a higher ratio than we hide to avoid “popping”
+  const SHOW_RATIO = 0.22;  // become visible once ~22% in view
+  const HIDE_RATIO = 0.08;  // hide only when <8% in view (more forgiving)
+  const STAGGER = 150;      // ms per item when entering
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      const el = entry.target;
+      const idx = Number(el.dataset.seq) || 0;
+
+      if (entry.intersectionRatio > SHOW_RATIO) {
+        clearTimeout(el._hideTimer);
+        // stagger entrance a bit
+        el._showTimer = setTimeout(() => el.classList.add('visible'), idx * STAGGER);
+      } else if (entry.intersectionRatio < HIDE_RATIO) {
+        clearTimeout(el._showTimer);
+        // slight delay before removing to avoid “blink” on micro scrolls
+        el._hideTimer = setTimeout(() => el.classList.remove('visible'), 120);
+      }
+    });
+  }, {
+    // root margin keeps them “visible” a touch longer near edges, esp. on mobile
+    rootMargin: '4% 0px -10% 0px',
+    threshold: [0, 0.08, 0.22, 0.5, 0.75, 1]
+  });
+
+  bubbles.forEach(b => io.observe(b));
 });

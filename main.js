@@ -38,3 +38,23 @@ if(form){
     }
   });
 }
+
+
+// Scroll reveal for bubbles in sequence
+document.addEventListener('DOMContentLoaded', () => {
+  const bubbles = Array.from(document.querySelectorAll('.bubble.reveal'));
+  if (!bubbles.length) return;
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        const index = Number(el.getAttribute('data-seq')) || 0;
+        setTimeout(() => el.classList.add('visible'), index * 150);
+        io.unobserve(el);
+      }
+    });
+  }, { threshold: 0.2 });
+
+  bubbles.forEach(b => io.observe(b));
+});

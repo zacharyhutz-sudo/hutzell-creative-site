@@ -16,21 +16,20 @@
   <!-- Preload Sloop Script Pro (headers/nav) -->
   <link rel="preload" href="assets/fonts/SloopScriptPro-Regular.otf" as="font" type="font/otf" crossorigin>
 
-  <!-- Small inline tweaks so you don't have to touch style.css for this change -->
+  <!-- Inline tweaks for your latest requests -->
   <style>
-    /* Green italic emphasis applied by the inline script */
-    .hero .hero-key {
-      color: var(--green-3);
-      font-style: italic;
-    }
-    /* Helps “remove” white boxes around PNGs by blending white into the bubble color */
+    /* Ensure hero keywords are darker green + italic */
+    .hero .hero-key { color: #3d6b5c; font-style: italic; }
+
+    /* Blend white pixel edges in PNGs into the bubble bg (#f3f4e7) */
     .features-bubbles .bubble-icon {
       display: block;
-      mix-blend-mode: multiply; /* white becomes bubble color (#f3f4e7) */
+      mix-blend-mode: multiply;
       background: transparent;
     }
-    /* Optional: slightly soften if needed
-    .features-bubbles .bubble-icon { opacity: 0.98; } */
+
+    /* (Optional safety) If style.css didn't set EB Garamond on hero h1, force it */
+    .headline-eb { font-family: var(--headline-font); font-weight: 400; }
   </style>
 </head>
 <body>
@@ -51,15 +50,13 @@
   <div class="container">
     <div class="kicker">Hutzell Creative Co. • Est. 2024</div>
 
-    <!-- HERO (exact text, EB Garamond via your CSS var) -->
+    <!-- HERO (exact text) -->
     <h1 class="headline-eb">
-      The single team for all your creative needs - photography, videography, and design.
+      The single team for all your creative needs — photography, videography, and design.
     </h1>
 
-    <!-- SUBTITLE (exact text, Della Respira via your CSS var) -->
-    <p class="subtitle">
-      A husband and wife led creative agency serving Athens, GA and beyond.
-    </p>
+    <!-- SUBTITLE (exact text you asked to keep) -->
+    <p class="subtitle">A husband and wife led creative agency serving Athens, GA and beyond.</p>
 
     <div class="cta">
       <a href="contact.html" class="button">Start an inquiry</a>
@@ -103,20 +100,10 @@
   <div class="container">© <span id="year"></span> Hutzell Creative Co.</div>
 </footer>
 
-<script>
-  // Footer year
-  document.getElementById('year').textContent = new Date().getFullYear();
-
-  // Runtime emphasize: wrap the words in the hero H1 without changing your source text
-  document.addEventListener('DOMContentLoaded', () => {
-    const h1 = document.querySelector('.hero h1');
-    if (!h1) return;
-    const txt = h1.textContent; // preserve exact copy
-    // whole-word, case-insensitive, keep punctuation after the word
-    const re = /\b(photography|videography|design)\b(?=[^\w]|$)/gi;
-    h1.innerHTML = txt.replace(re, (m) => `<em class="hero-key">${m}</em>`);
-  });
-</script>
+<!-- Load site JS -->
+<script src="main.js"></script>
+</body>
+</html>
 
 <!-- Load site JS (ensures bubbles reveal on scroll) -->
 <script src="main.js"></script>

@@ -41,20 +41,26 @@ if(form){
 
 
 // Scroll reveal for bubbles in sequence
+// Scroll reveal for bubbles in sequence + hide when out of view
 document.addEventListener('DOMContentLoaded', () => {
   const bubbles = Array.from(document.querySelectorAll('.bubble.reveal'));
   if (!bubbles.length) return;
 
   const io = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
+      const el = entry.target;
+      const idx = Number(el.dataset.seq) || 0;
+
       if (entry.isIntersecting) {
-        const el = entry.target;
-        const index = Number(el.getAttribute('data-seq')) || 0;
-        setTimeout(() => el.classList.add('visible'), index * 150);
-        io.unobserve(el);
+        clearTimeout(el._revealTimer);
+        el._revealTimer = setTimeout(() => el.classList.add('visible'), idx * 150);
+      } else {
+        clearTimeout(el._revealTimer);
+        el.classList.remove('visible'); // fade/slide back out
       }
     });
-  }, { threshold: 0.2 });
+  }, { threshold: 0.18, rootMargin: '0px 0px -10% 0px' });
 
   bubbles.forEach(b => io.observe(b));
 });
+

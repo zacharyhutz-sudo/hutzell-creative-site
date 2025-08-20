@@ -1,1 +1,0 @@
-console.log('Hutzell Creative Co. site loaded');

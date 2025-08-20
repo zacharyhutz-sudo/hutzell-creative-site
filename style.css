@@ -161,3 +161,12 @@ nav a:hover, nav a.active { background: var(--accent); }
 .service-options { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; margin-bottom: 30px; }
 .service-btn { padding: 10px 18px; border-radius: 999px; border: 2px solid var(--green); background: #fff; color: var(--green); font-family: var(--body-font); font-size: 15px; cursor: pointer; transition: all .2s ease; }
 .service-btn.active { background: var(--green); color: #fff; }
+
+
+/* Nav labels use Sloop Script Pro */
+nav a.nav-script { font-family: var(--title-font); font-weight: normal; }
+
+
+/* Center hero text */
+.hero { text-align: center; }
+.hero h1, .hero p { margin-left: auto; margin-right: auto; }

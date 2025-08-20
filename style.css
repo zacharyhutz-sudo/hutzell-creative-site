@@ -5,6 +5,12 @@
   font-weight: 400;
   font-style: normal;
 }
+@font-face {
+  font-family: 'Sloop Script Pro';
+  src: url('assets/fonts/SloopScriptPro-Regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
 
 :root {
   --title-font: 'TheGrenhil', serif;
@@ -20,13 +26,14 @@
   --max: 1240px;
 }
 
+
 /* Apply brand fonts */
 body, p, li, label, input, textarea, button {
   font-family: var(--body-font);
 }
 
 h1, h2, h3, header .brand .name {
-  font-family: var(--title-font);
+  font-family: 'Sloop Script Pro', cursive;
   font-weight: normal;
 }
 

@@ -40,6 +40,9 @@
   }
   @media (max-width: 720px) { .grid-2 { grid-template-columns: 1fr; } }
 
+  /* If grid-2 has only one child, span both columns so inner content can center */
+.grid-2 > div:only-child { grid-column: 1 / -1; }
+
   /* Video embeds */
   .video-grid {
     display: grid;

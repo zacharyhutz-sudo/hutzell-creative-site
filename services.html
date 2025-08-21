@@ -1,21 +1,84 @@
 <!doctype html>
 <html lang="en">
-<head><meta charset="utf-8">
+<head>
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Services — Hutzell Creative Co.</title>
 
-  <!-- Brand Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Della+Respira&family=Pinyon+Script&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
-  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap" rel="stylesheet">
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;600;700&family=Della+Respira&display=swap" rel="stylesheet">
-  <link rel="preload" href="assets/fonts/SloopScriptPro-Regular.otf" as="font" type="font/otf" crossorigin></head>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;600;700&family=Della+Respira&family=Pinyon+Script&display=swap" rel="stylesheet">
+
+  <!-- Site CSS -->
+  <link rel="stylesheet" href="style.css">
+  <link rel="preload" href="assets/fonts/SloopScriptPro-Regular.otf" as="font" type="font/otf" crossorigin>
+
+  <!-- Page-specific tweaks -->
+  <style>
+    /* Use EB Garamond for all section headers on this page */
+    .section-title {
+      font-family: 'EB Garamond', serif;
+      font-weight: 600;
+      letter-spacing: .2px;
+      margin-bottom: .25rem;
+    }
+    .section-kicker {
+      font-family: var(--body-font, 'Della Respira', serif);
+      color: var(--muted, #51645c);
+      margin-top: 0;
+      margin-bottom: 1.25rem;
+      font-size: 1rem;
+    }
+    /* Simple 2-col responsive grid for thumbnails or copy */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 1rem;
+    }
+    @media (max-width: 720px) {
+      .grid-2 { grid-template-columns: 1fr; }
+    }
+    /* Video embeds */
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 1rem;
+    }
+    @media (max-width: 720px) {
+      .video-grid { grid-template-columns: 1fr; }
+    }
+    .video-embed {
+      position: relative;
+      aspect-ratio: 16 / 9;
+      width: 100%;
+      overflow: hidden;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px rgba(0,0,0,.12);
+      background: #000;
+    }
+    .video-embed iframe {
+      position: absolute; inset: 0; width: 100%; height: 100%; border: 0;
+    }
+    /* Anchor offset so in-page links don't hide under the header */
+    .anchor {
+      position: relative;
+      top: -84px; /* adjust if your header height differs */
+      visibility: hidden;
+    }
+    /* Mild spacing between sections */
+    .section + .section { padding-top: 1rem; }
+  </style>
+</head>
+
 <body>
 <header>
   <div class="container nav">
-    <div class="brand"><a href="index.html" class="brand-link"><img src="assets/logo.png" alt="Hutzell Creative Co. logo" class="brand-logo"></a></div>
+    <div class="brand">
+      <a href="index.html" class="brand-link">
+        <img src="assets/logo.png" alt="Hutzell Creative Co. logo" class="brand-logo">
+      </a>
+    </div>
     <nav>
       <ul>
         <li><a class="nav-script" href="index.html">Home</a></li>
@@ -26,36 +89,82 @@
   </div>
 </header>
 
-<section class="section">
+<!-- PHOTOGRAPHY -->
+<section class="section" id="photography">
+  <span class="anchor" aria-hidden="true"></span>
   <div class="container">
-    <h2 class="script">Videography</h2>
-    <p class="lead">Highlight films with gentle color and story-first edits.</p>
+    <h2 class="section-title">Photography</h2>
+    <p class="section-kicker">Weddings • Families • Portraits</p>
+
     <div class="grid-2">
-      <div class="video-wrap">
-        <!-- Video 1 -->
-        <iframe src="https://www.youtube.com/embed/Vpdc_gn-qrw" title="Film One" allowfullscreen></iframe>
+      <div>
+        <p>Timeless, true‑to‑life imagery that preserves how your day actually felt. Natural posing, gentle direction, and a focus on candid moments.</p>
+        <ul>
+          <li>Wedding & engagement collections</li>
+          <li>Family & lifestyle sessions</li>
+          <li>Senior & professional portraits</li>
+        </ul>
       </div>
-      <div class="video-wrap">
-        <!-- Video 2 -->
-        <iframe src="https://www.youtube.com/embed/fQBHS2ZIFLU" title="Film Two" allowfullscreen></iframe>
+      <div>
+        <!-- Optional: drop a small gallery here -->
+        <img src="assets/img/photo-sample-1.jpg" alt="Photography sample 1" class="rounded" loading="lazy">
       </div>
     </div>
   </div>
 </section>
 
-<section class="section">
+<!-- VIDEOGRAPHY -->
+<section class="section" id="videography">
+  <span class="anchor" aria-hidden="true"></span>
   <div class="container">
-    <h2 class="script">Photography & Design</h2>
-    <p class="lead">Soft-light portraits and nature-led graphics. Click any image to view larger.</p>
-    <div class="tilt gallery" id="gallery"></div>
+    <h2 class="section-title">Videography</h2>
+    <p class="section-kicker">Cinematic highlights • Documentary edits</p>
+
+    <p>Story‑driven films with clean color, intentional music, and a focus on authentic emotion. Below are a couple of recent highlights:</p>
+
+    <div class="video-grid">
+      <!-- Keep your two existing YouTube videos: paste your two <iframe> blocks below -->
+      <div class="video-embed">
+        <!-- Example: replace the src with your existing video URL -->
+        <iframe src="https://www.youtube.com/embed/VIDEO_ID_1"
+                title="YouTube video player"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen></iframe>
+      </div>
+
+      <div class="video-embed">
+        <iframe src="https://www.youtube.com/embed/VIDEO_ID_2"
+                title="YouTube video player"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen></iframe>
+      </div>
+    </div>
   </div>
 </section>
 
-<!-- Lightbox -->
-<div class="lb" id="lightbox">
-  <button class="close" id="lbClose">Close ✕</button>
-  <img id="lbImg" alt="">
-</div>
+<!-- DESIGN -->
+<section class="section" id="design">
+  <span class="anchor" aria-hidden="true"></span>
+  <div class="container">
+    <h2 class="section-title">Design</h2>
+    <p class="section-kicker">Branding • Logos • Print & Web</p>
+
+    <div class="grid-2">
+      <div>
+        <p>Identity systems that feel like you: wordmarks, icons, palettes, and type that work across socials, print, and web.</p>
+        <ul>
+          <li>Logo suites & brand guidelines</li>
+          <li>Social & print collateral</li>
+          <li>Website layout & visual direction</li>
+        </ul>
+      </div>
+      <div>
+        <!-- Optional: design sample -->
+        <img src="assets/img/design-sample-1.jpg" alt="Design sample" class="rounded" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
 
 <footer class="footer">
   <div class="container">© <span id="year"></span> Hutzell Creative Co.</div>
@@ -64,7 +173,6 @@
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
 </script>
-<script src="assets/js/gallery.js"></script>
 <script src="main.js"></script>
 </body>
 </html>

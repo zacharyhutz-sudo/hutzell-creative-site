@@ -12,6 +12,20 @@ document.addEventListener('DOMContentLoaded', () => {
     heroH1.innerHTML = original.replace(re, (m) => `<em class="hero-key">${m}</em>`);
   }
 
+// Set active nav item based on current URL
+const setActiveNav = () => {
+  const links = document.querySelectorAll('nav a[href]');
+  const path = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
+  links.forEach(a => a.classList.remove('active'));
+  const match = Array.from(links).find(a => {
+    const href = a.getAttribute('href').toLowerCase();
+    if (path === '' || path === 'index.html') return /index\.html$/.test(href) || href === './';
+    return href.endsWith(path);
+  });
+  if (match) match.classList.add('active');
+};
+setActiveNav();
+  
   /* 2) Bubbles: reveal/hide with very gentle motion (esp. on mobile) */
   const bubbles = Array.from(document.querySelectorAll('.bubble.reveal'));
   if (!bubbles.length) return;

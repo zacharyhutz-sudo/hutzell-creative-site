@@ -1,20 +1,20 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>Hutzell Creative Co. — Films • Photo • Design</title>
 
   <!-- Fonts: EB Garamond (headlines/body) + Della Respira (subheads/subtitle) -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;600;700&family=Della+Respira&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond...00&family=Della+Respira&display=swap" rel="stylesheet"/>
 
   <!-- Site CSS -->
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css"/>
 
   <!-- Preload Sloop Script Pro (headers/nav) -->
-  <link rel="preload" href="assets/fonts/SloopScriptPro-Regular.otf" as="font" type="font/otf" crossorigin>
+  <link rel="preload" href="assets/fonts/SloopScriptPro-Regular.otf" as="font" type="font/otf" crossorigin/>
 
   <!-- Inline tweaks for your latest requests -->
   <style>
@@ -31,109 +31,162 @@
     /* (Optional safety) If style.css didn't set EB Garamond on hero h1, force it */
     .headline-eb { font-family: var(--headline-font); font-weight: 400; }
   </style>
+
+  <!-- NEW: Make bubbles more dramatic + remove divider line + about/spacing/signature tweaks -->
+  <style>
+    /* Remove the line between bubbles and the picture (border on the bubbles section) */
+    .section.features-bubbles { border-bottom: 0 !important; }
+
+    /* Dramatic bubble appearance + gentle drift */
+    .features-bubbles .bubble {
+      filter: drop-shadow(0 12px 24px rgba(0,0,0,.18));
+      opacity: 0;
+      transform: translateY(20px) scale(.88);
+      animation:
+        bubbleIn 900ms cubic-bezier(.2,.8,.2,1) var(--stagger, 0ms) forwards,
+        bubbleDrift 18s ease-in-out calc(var(--stagger, 0ms) + 900ms) infinite alternate;
+    }
+    .features-bubbles .bubble[data-seq="0"] { --stagger: 0ms; }
+    .features-bubbles .bubble[data-seq="1"] { --stagger: 120ms; }
+    .features-bubbles .bubble[data-seq="2"] { --stagger: 240ms; }
+
+    @keyframes bubbleIn {
+      0% { opacity: 0; transform: translateY(28px) scale(.82); }
+      60% { opacity: 1; transform: translateY(-6px) scale(1.06); }
+      100% { opacity: 1; transform: translateY(0) scale(1.0); }
+    }
+    @keyframes bubbleDrift {
+      0% { transform: translateY(0) translateX(0) scale(1); }
+      50% { transform: translateY(-10px) translateX(6px) scale(1.03); }
+      100% { transform: translateY(6px) translateX(-6px) scale(.98); }
+    }
+
+    @media (hover:hover) and (pointer:fine) {
+      .features-bubbles .bubble:hover {
+        transform: translateY(-6px) scale(1.06);
+        filter: drop-shadow(0 18px 36px rgba(0,0,0,.22));
+      }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .features-bubbles .bubble { animation: none; opacity: 1; transform: none; }
+    }
+
+    /* About section: label + spacing */
+    .about-us .about-label { margin: 16px 0 6px; }          /* “About us:” label */
+    .about-us .about-text { margin-bottom: 1.5rem; }        /* more space before the Note */
+
+    /* Signature to the right and larger */
+    .about-us .about-sign { text-align: right; }
+    .about-us .about-sign .script {
+      font-family: var(--script-font);
+      font-size: clamp(24px, 4vw, 46px);
+    }
+  </style>
 </head>
+
 <body>
-<header>
-  <div class="container nav">
-    <div class="brand"><a href="index.html" class="brand-link"><img src="assets/logo.png" alt="Hutzell Creative Co. logo" class="brand-logo"></a></div>
-    <nav>
-      <ul>
-        <li><a class="nav-script active" href="index.html">Home</a></li>
-        <li><a class="nav-script" href="services.html">Services</a></li>
-        <li><a class="nav-script" href="contact.html">Inquiry</a></li>
-      </ul>
-    </nav>
-  </div>
-</header>
-
-<section class="hero">
-  <div class="container">
-    <div class="kicker">Hutzell Creative Co. • Est. 2024</div>
-
-    <!-- HERO (exact text) -->
-    <h1 class="headline-eb">
-      The single team for all your creative needs — photography, videography, and design.
-    </h1>
-
-    <!-- SUBTITLE (exact text you asked to keep) -->
-    <p class="subtitle">A husband and wife led creative agency serving Athens, GA and beyond.</p>
-
-    <div class="cta">
-      <a href="contact.html" class="button">Start an inquiry</a>
-      <a href="services.html" class="button secondary">See services</a>
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <a href="index.html" class="brand-link">
+          <img src="assets/logo.png" alt="Hutzell Creative Co. logo" class="brand-logo">
+        </a>
+      </div>
+      <nav>
+        <ul>
+          <li><a class="nav-script active" href="index.html">Home</a></li>
+          <li><a class="nav-script" href="services.html">Services</a></li>
+          <li><a class="nav-script" href="contact.html">Inquiry</a></li>
+        </ul>
+      </nav>
     </div>
-  </div>
-</section>
+  </header>
 
-<!-- Feature Bubbles -->
-<section class="section features-bubbles">
-  <div class="container">
-    <div class="bubble-seq">
-      <div class="bubble left reveal" data-seq="0">
-        <img class="bubble-icon" src="assets/img/bubble-photography.png" alt="Photography logo">
-        <div class="bubble-copy">
-          <h3 class="subhead">Photography</h3>
-          <p>Timeless images that capture the beauty of real moments — from weddings to families to senior portraits.</p>
-        </div>
-      </div>
+  <section class="hero">
+    <div class="container">
+      <div class="kicker">Hutzell Creative Co. • Est. 2024</div>
 
-      <div class="bubble left reveal" data-seq="1">
-        <img class="bubble-icon" src="assets/img/bubble-videography.png" alt="Videography logo">
-        <div class="bubble-copy">
-          <h3 class="subhead">Videography</h3>
-          <p>Cinematic storytelling that brings your memories and milestones to life, frame by frame.</p>
-        </div>
-      </div>
+      <!-- HERO (exact text) -->
+      <h1 class="headline-eb">
+        The single team for all your creative needs — photography, videography, and design.
+      </h1>
 
-      <div class="bubble left reveal" data-seq="2">
-        <img class="bubble-icon" src="assets/img/bubble-design.png" alt="Design and Branding logo">
-        <div class="bubble-copy">
-          <h3 class="subhead">Design &amp; Branding</h3>
-          <p>Custom logos, branding, and creative design that help your business stand out with clarity and confidence.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- About Us -->
-<section class="section about-us" id="about">
-  <div class="container">
-    <img
-      src="assets/img/aboutus.png"
-      alt="Zach and Avery Hutzell"
-      class="about-photo"
-      loading="lazy"
-    />
-
-    <div class="about-copy">
-      <p>
-        Zach and Avery Hutzell are the husband-and-wife team behind Hutzell Creative Co. Zach is a graduate student studying horticulture, and Avery is a full-time graphic designer for a local nonprofit. In every spare moment they have, they love creating together. Nothing excites them more than walking alongside people as they celebrate life’s biggest moments — from starting a business to starting a life together in marriage.
+      <p class="subtitle">
+        <span class="hero-key">Authentic</span> storytelling, <span class="hero-key">timeless</span> visuals, and <span class="hero-key">intentional</span> design—crafted by a husband &amp; wife team in Athens, GA.
       </p>
 
-      <h3 class="about-note-title">Note from the Hutzells:</h3>
-      <p>
-        Thank you for visiting and supporting Hutzell Creative Co.! We are so blessed to have a creative outlet that allows us to meet and celebrate such sweet clients, family, and friends.
-        At the heart of our work and our marriage is our faith in Jesus Christ. We want our lives and our business to reflect the hope we’ve found in Him. As Paul writes in Ephesians 2, “by grace you have been saved through faith… it is the gift of God, not a result of works, so that no one may boast.” That truth grounds us daily — reminding us that our worth isn’t in our own efforts but in what Christ has already done.
-        Without the Lord and without the support of our community, we wouldn’t be who we are today. It’s our greatest joy to use our gifts to serve others, tell stories, and capture moments that last.
-      </p>
-
-      <p class="about-sign">– <span class="script">Zach &amp; Avery</span></p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="contact.html">Let’s Connect</a>
+        <a class="btn btn-secondary" href="portfolio.html">View Portfolio</a>
+      </div>
     </div>
-  </div>
-</section>
-  
-  
-<footer class="footer">
-  <div class="container">© <span id="year"></span> Hutzell Creative Co.</div>
-</footer>
+  </section>
 
-<!-- Load site JS -->
-<script src="main.js"></script>
+  <!-- Feature Bubbles -->
+  <section class="section features-bubbles">
+    <div class="container">
+      <div class="bubble-seq">
+        <div class="bubble left reveal" data-seq="0">
+          <img class="bubble-icon" src="assets/img/bubble-photography.png" alt="Photography logo">
+          <div class="bubble-copy">
+            <h3 class="subhead">Photography</h3>
+            <p>Timeless images that capture the beauty of real moments — from weddings to families to senior portraits.</p>
+          </div>
+        </div>
+
+        <div class="bubble left reveal" data-seq="1">
+          <img class="bubble-icon" src="assets/img/bubble-videography.png" alt="Videography logo">
+          <div class="bubble-copy">
+            <h3 class="subhead">Videography</h3>
+            <p>Cinematic storytelling that brings your memories and milestones to life, frame by frame.</p>
+          </div>
+        </div>
+
+        <div class="bubble left reveal" data-seq="2">
+          <img class="bubble-icon" src="assets/img/bubble-design.png" alt="Design and Branding logo">
+          <div class="bubble-copy">
+            <h3 class="subhead">Design &amp; Branding</h3>
+            <p>Custom logos, branding, and creative design that help your business stand out with clarity and confidence.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Us -->
+  <section class="section about-us" id="about">
+    <div class="container">
+      <img
+        src="assets/img/aboutus.png"
+        alt="Zach and Avery Hutzell"
+        class="about-photo"
+        loading="lazy"
+      />
+
+      <div class="about-copy">
+        <!-- NEW: “About us:” label in same style as the Note title -->
+        <h3 class="about-note-title about-label">About us:</h3>
+
+        <p class="about-text">
+          Zach and Avery Hutzell are the husband-and-wife team behind Hutzell Creative Co. Zach is a graduate student studying horticulture, and Avery is a full-time graphic designer for a local nonprofit. In every spare moment they have, they love creating together. Nothing excites them more than walking alongside people as they celebrate life’s biggest moments — from starting a business to starting a life together in marriage.
+        </p>
+
+        <h3 class="about-note-title">Note from the Hutzells:</h3>
+        <p>
+          Thank you for visiting and supporting Hutzell Creative Co. We’re constantly humbled by the opportunities to meet and celebrate such sweet clients, family, and friends. At the heart of our work and our marriage is our faith in Jesus — the One who gives meaning to all we do. Our hope, joy, and rest come from Him, and we believe that true beauty and creativity are reflections of His goodness and grace. We’re grateful for every story we get to tell, and we pray our work encourages and uplifts others along the way. If you ever wonder where our strength comes from, it’s not from us — our faith isn’t in our own efforts but in what Christ has already done. Without the Lord and without the support of our community, we wouldn’t be who we are today. It’s our greatest joy to use our gifts to serve others, tell stories, and capture moments that last.
+        </p>
+
+        <p class="about-sign">– <span class="script">Zach &amp; Avery</span></p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">© <span id="year"></span> Hutzell Creative Co.</div>
+  </footer>
+
+  <!-- Load site JS -->
+  <script src="main.js"></script>
 </body>
 </html>
 
-<!-- Load site JS (ensures bubbles reveal on scroll) -->
-<script src="main.js"></script>
-</body>
-</html>

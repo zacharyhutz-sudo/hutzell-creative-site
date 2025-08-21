@@ -15,107 +15,117 @@
   <link rel="preload" href="assets/fonts/SloopScriptPro-Regular.otf" as="font" type="font/otf" crossorigin>
 
   <!-- Page-specific tweaks -->
-  <style>
-    /* Section headers in EB Garamond (override global cursive heading styles) */
-    .section-title {
-      font-family: 'EB Garamond', serif !important;
-      font-weight: 600;
-      letter-spacing: .2px;
-      margin: 0 0 .25rem 0;
-    }
-
-    .section-kicker {
-      font-family: var(--body-font, 'Della Respira', serif);
-      color: var(--muted, #51645c);
-      margin: 0 0 1.25rem 0;
-      font-size: 1rem;
-    }
-
-    /* Basic responsive 2-col grid */
-    .grid-2 {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 1rem;
-      align-items: start;
-    }
-    @media (max-width: 720px) { .grid-2 { grid-template-columns: 1fr; } }
-
-    /* Video embeds */
-    .video-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 1rem;
-    }
-    @media (max-width: 720px) { .video-grid { grid-template-columns: 1fr; } }
-
-    .video-embed {
-      position: relative;
-      aspect-ratio: 16 / 9;
-      width: 100%;
-      overflow: hidden;
-      border-radius: 16px;
-      box-shadow: 0 8px 20px rgba(0,0,0,.12);
-      background: #000;
-    }
-    .video-embed iframe {
-      position: absolute; inset: 0; width: 100%; height: 100%; border: 0;
-    }
-
-    /* Anchors for in-page links (offset for sticky/nav height) */
-    .anchor {
-      position: relative;
-      top: -84px; /* adjust if your header height differs */
-      visibility: hidden;
-    }
-
-    /* Spacing between stacked sections */
-    .section + .section { padding-top: 1rem; }
-
-   /* Responsive gallery grid */
-.photo-grid {
-  display: grid;
-  gap: 0.75rem;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* desktop/tablet */
-  margin-top: 1rem;
-}
-
-/* Force TWO columns on phones */
-@media (max-width: 640px) {
-  .photo-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0.5rem;
+ <style>
+  /* Section headers in EB Garamond (override global cursive) */
+  .section-title {
+    font-family: 'EB Garamond', serif !important;
+    font-weight: 600;
+    letter-spacing: .2px;
+    margin: 0 0 .25rem 0;
   }
-}
 
-/* Keep a consistent crop (handles horizontal s14.jpg cleanly) */
-.photo-grid img {
-  width: 100%;
-  height: auto;
-  aspect-ratio: 3 / 2;      /* uniform tiles */
-  object-fit: cover;        /* crop to fill, no distortion */
-  object-position: center;  /* center the crop */
-  border-radius: 12px;
-  box-shadow: 0 6px 16px rgba(0,0,0,.12);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-  will-change: transform;
-  cursor: zoom-in;
-}
+  .section-kicker {
+    font-family: var(--body-font, 'Della Respira', serif);
+    color: var(--muted, #51645c);
+    margin: 0 0 1.25rem 0;
+    font-size: 1rem;
+  }
 
-/* Hover (desktop) + tap class (mobile) already in your file */
-.photo-grid img:hover,
-.photo-grid img.tap-zoom {
-  transform: scale(1.03);
-  box-shadow: 0 10px 22px rgba(0,0,0,.18);
-}
+  /* Basic responsive 2-col grid for text/images inside sections */
+  .grid-2 {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+    align-items: start;
+  }
+  @media (max-width: 720px) { .grid-2 { grid-template-columns: 1fr; } }
 
+  /* Video embeds */
+  .video-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+  @media (max-width: 720px) { .video-grid { grid-template-columns: 1fr; } }
 
-    /* Respect reduced motion */
-    @media (prefers-reduced-motion: reduce) {
-      .photo-grid img { transition: none; }
-      .photo-grid img:hover,
-      .photo-grid img.tap-zoom { transform: none; box-shadow: 0 6px 16px rgba(0,0,0,.12); }
+  .video-embed {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(0,0,0,.12);
+    background: #000;
+  }
+  .video-embed iframe {
+    position: absolute; inset: 0; width: 100%; height: 100%; border: 0;
+  }
+
+  /* Anchors for in-page links (offset for sticky/nav height) */
+  .anchor {
+    position: relative;
+    top: -84px; /* adjust if header height differs */
+    visibility: hidden;
+  }
+
+  /* Spacing between stacked sections */
+  .section + .section { padding-top: 1rem; }
+
+  /* --------- Senior Shoots Gallery --------- */
+
+  /* Centered responsive gallery grid */
+  .photo-grid {
+    display: grid;
+    gap: 0.75rem;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    justify-content: center;   /* centers the grid tracks on wider screens */
+    margin-top: 1rem;
+    max-width: 1200px;         /* keep the gallery from stretching too wide */
+    margin-inline: auto;       /* center the whole gallery block */
+  }
+
+  /* Force TWO columns on phones */
+  @media (max-width: 640px) {
+    .photo-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.5rem;
     }
-  </style>
+  }
+
+  /* Images keep natural aspect ratios (verticals stay vertical) */
+  .photo-grid img {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 6px 16px rgba(0,0,0,.12);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    will-change: transform;
+    cursor: zoom-in;
+  }
+
+  /* Hover (desktop) + tap class (mobile, added by your JS) */
+  .photo-grid img:hover,
+  .photo-grid img.tap-zoom {
+    transform: scale(1.03);
+    box-shadow: 0 10px 22px rgba(0,0,0,.18);
+  }
+
+  /* Make the horizontal s14.jpg span 2 columns on md+ screens */
+  @media (min-width: 768px) {
+    .photo-grid img.landscape { grid-column: span 2; }
+  }
+
+  /* Respect reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .photo-grid img { transition: none; }
+    .photo-grid img:hover,
+    .photo-grid img.tap-zoom { 
+      transform: none; 
+      box-shadow: 0 6px 16px rgba(0,0,0,.12); 
+    }
+  }
+</style>
+
 </head>
 
 <body>
@@ -158,7 +168,7 @@
           <img src="assets/img/s7.jpg"  alt="Senior shoot photo" loading="lazy">
           <img src="assets/img/s13.jpg" alt="Senior shoot photo" loading="lazy">
           <img src="assets/img/s12.jpg" alt="Senior shoot photo" loading="lazy">
-          <img src="assets/img/s14.jpg" alt="Senior shoot photo" loading="lazy">
+          <img src="assets/img/s14.jpg" alt="Senior shoot photo" class = "landscape" loading="lazy">
           <img src="assets/img/s16.jpg" alt="Senior shoot photo" loading="lazy">
           <img src="assets/img/s19.jpg" alt="Senior shoot photo" loading="lazy">
           <img src="assets/img/s20.jpg" alt="Senior shoot photo" loading="lazy">

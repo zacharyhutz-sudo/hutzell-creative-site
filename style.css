@@ -340,3 +340,24 @@ nav a { font-family: var(--subhead-font); }
 .brand-link { display: inline-flex; align-items: center; }
 .brand-logo { height: 36px; width: auto; display: block; }
 @media (max-width: 540px) { .brand-logo { height: 32px; } }
+
+/* Keep brand on left and nav on right */
+header .nav { display: flex; align-items: center; justify-content: space-between; }
+header .nav nav { margin-left: auto; } /* force the nav block to the right */
+
+/* Nav pills */
+nav a {
+  padding: 10px 14px;
+  border-radius: 999px;
+  border: 1.5px solid transparent;
+  transition: background .2s ease, border-color .2s ease, color .2s ease;
+}
+
+/* Hover highlight (unchanged) */
+nav a:hover { background: var(--accent); }
+
+/* CURRENT page → outlined bubble + subtle fill */
+nav a.active {
+  border-color: var(--green-2);
+  background: rgba(126,164,147,.10); /* subtle green-tinted fill */
+}

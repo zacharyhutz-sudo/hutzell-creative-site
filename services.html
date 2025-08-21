@@ -15,7 +15,7 @@
   <link rel="preload" href="assets/fonts/SloopScriptPro-Regular.otf" as="font" type="font/otf" crossorigin>
 
   <!-- Page-specific tweaks -->
- <style>
+<style>
   /* Section headers in EB Garamond (override global cursive) */
   .section-title {
     font-family: 'EB Garamond', serif !important;
@@ -73,15 +73,15 @@
 
   /* --------- Senior Shoots Gallery --------- */
 
-  /* Centered responsive gallery grid */
   .photo-grid {
     display: grid;
     gap: 0.75rem;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    justify-content: center;   /* centers the grid tracks on wider screens */
+    justify-content: center;   /* center the grid tracks */
+    justify-items: center;     /* center the images inside each cell */
     margin-top: 1rem;
-    max-width: 1200px;         /* keep the gallery from stretching too wide */
-    margin-inline: auto;       /* center the whole gallery block */
+    max-width: 1200px;
+    margin-inline: auto;
   }
 
   /* Force TWO columns on phones */
@@ -103,7 +103,7 @@
     cursor: zoom-in;
   }
 
-  /* Hover (desktop) + tap class (mobile, added by your JS) */
+  /* Hover (desktop) + tap class (mobile) */
   .photo-grid img:hover,
   .photo-grid img.tap-zoom {
     transform: scale(1.03);
@@ -119,12 +119,13 @@
   @media (prefers-reduced-motion: reduce) {
     .photo-grid img { transition: none; }
     .photo-grid img:hover,
-    .photo-grid img.tap-zoom { 
-      transform: none; 
-      box-shadow: 0 6px 16px rgba(0,0,0,.12); 
+    .photo-grid img.tap-zoom {
+      transform: none;
+      box-shadow: 0 6px 16px rgba(0,0,0,.12);
     }
   }
 </style>
+
 
 </head>
 

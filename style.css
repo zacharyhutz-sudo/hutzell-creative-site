@@ -77,7 +77,7 @@ header {
 nav ul { display: flex; list-style: none; gap: 22px; margin: 0; padding: 0; }
 nav a { padding: 10px 12px; border-radius: 999px; }
 nav a:hover, nav a.active { background: var(--accent); }
-nav a.nav-script { font-family: var(--script-font); font-weight: normal; }
+nav a.nav-script { font-family: var(--subhead-font); font-weight: 400; }
 
 /* ===========================
    Hero
@@ -333,3 +333,10 @@ nav a.nav-script { font-family: var(--script-font); font-weight: normal; }
     transition-duration: 1.2s; /* linger a bit longer on mobile */
   }
 }
+
+nav a { font-family: var(--subhead-font); }
+
+/* Brand logo image sizing */
+.brand-link { display: inline-flex; align-items: center; }
+.brand-logo { height: 36px; width: auto; display: block; }
+@media (max-width: 540px) { .brand-logo { height: 32px; } }

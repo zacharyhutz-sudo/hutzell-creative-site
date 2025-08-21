@@ -467,3 +467,11 @@ header .nav nav ul { display: flex; gap: 22px; margin: 0; padding: 0; list-style
   border-radius: 999px; /* full pill shape */
   font-size: 1.1rem;
 }
+
+/* Make header logo larger */
+.brand-logo {
+  max-height: 80px;   /* increase from current (probably ~50px) */
+  height: auto;
+  width: auto;
+}
+

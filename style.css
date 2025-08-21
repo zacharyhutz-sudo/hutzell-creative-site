@@ -346,3 +346,18 @@ nav a.active {
   font-size: 1.05rem;
   color: var(--muted);
 }
+/* Force brand on left, nav on right (bulletproof) */
+header .nav {
+  display: grid !important;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+}
+header .nav nav {
+  justify-self: end;   /* push nav block to the right */
+}
+
+/* Make sure the list itself isn't stretching full width */
+header .nav nav ul {
+  width: auto;
+  margin: 0;
+}

@@ -5,36 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>Hutzell Creative Co. — Films • Photo • Design</title>
 
-  <!-- Fonts: EB Garamond (headlines/body) + Della Respira (subheads/subtitle) -->
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond...00&family=Della+Respira&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600&family=Della+Respira&display=swap" rel="stylesheet"/>
 
   <!-- Site CSS -->
   <link rel="stylesheet" href="style.css"/>
 
-  <!-- Preload Sloop Script Pro (headers/nav) -->
-  <link rel="preload" href="assets/fonts/SloopScriptPro-Regular.otf" as="font" type="font/otf" crossorigin/>
-
   <!-- Inline tweaks for your latest requests -->
   <style>
-    /* Ensure hero keywords are darker green + italic */
-    .hero .hero-key { color: #3d6b5c; font-style: italic; }
-
-    /* Blend white pixel edges in PNGs into the bubble bg (#f3f4e7) */
-    .features-bubbles .bubble-icon {
-      display: block;
-      mix-blend-mode: multiply;
-      background: transparent;
-    }
-
-    /* (Optional safety) If style.css didn't set EB Garamond on hero h1, force it */
-    .headline-eb { font-family: var(--headline-font); font-weight: 400; }
-  </style>
-
-  <!-- NEW: Make bubbles more dramatic + remove divider line + about/spacing/signature tweaks -->
-  <style>
-    /* Remove the line between bubbles and the picture (border on the bubbles section) */
+    /* Remove divider line */
     .section.features-bubbles { border-bottom: 0 !important; }
 
     /* Dramatic bubble appearance + gentle drift */
@@ -71,9 +52,17 @@
       .features-bubbles .bubble { animation: none; opacity: 1; transform: none; }
     }
 
-    /* About section: label + spacing */
-    .about-us .about-label { margin: 16px 0 6px; }          /* “About us:” label */
-    .about-us .about-text { margin-bottom: 1.5rem; }        /* more space before the Note */
+    /* About section: EB Garamond headings */
+    .about-us .about-label,
+    .about-us .about-note-title {
+      font-family: 'EB Garamond', serif;
+      font-weight: 500;
+      font-size: 1.5rem;
+      margin: 16px 0 6px;
+    }
+
+    /* More spacing before note */
+    .about-us .about-text { margin-bottom: 1.5rem; }
 
     /* Signature to the right and larger */
     .about-us .about-sign { text-align: right; }
@@ -106,13 +95,13 @@
     <div class="container">
       <div class="kicker">Hutzell Creative Co. • Est. 2024</div>
 
-      <!-- HERO (exact text) -->
-      <h1 class="headline-eb">
+      <!-- HERO (restored original text) -->
+      <h1>
         The single team for all your creative needs — photography, videography, and design.
       </h1>
 
       <p class="subtitle">
-        <span class="hero-key">Authentic</span> storytelling, <span class="hero-key">timeless</span> visuals, and <span class="hero-key">intentional</span> design—crafted by a husband &amp; wife team in Athens, GA.
+        A husband-and-wife led creative agency serving Athens, GA and beyond.
       </p>
 
       <div class="cta-row">
@@ -164,13 +153,14 @@
       />
 
       <div class="about-copy">
-        <!-- NEW: “About us:” label in same style as the Note title -->
-        <h3 class="about-note-title about-label">About us:</h3>
+        <!-- About us in EB Garamond -->
+        <h3 class="about-label">About us:</h3>
 
         <p class="about-text">
           Zach and Avery Hutzell are the husband-and-wife team behind Hutzell Creative Co. Zach is a graduate student studying horticulture, and Avery is a full-time graphic designer for a local nonprofit. In every spare moment they have, they love creating together. Nothing excites them more than walking alongside people as they celebrate life’s biggest moments — from starting a business to starting a life together in marriage.
         </p>
 
+        <!-- Note from the Hutzells in EB Garamond -->
         <h3 class="about-note-title">Note from the Hutzells:</h3>
         <p>
           Thank you for visiting and supporting Hutzell Creative Co. We’re constantly humbled by the opportunities to meet and celebrate such sweet clients, family, and friends. At the heart of our work and our marriage is our faith in Jesus — the One who gives meaning to all we do. Our hope, joy, and rest come from Him, and we believe that true beauty and creativity are reflections of His goodness and grace. We’re grateful for every story we get to tell, and we pray our work encourages and uplifts others along the way. If you ever wonder where our strength comes from, it’s not from us — our faith isn’t in our own efforts but in what Christ has already done. Without the Lord and without the support of our community, we wouldn’t be who we are today. It’s our greatest joy to use our gifts to serve others, tell stories, and capture moments that last.
@@ -188,5 +178,7 @@
   <!-- Load site JS -->
   <script src="main.js"></script>
 </body>
+</html>
+
 </html>
 

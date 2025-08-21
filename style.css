@@ -366,3 +366,92 @@ header .nav nav ul {
 header .nav { display: flex; align-items: center; justify-content: space-between; }
 header .nav nav { margin-left: auto; }
 header .nav nav ul { display: flex; gap: 22px; margin: 0; padding: 0; list-style: none; }
+
+/* === HERO BUBBLES: make appearance more dramatic === */
+/* Base bubble look */
+.hero-bubbles .bubble {
+  filter: drop-shadow(0 12px 24px rgba(0,0,0,.18));
+  opacity: 0;
+  transform: translateY(20px) scale(.85);
+  animation: bubbleIn 900ms cubic-bezier(.2,.8,.2,1) var(--stagger, 0ms) forwards,
+             bubbleDrift 18s ease-in-out calc(var(--stagger, 0ms) + 900ms) infinite alternate;
+}
+
+/* Slightly different delays per bubble for a cascading pop-in */
+.hero-bubbles .bubble:nth-child(1) { --stagger: 0ms; }
+.hero-bubbles .bubble:nth-child(2) { --stagger: 120ms; }
+.hero-bubbles .bubble:nth-child(3) { --stagger: 240ms; }
+.hero-bubbles .bubble:nth-child(4) { --stagger: 360ms; }
+.hero-bubbles .bubble:nth-child(5) { --stagger: 480ms; }
+
+/* Beefier hover for desktop */
+@media (hover:hover) and (pointer:fine) {
+  .hero-bubbles .bubble:hover {
+    transform: translateY(-6px) scale(1.06);
+    filter: drop-shadow(0 18px 36px rgba(0,0,0,.22));
+  }
+}
+
+/* Entrance */
+@keyframes bubbleIn {
+  0% { opacity: 0; transform: translateY(28px) scale(.82); }
+  60% { opacity: 1; transform: translateY(-6px) scale(1.06); }
+  100% { opacity: 1; transform: translateY(0) scale(1.0); }
+}
+
+/* Slow floating/parallax feel */
+@keyframes bubbleDrift {
+  0% { transform: translateY(0) translateX(0) scale(1); }
+  50% { transform: translateY(-10px) translateX(6px) scale(1.03); }
+  100% { transform: translateY(6px) translateX(-6px) scale(.98); }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .hero-bubbles .bubble { animation: none; opacity: 1; transform: none; }
+}
+
+/* === ABOUT SECTION === */
+/* Make a reusable script heading to match "Note from the Hutzells:" */
+.script-heading { 
+  font-family: var(--script-font);
+  font-weight: 400;
+  font-size: clamp(24px, 3.2vw, 36px);
+  color: var(--ink);
+  letter-spacing: .2px;
+}
+
+/* Inserted label for About us */
+#about .about-label { margin-top: 1rem; margin-bottom: .5rem; display: block; }
+
+/* Increase spacing between About paragraph and Note */
+#about .about-text { margin-bottom: 1.75rem; }
+
+/* If your HTML wraps the note in a .note-section, give it extra top space */
+#about .note-section { margin-top: 1.75rem; }
+
+/* === SIGNATURE (cursive "Zach & Avery") === */
+/* Move to the right and enlarge on wide screens, stay centered on small */
+.signature {
+  font-family: var(--script-font);
+  font-size: clamp(24px, 4.2vw, 48px);
+  text-align: right; /* default on large screens */
+}
+
+@media (max-width: 640px) {
+  .signature { text-align: center; }
+}
+
+/* Optional: nudge the signature closer to the note text if needed */
+.signature { margin-top: .5rem; }
+
+/* === REMOVE THE LINE BETWEEN BUBBLES AND PICTURE === */
+/* If it is an <hr> */
+.home hr.section-divider,
+.home main hr { display: none; border: 0; height: 0; }
+
+/* If the line is a border on a section */
+.home .hero + section,
+.home .bubbles + section {
+  border-top: none !important;
+}

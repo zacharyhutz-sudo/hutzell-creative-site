@@ -71,31 +71,43 @@
     /* Spacing between stacked sections */
     .section + .section { padding-top: 1rem; }
 
-    /* Responsive gallery grid for Senior Shoots */
-    .photo-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 1rem;
-      margin-top: 1rem;
-    }
+   /* Responsive gallery grid */
+.photo-grid {
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* desktop/tablet */
+  margin-top: 1rem;
+}
 
-    .photo-grid img {
-      width: 100%;
-      height: auto;
-      border-radius: 12px;
-      box-shadow: 0 6px 16px rgba(0,0,0,.12);
-      object-fit: cover;
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
-      will-change: transform;
-      cursor: zoom-in;
-    }
+/* Force TWO columns on phones */
+@media (max-width: 640px) {
+  .photo-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+  }
+}
 
-    /* Hover (desktop) and tap-zoom (mobile) */
-    .photo-grid img:hover,
-    .photo-grid img.tap-zoom {
-      transform: scale(1.03);
-      box-shadow: 0 10px 22px rgba(0,0,0,.18);
-    }
+/* Keep a consistent crop (handles horizontal s14.jpg cleanly) */
+.photo-grid img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 2;      /* uniform tiles */
+  object-fit: cover;        /* crop to fill, no distortion */
+  object-position: center;  /* center the crop */
+  border-radius: 12px;
+  box-shadow: 0 6px 16px rgba(0,0,0,.12);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  will-change: transform;
+  cursor: zoom-in;
+}
+
+/* Hover (desktop) + tap class (mobile) already in your file */
+.photo-grid img:hover,
+.photo-grid img.tap-zoom {
+  transform: scale(1.03);
+  box-shadow: 0 10px 22px rgba(0,0,0,.18);
+}
+
 
     /* Respect reduced motion */
     @media (prefers-reduced-motion: reduce) {

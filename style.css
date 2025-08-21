@@ -19,16 +19,16 @@
    =========================== */
 :root {
   /* Typography families */
-  --script-font: 'Sloop Script Pro', cursive;  /* Page headings & nav */
-  --display-font: 'TheGrenhil', serif;         /* Occasional headline via .headline-alt */
+  --script-font: 'Sloop Script Pro', cursive;  /* Page headings */
+  --display-font: 'TheGrenhil', serif;         /* Occasional headline (.headline-alt) */
   --headline-font: 'EB Garamond', serif;       /* Hero H1 / headlines */
   --body-font: 'EB Garamond', serif;           /* Body copy */
-  --subhead-font: 'Della Respira', serif;      /* Sub headlines & subtitle */
+  --subhead-font: 'Della Respira', serif;      /* Sub headlines, navbar, subtitle */
 
   /* Colors */
   --green: #7ea493;
   --green-2: #5e8f7d;
-  --green-3: #3d6b5c; /* darker green for emphasis */
+  --green-3: #3d6b5c;  /* darker green for emphasis */
   --cream: #f7faf8;
   --ink: #1b2a23;
   --muted: #51645c;
@@ -42,12 +42,7 @@
    Base / Resets
    =========================== */
 * { box-sizing: border-box; }
-html, body {
-  margin: 0;
-  padding: 0;
-  color: var(--ink);
-  background: var(--cream);
-}
+html, body { margin: 0; padding: 0; color: var(--ink); background: var(--cream); }
 img { max-width: 100%; display: block; }
 a { color: inherit; text-decoration: none; }
 .container { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
@@ -59,8 +54,8 @@ h4, h5 { font-family: var(--subhead-font); }
 
 /* Utilities */
 .script, .script-title { font-family: var(--script-font); font-weight: 400; }
-.headline-alt { font-family: var(--display-font); }            /* TheGrenhil */
-.headline-eb { font-family: var(--headline-font); font-weight: 400; } /* EB Garamond */
+.headline-alt { font-family: var(--display-font); }                  /* TheGrenhil */
+.headline-eb { font-family: var(--headline-font); font-weight: 400; }/* EB Garamond */
 
 /* ===========================
    Header / Nav
@@ -74,10 +69,27 @@ header {
 }
 .nav { display: flex; align-items: center; justify-content: space-between; height: 72px; }
 .brand { display: flex; align-items: center; gap: 12px; }
+header .nav nav { margin-left: auto; } /* push nav to the right */
+
 nav ul { display: flex; list-style: none; gap: 22px; margin: 0; padding: 0; }
-nav a { padding: 10px 12px; border-radius: 999px; }
-nav a:hover, nav a.active { background: var(--accent); }
-nav a.nav-script { font-family: var(--subhead-font); font-weight: 400; }
+nav a {
+  padding: 10px 14px;
+  border-radius: 999px;
+  border: 1.5px solid transparent;   /* base = transparent border */
+  font-family: var(--subhead-font);
+  transition: background .2s ease, border-color .2s ease, color .2s ease;
+}
+nav a:hover { background: var(--accent); }
+/* CURRENT page → fill only (no outline) */
+nav a.active {
+  background: rgba(126,164,147,.10);
+  border-color: transparent; /* remove outline */
+}
+
+/* Brand logo image sizing */
+.brand-link { display: inline-flex; align-items: center; }
+.brand-logo { height: 36px; width: auto; display: block; }
+@media (max-width: 540px) { .brand-logo { height: 32px; } }
 
 /* ===========================
    Hero
@@ -182,7 +194,7 @@ nav a.nav-script { font-family: var(--subhead-font); font-weight: 400; }
    Inquiry / Form
    =========================== */
 .contact-title {
-  font-family: var(--title-font);
+  font-family: var(--script-font);
   text-align: center;
   font-size: clamp(36px, 5vw, 64px);
   margin-bottom: 20px;
@@ -202,21 +214,24 @@ nav a.nav-script { font-family: var(--subhead-font); font-weight: 400; }
 .contact-form .button { font-family: var(--body-font); }
 
 /* ===========================
-   Inquiry bubbles (buttons)
+   Smooth reveal motion
    =========================== */
-.service-options { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; margin-bottom: 30px; }
-.service-btn {
-  padding: 10px 18px; border-radius: 999px; border: 2px solid var(--green);
-  background: #fff; color: var(--green); font-family: var(--body-font); font-size: 15px;
-  cursor: pointer; transition: all .2s ease;
+.reveal {
+  opacity: 0;
+  transform: translateY(10px) scale(.992);
+  transition: opacity 1.1s ease, transform 1.1s cubic-bezier(.22,1,.36,1);
+  will-change: transform, opacity;
 }
-.service-btn.active { background: var(--green); color: #fff; }
-
-/* ===========================
-   Scroll reveal (generic)
-   =========================== */
-.reveal { opacity: 0; transform: translateY(18px); transition: opacity .6s ease, transform .6s ease; }
-.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+@media (max-width: 780px) {
+  .reveal {
+    transform: translateY(6px) scale(.992);
+    transition-duration: 1.2s; /* linger a bit longer on mobile */
+  }
+}
 
 /* ===========================
    Feature Bubbles — refined
@@ -230,8 +245,7 @@ nav a.nav-script { font-family: var(--subhead-font); font-weight: 400; }
   background: #f3f4e7;
   border: 1px solid var(--accent);
   border-radius: 22px;
-  /* slightly smaller box but generous type */
-  padding: clamp(14px, 2vw, 28px);
+  padding: clamp(14px, 2vw, 28px); /* slightly smaller box but generous type */
   display: grid;
   grid-template-columns: minmax(120px, clamp(150px, 15vw, 170px)) 1fr; /* image | copy */
   gap: clamp(14px, 1.8vw, 24px);
@@ -297,67 +311,3 @@ nav a.nav-script { font-family: var(--subhead-font); font-weight: 400; }
   .features-bubbles .bubble:hover { transform: none; box-shadow: 0 8px 24px rgba(0,0,0,.04); }
 }
 
-/* Smooth, subtle bubble motion */
-.reveal {
-  opacity: 0;
-  transform: translateY(12px) scale(.995);
-  transition: opacity .85s ease, transform .85s cubic-bezier(.19,1,.22,1);
-  will-change: transform, opacity;
-}
-.reveal.visible {
-  opacity: 1;
-  transform: translateY(0) scale(1);
-}
-
-/* On mobile: even softer + shorter travel */
-@media (max-width: 780px) {
-  .reveal {
-    transform: translateY(8px) scale(.995);
-    transition-duration: .95s;
-  }
-}
-/* Smooth & subtle bubble motion (mobile-leaning) */
-.reveal {
-  opacity: 0;
-  transform: translateY(10px) scale(.992);
-  transition: opacity 1.1s ease, transform 1.1s cubic-bezier(.22,1,.36,1);
-  will-change: transform, opacity;
-}
-.reveal.visible {
-  opacity: 1;
-  transform: translateY(0) scale(1);
-}
-@media (max-width: 780px) {
-  .reveal {
-    transform: translateY(6px) scale(.992);
-    transition-duration: 1.2s; /* linger a bit longer on mobile */
-  }
-}
-
-nav a { font-family: var(--subhead-font); }
-
-/* Brand logo image sizing */
-.brand-link { display: inline-flex; align-items: center; }
-.brand-logo { height: 36px; width: auto; display: block; }
-@media (max-width: 540px) { .brand-logo { height: 32px; } }
-
-/* Keep brand on left and nav on right */
-header .nav { display: flex; align-items: center; justify-content: space-between; }
-header .nav nav { margin-left: auto; } /* force the nav block to the right */
-
-/* Nav pills */
-nav a {
-  padding: 10px 14px;
-  border-radius: 999px;
-  border: 1.5px solid transparent;
-  transition: background .2s ease, border-color .2s ease, color .2s ease;
-}
-
-/* Hover highlight (unchanged) */
-nav a:hover { background: var(--accent); }
-
-/* CURRENT page → outlined bubble + subtle fill */
-nav a.active {
-  border-color: var(--green-2);
-  background: rgba(126,164,147,.10); /* subtle green-tinted fill */
-}

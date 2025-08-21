@@ -107,6 +107,28 @@
       transition: background .2s ease, transform .1s ease;
     }
     .submit-btn:hover { background: var(--green-2); transform: translateY(-1px); }
+
+    /* Make all inputs uniform in size */
+form input, form select, form textarea {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid var(--accent);
+  font-family: "Della Respira", serif;
+  font-size: 15px;
+  box-sizing: border-box;
+}
+
+/* Force date inputs to match height of text inputs */
+form input[type="date"] {
+  line-height: normal;
+  height: 48px; /* matches text inputs */
+}
+
+/* Optional: normalize select dropdowns if you add one later */
+form select {
+  height: 48px;
+}
   </style>
 </head>
 

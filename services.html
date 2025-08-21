@@ -74,6 +74,27 @@
   font-family: 'EB Garamond', serif !important;
   font-weight: 600;
 }
+/* Responsive gallery grid */
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.photo-grid img {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 6px 16px rgba(0,0,0,.12);
+  object-fit: cover;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.photo-grid img:hover {
+  transform: scale(1.03);
+  box-shadow: 0 10px 22px rgba(0,0,0,.18);
+}
 
   </style>
 </head>
@@ -111,8 +132,18 @@
         </p>
 
         <!-- Subsections -->
-        <h3 class="section-title" style="font-size:1.25rem; margin-top:1.5rem;">Senior Shoots</h3>
-        <p>Celebrate milestones with confident, creative portraits that reflect personality and style.</p>
+       <h3 class="section-title" style="font-size:1.25rem; margin-top:1.5rem;">Senior Shoots</h3>
+<p>Celebrate milestones with confident, creative portraits that reflect personality and style.</p>
+
+<div class="photo-grid">
+  <img src="assets/img/s7.jpg" alt="Senior shoot photo" loading="lazy">
+  <img src="assets/img/s13.jpg" alt="Senior shoot photo" loading="lazy">
+  <img src="assets/img/s12.jpg" alt="Senior shoot photo" loading="lazy">
+  <img src="assets/img/s14.jpg" alt="Senior shoot photo" loading="lazy">
+  <img src="assets/img/s16.jpg" alt="Senior shoot photo" loading="lazy">
+  <img src="assets/img/s19.jpg" alt="Senior shoot photo" loading="lazy">
+  <img src="assets/img/s20.jpg" alt="Senior shoot photo" loading="lazy">
+</div>
 
         <h3 class="section-title" style="font-size:1.25rem; margin-top:1.5rem;">Families</h3>
         <p>Capture your family’s joy in relaxed, candid sessions that highlight genuine connection.</p>
@@ -191,6 +222,19 @@
   document.getElementById('year').textContent = new Date().getFullYear();
 </script>
 <script src="main.js"></script>
+<script>
+  // Brief zoom on tap for touch devices
+  (function () {
+    var imgs = document.querySelectorAll('.photo-grid img');
+    imgs.forEach(function (img) {
+      img.addEventListener('touchstart', function () {
+        img.classList.add('tap-zoom');
+        setTimeout(function () { img.classList.remove('tap-zoom'); }, 220);
+      }, { passive: true });
+    });
+  })();
+</script>
+  
 </body>
 </html>
 

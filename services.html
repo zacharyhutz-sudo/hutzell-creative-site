@@ -14,335 +14,305 @@
   <link rel="stylesheet" href="style.css">
   <link rel="preload" href="assets/fonts/SloopScriptPro-Regular.otf" as="font" type="font/otf" crossorigin>
 
-  <!-- Page-specific tweaks -->
-<style>
-  /* Section headers in EB Garamond (override global cursive) */
-  .section-title {
-    font-family: 'EB Garamond', serif !important;
-    font-weight: 600;
-    letter-spacing: .2px;
-    margin: 0 0 .25rem 0;
-  }
+  <!-- Page-specific CSS -->
+  <style>
+    /* Smooth scroll for in-page anchors */
+    html { scroll-behavior: smooth; }
 
-  .section-kicker {
-    font-family: var(--body-font, 'Della Respira', serif);
-    color: var(--muted, #51645c);
-    margin: 0 0 1.25rem 0;
-    font-size: 1rem;
-  }
+    /* Match sticky header height for clean anchor landings */
+    :root { --sticky-offset: 110px; } /* keep in sync with .nav height */
+    section[id] { scroll-margin-top: var(--sticky-offset); }
 
-  /* Basic responsive 2-col grid for text/images inside sections */
-  .grid-2 {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1rem;
-    align-items: start;
-  }
-  @media (max-width: 720px) { .grid-2 { grid-template-columns: 1fr; } }
-
-  /* If grid-2 has only one child, span both columns so inner content can center */
-.grid-2 > div:only-child { grid-column: 1 / -1; }
-
-  /* Video embeds */
-  .video-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1rem;
-  }
-  @media (max-width: 720px) { .video-grid { grid-template-columns: 1fr; } }
-
-  .video-embed {
-    position: relative;
-    aspect-ratio: 16 / 9;
-    width: 100%;
-    overflow: hidden;
-    border-radius: 16px;
-    box-shadow: 0 8px 20px rgba(0,0,0,.12);
-    background: #000;
-  }
-  .video-embed iframe {
-    position: absolute; inset: 0; width: 100%; height: 100%; border: 0;
-  }
-
-  /* Anchors for in-page links (offset for sticky/nav height) */
-  .anchor {
-    position: relative;
-    top: -84px; /* adjust if header height differs */
-    visibility: hidden;
-  }
-
-  /* Spacing between stacked sections */
-  .section + .section { padding-top: 1rem; }
-
-  /* --------- Senior Shoots Gallery --------- */
-
-  .photo-grid {
-    display: grid;
-    gap: 0.75rem;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    justify-content: center;   /* center the grid tracks */
-    justify-items: center;     /* center the images inside each cell */
-    margin-top: 1rem;
-    max-width: 1200px;
-    margin-inline: auto;
-  }
-
-  /* Force TWO columns on phones */
-  @media (max-width: 640px) {
-    .photo-grid {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 0.5rem;
+    /* Section headers in EB Garamond (override global cursive) */
+    .section-title {
+      font-family: 'EB Garamond', serif !important;
+      font-weight: 600;
+      letter-spacing: .2px;
+      margin: 0 0 .25rem 0;
     }
-  }
 
-  /* Images keep natural aspect ratios (verticals stay vertical) */
-  .photo-grid img {
-    width: 100%;
-    height: auto;
-    border-radius: 12px;
-    box-shadow: 0 6px 16px rgba(0,0,0,.12);
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
-    will-change: transform;
-    cursor: zoom-in;
-  }
+    .section-kicker {
+      font-family: var(--body-font, 'Della Respira', serif);
+      color: var(--muted, #51645c);
+      margin: 0 0 1.25rem 0;
+      font-size: 1rem;
+    }
 
-  /* Hover (desktop) + tap class (mobile) */
-  .photo-grid img:hover,
-  .photo-grid img.tap-zoom {
-    transform: scale(1.03);
-    box-shadow: 0 10px 22px rgba(0,0,0,.18);
-  }
+    /* Basic responsive 2-col grid for text/images inside sections */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+      align-items: start;
+    }
+    @media (max-width: 720px) { .grid-2 { grid-template-columns: 1fr; } }
+    .grid-2 > div:only-child { grid-column: 1 / -1; }
 
-  /* Make the horizontal s14.jpg span 2 columns on md+ screens */
-  @media (min-width: 768px) {
-    .photo-grid img.landscape { grid-column: span 2; }
-  }
+    /* Video embeds */
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+    }
+    @media (max-width: 720px) { .video-grid { grid-template-columns: 1fr; } }
 
-  /* Respect reduced motion */
-  @media (prefers-reduced-motion: reduce) {
-    .photo-grid img { transition: none; }
+    .video-embed {
+      position: relative;
+      aspect-ratio: 16 / 9;
+      width: 100%;
+      overflow: hidden;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px rgba(0,0,0,.12);
+      background: #000;
+    }
+    .video-embed iframe {
+      position: absolute; inset: 0; width: 100%; height: 100%; border: 0;
+    }
+
+    /* Spacing between stacked sections */
+    .section + .section { padding-top: 1rem; }
+
+    /* --------- Senior Shoots Gallery --------- */
+    .photo-grid {
+      display: grid;
+      gap: 0.75rem;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      justify-content: center;
+      justify-items: center;
+      margin-top: 1rem;
+      max-width: 1200px;
+      margin-inline: auto;
+    }
+    @media (max-width: 640px) {
+      .photo-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.5rem;
+      }
+    }
+    .photo-grid img {
+      width: 100%;
+      height: auto;
+      border-radius: 12px;
+      box-shadow: 0 6px 16px rgba(0,0,0,.12);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      will-change: transform;
+      cursor: zoom-in;
+    }
     .photo-grid img:hover,
     .photo-grid img.tap-zoom {
-      transform: none;
-      box-shadow: 0 6px 16px rgba(0,0,0,.12);
+      transform: scale(1.03);
+      box-shadow: 0 10px 22px rgba(0,0,0,.18);
     }
-  }
+    @media (min-width: 768px) {
+      .photo-grid img.landscape { grid-column: span 2; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .photo-grid img { transition: none; }
+      .photo-grid img:hover,
+      .photo-grid img.tap-zoom {
+        transform: none;
+        box-shadow: 0 6px 16px rgba(0,0,0,.12);
+      }
+    }
 
-/* Smooth scroll for in-page anchors */
-html { scroll-behavior: smooth; }
+    /* ===== Services chooser pills ===== */
+    .services-chooser {
+      padding: 18px 0 8px;
+      border-bottom: 1px solid var(--accent);
+      background: transparent;
+    }
+    /* Nice UX: make chooser stick under header on larger screens */
+    @media (min-width: 800px) {
+      .services-chooser {
+        position: sticky;
+        top: var(--sticky-offset);
+        background: rgba(247,250,248,.9);
+        backdrop-filter: saturate(180%) blur(10px);
+        z-index: 900;
+      }
+    }
+    .services-chooser .pill-row {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    /* Match navbar "active" filled pill look — CSS-only pop-in */
+    .services-chooser .pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: rgba(126,164,147,.10);   /* same as nav a.active */
+      border: 1.5px solid transparent;     /* soft edge */
+      color: var(--ink);
+      font-family: var(--subhead-font);
+      font-size: clamp(15px, 1.6vw, 17px);
+      text-decoration: none;
+      transform: translateY(14px) scale(.96);
+      opacity: 0;
+      animation: pillIn 720ms cubic-bezier(.2,.8,.2,1) forwards;
+    }
+    .services-chooser .pill:nth-child(1) { animation-delay: 0ms; }
+    .services-chooser .pill:nth-child(2) { animation-delay: 120ms; }
+    .services-chooser .pill:nth-child(3) { animation-delay: 240ms; }
 
-/* Services chooser pills */
-.services-chooser {
-  padding: 18px 0 8px;
-  border-bottom: 1px solid var(--accent);
-  background: transparent;
-}
+    .services-chooser .pill:hover {
+      background: var(--accent);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 22px rgba(0,0,0,.08);
+    }
 
-.services-chooser .pill-row {
-  display: flex;
-  gap: 12px;
-  justify-content: center;
-  flex-wrap: wrap;
-}
+    @keyframes pillIn {
+      0%   { opacity: 0; transform: translateY(18px) scale(.92); }
+      60%  { opacity: 1; transform: translateY(-3px) scale(1.04); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
 
-/* Match the navbar's "active" filled pill look */
-.services-chooser .pill {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 10px 18px;
-  border-radius: 999px;
-  background: rgba(126,164,147,.10);   /* same as nav a.active */
-  border: 1.5px solid transparent;     /* soft edge like nav pills */
-  color: var(--ink);
-  font-family: var(--subhead-font);
-  font-size: clamp(15px, 1.6vw, 17px);
-  text-decoration: none;
-  transition: background .2s ease, transform .18s ease, box-shadow .18s ease;
-  opacity: 0;                          /* start hidden for "pop in" */
-  transform: translateY(14px) scale(.96);
-}
-
-/* Hover effect like nav */
-.services-chooser .pill:hover {
-  background: var(--accent);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 22px rgba(0,0,0,.08);
-}
-
-/* Pop-in animation */
-.services-chooser .pill.pop {
-  animation: pillIn 720ms cubic-bezier(.2,.8,.2,1) var(--d, 0ms) forwards;
-}
-
-@keyframes pillIn {
-  0%   { opacity: 0; transform: translateY(18px) scale(.92); }
-  60%  { opacity: 1; transform: translateY(-3px) scale(1.04); }
-  100% { opacity: 1; transform: translateY(0) scale(1); }
-}
-
-/* Make sure in-page anchors account for sticky header */
-#photography .anchor,
-#videography  .anchor,
-#design       .anchor { top: -110px; }  /* matches your taller header */
-
-  
-</style>
-
-
+    /* Reduced motion: still visible */
+    @media (prefers-reduced-motion: reduce) {
+      .services-chooser .pill { animation: none; opacity: 1; transform: none; }
+    }
+  </style>
 </head>
 
 <body>
-<header>
-  <div class="container nav">
-    <div class="brand">
-      <a href="index.html" class="brand-link">
-        <img src="assets/logo.png" alt="Hutzell Creative Co. logo" class="brand-logo">
-      </a>
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <a href="index.html" class="brand-link">
+          <img src="assets/logo.png" alt="Hutzell Creative Co. logo" class="brand-logo">
+        </a>
+      </div>
+      <nav>
+        <ul>
+          <li><a class="nav-script" href="index.html">Home</a></li>
+          <li><a class="nav-script active" href="services.html">Services</a></li>
+          <li><a class="nav-script" href="contact.html">Inquiry</a></li>
+        </ul>
+      </nav>
     </div>
-    <nav>
-      <ul>
-        <li><a class="nav-script" href="index.html">Home</a></li>
-        <li><a class="nav-script active" href="services.html">Services</a></li>
-        <li><a class="nav-script" href="contact.html">Inquiry</a></li>
-      </ul>
-    </nav>
-  </div>
-</header>
+  </header>
 
   <!-- SERVICES CHOOSER (pills) -->
-<nav class="services-chooser" aria-label="Jump to service">
-  <div class="container">
-    <div class="pill-row">
-      <a href="#photography" class="pill">Photography</a>
-      <a href="#videography" class="pill">Videography</a>
-      <a href="#design" class="pill">Design &amp; Branding</a>
+  <nav class="services-chooser" aria-label="Jump to service">
+    <div class="container">
+      <div class="pill-row">
+        <a href="#photography" class="pill">Photography</a>
+        <a href="#videography" class="pill">Videography</a>
+        <a href="#design" class="pill">Design &amp; Branding</a>
+      </div>
     </div>
-  </div>
-</nav>
+  </nav>
 
-<!-- PHOTOGRAPHY -->
-<section class="section" id="photography">
-  <span class="anchor" aria-hidden="true"></span>
-  <div class="container">
-    <h2 class="section-title">Photography</h2>
-    <p class="section-kicker">Weddings • Families • Portraits</p>
+  <!-- PHOTOGRAPHY -->
+  <section class="section" id="photography">
+    <div class="container">
+      <h2 class="section-title">Photography</h2>
+      <p class="section-kicker">Weddings • Families • Portraits</p>
 
-    <div class="grid-2">
-      <div>
-        <p>
-          Timeless, true-to-life imagery that preserves how your day actually felt.
-          Natural posing, gentle direction, and a focus on candid moments.
-        </p>
+      <div class="grid-2">
+        <div>
+          <p>
+            Timeless, true-to-life imagery that preserves how your day actually felt.
+            Natural posing, gentle direction, and a focus on candid moments.
+          </p>
 
-        <!-- Subsections -->
-        <h3 class="section-title" style="font-size:1.25rem; margin-top:1.5rem;">Senior Shoots</h3>
-        <p>Celebrate milestones with confident, creative portraits that reflect personality and style.</p>
+          <!-- Subsections -->
+          <h3 class="section-title" style="font-size:1.25rem; margin-top:1.5rem;">Senior Shoots</h3>
+          <p>Celebrate milestones with confident, creative portraits that reflect personality and style.</p>
 
-        <div class="photo-grid">
-          <img src="assets/img/s7.jpg"  alt="Senior shoot photo" loading="lazy">
-          <img src="assets/img/s13.jpg" alt="Senior shoot photo" loading="lazy">
-          <img src="assets/img/s12.jpg" alt="Senior shoot photo" loading="lazy">
-          <img src="assets/img/s14.jpg" alt="Senior shoot photo" class = "landscape" loading="lazy">
-          <img src="assets/img/s16.jpg" alt="Senior shoot photo" loading="lazy">
-          <img src="assets/img/s19.jpg" alt="Senior shoot photo" loading="lazy">
-          <img src="assets/img/s20.jpg" alt="Senior shoot photo" loading="lazy">
+          <div class="photo-grid">
+            <img src="assets/img/s7.jpg"  alt="Senior shoot photo" loading="lazy">
+            <img src="assets/img/s13.jpg" alt="Senior shoot photo" loading="lazy">
+            <img src="assets/img/s12.jpg" alt="Senior shoot photo" loading="lazy">
+            <img src="assets/img/s14.jpg" alt="Senior shoot photo" class="landscape" loading="lazy">
+            <img src="assets/img/s16.jpg" alt="Senior shoot photo" loading="lazy">
+            <img src="assets/img/s19.jpg" alt="Senior shoot photo" loading="lazy">
+            <img src="assets/img/s20.jpg" alt="Senior shoot photo" loading="lazy">
+          </div>
+
+          <h3 class="section-title" style="font-size:1.25rem; margin-top:1.5rem;">Families</h3>
+          <p>Capture your family’s joy in relaxed, candid sessions that highlight genuine connection.</p>
+
+          <h3 class="section-title" style="font-size:1.25rem; margin-top:1.5rem;">Weddings</h3>
+          <p>From the first look to the final send-off, wedding photography focused on authentic storytelling.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VIDEOGRAPHY -->
+  <section class="section" id="videography">
+    <div class="container">
+      <h2 class="section-title">Videography</h2>
+      <p class="section-kicker">Cinematic highlights • Documentary edits</p>
+
+      <p>Story‑driven films with clean color, intentional music, and a focus on authentic emotion. Below are a couple of recent highlights:</p>
+
+      <div class="video-grid">
+        <div class="video-embed">
+          <iframe src="https://www.youtube.com/embed/Vpdc_gn-qrw"
+                  title="YouTube video player"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen></iframe>
         </div>
 
-        <h3 class="section-title" style="font-size:1.25rem; margin-top:1.5rem;">Families</h3>
-        <p>Capture your family’s joy in relaxed, candid sessions that highlight genuine connection.</p>
-
-        <h3 class="section-title" style="font-size:1.25rem; margin-top:1.5rem;">Weddings</h3>
-        <p>From the first look to the final send-off, wedding photography focused on authentic storytelling.</p>
+        <div class="video-embed">
+          <iframe src="https://www.youtube.com/embed/fQBHS2ZIFLU"
+                  title="YouTube video player"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen></iframe>
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- VIDEOGRAPHY -->
-<section class="section" id="videography">
-  <span class="anchor" aria-hidden="true"></span>
-  <div class="container">
-    <h2 class="section-title">Videography</h2>
-    <p class="section-kicker">Cinematic highlights • Documentary edits</p>
+  <!-- DESIGN -->
+  <section class="section" id="design">
+    <div class="container">
+      <h2 class="section-title">Design</h2>
+      <p class="section-kicker">Branding • Logos • Print & Web</p>
 
-    <p>Story‑driven films with clean color, intentional music, and a focus on authentic emotion. Below are a couple of recent highlights:</p>
-
-    <div class="video-grid">
-      <div class="video-embed">
-        <iframe src="https://www.youtube.com/embed/Vpdc_gn-qrw"
-                title="YouTube video player"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowfullscreen></iframe>
-      </div>
-
-      <div class="video-embed">
-        <iframe src="https://www.youtube.com/embed/fQBHS2ZIFLU"
-                title="YouTube video player"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowfullscreen></iframe>
+      <div class="grid-2">
+        <div>
+          <p>Identity systems that feel like you: wordmarks, icons, palettes, and type that work across socials, print, and web.</p>
+          <ul>
+            <li>Logo suites &amp; brand guidelines</li>
+            <li>Social &amp; print collateral</li>
+            <li>Website layout &amp; visual direction</li>
+          </ul>
+        </div>
+        <div>
+          <!-- Optional: design sample -->
+          <img src="assets/img/design-sample-1.jpg" alt="Design sample" class="rounded" loading="lazy">
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- DESIGN -->
-<section class="section" id="design">
-  <span class="anchor" aria-hidden="true"></span>
-  <div class="container">
-    <h2 class="section-title">Design</h2>
-    <p class="section-kicker">Branding • Logos • Print & Web</p>
+  <footer class="footer">
+    <div class="container">© <span id="year"></span> Hutzell Creative Co.</div>
+  </footer>
 
-    <div class="grid-2">
-      <div>
-        <p>Identity systems that feel like you: wordmarks, icons, palettes, and type that work across socials, print, and web.</p>
-        <ul>
-          <li>Logo suites &amp; brand guidelines</li>
-          <li>Social &amp; print collateral</li>
-          <li>Website layout &amp; visual direction</li>
-        </ul>
-      </div>
-      <div>
-        <!-- Optional: design sample -->
-        <img src="assets/img/design-sample-1.jpg" alt="Design sample" class="rounded" loading="lazy">
-      </div>
-    </div>
-  </div>
-</section>
-
-<footer class="footer">
-  <div class="container">© <span id="year"></span> Hutzell Creative Co.</div>
-</footer>
-
-<script>
-  document.getElementById('year').textContent = new Date().getFullYear();
-</script>
-<script src="main.js"></script>
-<script>
-  // Brief zoom on tap for touch devices (mirrors the desktop hover)
-  (function () {
-    var imgs = document.querySelectorAll('.photo-grid img');
-    imgs.forEach(function (img) {
-      img.addEventListener('touchstart', function () {
-        img.classList.add('tap-zoom');
-        setTimeout(function () { img.classList.remove('tap-zoom'); }, 220);
-      }, { passive: true });
-    });
-  })();
-</script>
-
-<script>
-  // Staggered pop-in on page load
-  window.addEventListener('DOMContentLoaded', function () {
-    var pills = document.querySelectorAll('.services-chooser .pill');
-    pills.forEach(function (el, i) {
-      el.style.setProperty('--d', (i * 120) + 'ms'); // stagger delay
-      el.classList.add('pop');
-    });
-  });
-</script>
-
-  
+  <!-- Small helpers -->
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+  <script src="main.js"></script>
+  <script>
+    // Brief zoom on tap for touch devices (mirrors the desktop hover)
+    (function () {
+      var imgs = document.querySelectorAll('.photo-grid img');
+      imgs.forEach(function (img) {
+        img.addEventListener('touchstart', function () {
+          img.classList.add('tap-zoom');
+          setTimeout(function () { img.classList.remove('tap-zoom'); }, 220);
+        }, { passive: true });
+      });
+    })();
+  </script>
 </body>
 </html>
 

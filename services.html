@@ -127,6 +127,66 @@
       box-shadow: 0 6px 16px rgba(0,0,0,.12);
     }
   }
+
+/* Smooth scroll for in-page anchors */
+html { scroll-behavior: smooth; }
+
+/* Services chooser pills */
+.services-chooser {
+  padding: 18px 0 8px;
+  border-bottom: 1px solid var(--accent);
+  background: transparent;
+}
+
+.services-chooser .pill-row {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Match the navbar's "active" filled pill look */
+.services-chooser .pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 18px;
+  border-radius: 999px;
+  background: rgba(126,164,147,.10);   /* same as nav a.active */
+  border: 1.5px solid transparent;     /* soft edge like nav pills */
+  color: var(--ink);
+  font-family: var(--subhead-font);
+  font-size: clamp(15px, 1.6vw, 17px);
+  text-decoration: none;
+  transition: background .2s ease, transform .18s ease, box-shadow .18s ease;
+  opacity: 0;                          /* start hidden for "pop in" */
+  transform: translateY(14px) scale(.96);
+}
+
+/* Hover effect like nav */
+.services-chooser .pill:hover {
+  background: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(0,0,0,.08);
+}
+
+/* Pop-in animation */
+.services-chooser .pill.pop {
+  animation: pillIn 720ms cubic-bezier(.2,.8,.2,1) var(--d, 0ms) forwards;
+}
+
+@keyframes pillIn {
+  0%   { opacity: 0; transform: translateY(18px) scale(.92); }
+  60%  { opacity: 1; transform: translateY(-3px) scale(1.04); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Make sure in-page anchors account for sticky header */
+#photography .anchor,
+#videography  .anchor,
+#design       .anchor { top: -110px; }  /* matches your taller header */
+
+  
 </style>
 
 
@@ -149,6 +209,17 @@
     </nav>
   </div>
 </header>
+
+  <!-- SERVICES CHOOSER (pills) -->
+<nav class="services-chooser" aria-label="Jump to service">
+  <div class="container">
+    <div class="pill-row">
+      <a href="#photography" class="pill">Photography</a>
+      <a href="#videography" class="pill">Videography</a>
+      <a href="#design" class="pill">Design &amp; Branding</a>
+    </div>
+  </div>
+</nav>
 
 <!-- PHOTOGRAPHY -->
 <section class="section" id="photography">
@@ -259,6 +330,19 @@
     });
   })();
 </script>
+
+<script>
+  // Staggered pop-in on page load
+  window.addEventListener('DOMContentLoaded', function () {
+    var pills = document.querySelectorAll('.services-chooser .pill');
+    pills.forEach(function (el, i) {
+      el.style.setProperty('--d', (i * 120) + 'ms'); // stagger delay
+      el.classList.add('pop');
+    });
+  });
+</script>
+
+  
 </body>
 </html>
 

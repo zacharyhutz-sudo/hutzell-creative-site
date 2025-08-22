@@ -391,19 +391,18 @@ nav a.active { background: rgba(126,164,147,.10); border-color: transparent; }
 }
 @media (max-width: 640px) { .signature { text-align: center; } }
 
-/* ===========================
-   CTA Row (nav-style pills)
-   =========================== */
-.cta-row {
-  display: flex;
-  gap: 1rem;
-  justify-content: center;
-  margin-top: 1.5rem;
-}
+/* Make CTA pills look like active nav items */
 .cta-row .nav-script {
-  padding: 0.5rem 1.25rem;
-  border-radius: 999px;
-  font-size: 1.1rem;
+  background: rgba(126,164,147,.10); /* same as .active */
+  border: 1.5px solid transparent;
+  color: var(--ink);
+  font-family: var(--subhead-font);
+  transition: background .2s ease, color .2s ease;
+}
+
+/* Optional: match hover with nav behavior */
+.cta-row .nav-script:hover {
+  background: var(--accent);
 }
 
 /* ===========================

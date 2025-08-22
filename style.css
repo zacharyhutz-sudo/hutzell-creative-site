@@ -79,7 +79,7 @@ header {
 
 /* Logo scales with header height */
 .brand-logo {
-  height: 80px;     /* was 36px — increase for bigger header */
+  height: 120px;     /* was 36px — increase for bigger header */
   width: auto;
   display: block;
 }

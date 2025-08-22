@@ -391,19 +391,22 @@ nav a.active { background: rgba(126,164,147,.10); border-color: transparent; }
 }
 @media (max-width: 640px) { .signature { text-align: center; } }
 
-/* Make CTA pills look like active nav items */
+/* Match nav active pill look */
 .cta-row .nav-script {
-  background: rgba(126,164,147,.10); /* same as .active */
-  border: 1.5px solid transparent;
-  color: var(--ink);
+  border-radius: 999px; /* ensure pill shape */
+  background: rgba(126,164,147,.10); /* same as nav a.active */
+  border: 1.5px solid transparent;   /* no hard edge */
+  padding: 10px 18px;                /* match nav padding */
   font-family: var(--subhead-font);
+  color: var(--ink);
   transition: background .2s ease, color .2s ease;
 }
 
-/* Optional: match hover with nav behavior */
+/* Hover effect same as navbar */
 .cta-row .nav-script:hover {
   background: var(--accent);
 }
+
 
 /* ===========================
    Home-specific tweaks

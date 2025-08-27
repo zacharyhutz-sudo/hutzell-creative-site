@@ -20,7 +20,7 @@
     html { scroll-behavior: smooth; }
 
     /* Match sticky header height for clean anchor landings */
-    :root { --sticky-offset: 110px; } /* keep in sync with .nav height */
+    :root { --sticky-offset: 110px; }
     section[id] { scroll-margin-top: var(--sticky-offset); }
 
     /* Section headers in EB Garamond (override global cursive) */
@@ -30,7 +30,6 @@
       letter-spacing: .2px;
       margin: 0 0 .25rem 0;
     }
-
     .section-kicker {
       font-family: var(--body-font, 'Della Respira', serif);
       color: var(--muted, #51645c);
@@ -49,130 +48,86 @@
     .grid-2 > div:only-child { grid-column: 1 / -1; }
 
     /* Video embeds */
-    .video-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 1rem;
-    }
+    .video-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
     @media (max-width: 720px) { .video-grid { grid-template-columns: 1fr; } }
-
     .video-embed {
-      position: relative;
-      aspect-ratio: 16 / 9;
-      width: 100%;
-      overflow: hidden;
-      border-radius: 16px;
-      box-shadow: 0 8px 20px rgba(0,0,0,.12);
-      background: #000;
+      position: relative; aspect-ratio: 16 / 9; width: 100%;
+      overflow: hidden; border-radius: 16px; box-shadow: 0 8px 20px rgba(0,0,0,.12); background: #000;
     }
-    .video-embed iframe {
-      position: absolute; inset: 0; width: 100%; height: 100%; border: 0;
-    }
+    .video-embed iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
 
-    /* Spacing between stacked sections */
     .section + .section { padding-top: 1rem; }
-
-    /* --------- Senior Shoots Gallery --------- */
-    .photo-grid {
-      display: grid;
-      gap: 0.75rem;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      justify-content: center;
-      justify-items: center;
-      margin-top: 1rem;
-      max-width: 1200px;
-      margin-inline: auto;
-    }
-    @media (max-width: 640px) {
-      .photo-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 0.5rem;
-      }
-    }
-    .photo-grid img {
-      width: 100%;
-      height: auto;
-      border-radius: 12px;
-      box-shadow: 0 6px 16px rgba(0,0,0,.12);
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
-      will-change: transform;
-      cursor: zoom-in;
-    }
-    .photo-grid img:hover,
-    .photo-grid img.tap-zoom {
-      transform: scale(1.03);
-      box-shadow: 0 10px 22px rgba(0,0,0,.18);
-    }
-    @media (min-width: 768px) {
-      .photo-grid img.landscape { grid-column: span 2; }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      .photo-grid img { transition: none; }
-      .photo-grid img:hover,
-      .photo-grid img.tap-zoom {
-        transform: none;
-        box-shadow: 0 6px 16px rgba(0,0,0,.12);
-      }
-    }
 
     /* ===== Services chooser pills ===== */
     .services-chooser {
-      padding: 18px 0 8px;
-      border-bottom: 1px solid var(--accent);
-      background: transparent;
+      padding: 18px 0 8px; border-bottom: 1px solid var(--accent); background: transparent;
     }
-    /* Nice UX: make chooser stick under header on larger screens */
     @media (min-width: 800px) {
       .services-chooser {
-        position: sticky;
-        top: var(--sticky-offset);
+        position: sticky; top: var(--sticky-offset);
         background: rgba(247,250,248,.9);
         backdrop-filter: saturate(180%) blur(10px);
         z-index: 900;
       }
     }
-    .services-chooser .pill-row {
-      display: flex;
-      gap: 12px;
-      justify-content: center;
-      flex-wrap: wrap;
+    .services-chooser .pill-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .services-chooser .pill{
+      display:inline-flex;align-items:center;justify-content:center;
+      padding:10px 18px;border-radius:999px;background:rgba(126,164,147,.10);
+      border:1.5px solid transparent;color:var(--ink);font-family:var(--subhead-font);
+      font-size:clamp(15px,1.6vw,17px);text-decoration:none;
+      transform:translateY(14px) scale(.96);opacity:0;animation:pillIn 720ms cubic-bezier(.2,.8,.2,1) forwards;
     }
-    /* Match navbar "active" filled pill look — CSS-only pop-in */
-    .services-chooser .pill {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 10px 18px;
-      border-radius: 999px;
-      background: rgba(126,164,147,.10);   /* same as nav a.active */
-      border: 1.5px solid transparent;     /* soft edge */
-      color: var(--ink);
-      font-family: var(--subhead-font);
-      font-size: clamp(15px, 1.6vw, 17px);
-      text-decoration: none;
-      transform: translateY(14px) scale(.96);
-      opacity: 0;
-      animation: pillIn 720ms cubic-bezier(.2,.8,.2,1) forwards;
-    }
-    .services-chooser .pill:nth-child(1) { animation-delay: 0ms; }
-    .services-chooser .pill:nth-child(2) { animation-delay: 120ms; }
-    .services-chooser .pill:nth-child(3) { animation-delay: 240ms; }
+    .services-chooser .pill:nth-child(1){animation-delay:0ms}
+    .services-chooser .pill:nth-child(2){animation-delay:120ms}
+    .services-chooser .pill:nth-child(3){animation-delay:240ms}
+    .services-chooser .pill:hover{background:var(--accent);transform:translateY(-2px);box-shadow:0 8px 22px rgba(0,0,0,.08)}
+    @keyframes pillIn{0%{opacity:0;transform:translateY(18px) scale(.92)}60%{opacity:1;transform:translateY(-3px) scale(1.04)}100%{opacity:1;transform:translateY(0) scale(1)}}
+    @media (prefers-reduced-motion: reduce){.services-chooser .pill{animation:none;opacity:1;transform:none}}
 
-    .services-chooser .pill:hover {
-      background: var(--accent);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 22px rgba(0,0,0,.08);
+    /* ===== Photography Slider (replaces grid) ===== */
+    .photo-slider {
+      max-width: 1200px; margin: 1rem auto; padding: 0;
     }
-
-    @keyframes pillIn {
-      0%   { opacity: 0; transform: translateY(18px) scale(.92); }
-      60%  { opacity: 1; transform: translateY(-3px) scale(1.04); }
-      100% { opacity: 1; transform: translateY(0) scale(1); }
+    .photo-slider .viewport {
+      position: relative; aspect-ratio: 3 / 2; /* adjust if you prefer */
+      width: 100%; overflow: hidden; border-radius: 16px;
+      border: 1px solid var(--accent); background: #fff;
+      box-shadow: 0 8px 20px rgba(0,0,0,.10);
     }
+    .photo-slider .slide {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      object-fit: cover; opacity: 0; transition: opacity .4s ease;
+      will-change: opacity;
+    }
+    .photo-slider .slide.is-active { opacity: 1; }
+    @media (prefers-reduced-motion: reduce){ .photo-slider .slide { transition: none; } }
 
-    /* Reduced motion: still visible */
-    @media (prefers-reduced-motion: reduce) {
-      .services-chooser .pill { animation: none; opacity: 1; transform: none; }
+    .photo-slider .nav {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      width: 42px; height: 42px; border-radius: 999px; border: 1px solid var(--accent);
+      background: rgba(255,255,255,.9); backdrop-filter: saturate(180%) blur(8px);
+      display: grid; place-items: center; cursor: pointer; user-select: none;
+      box-shadow: 0 4px 14px rgba(0,0,0,.10);
+    }
+    .photo-slider .nav:hover { background: #fff; }
+    .photo-slider .nav:active { transform: translateY(-50%) scale(.98); }
+    .photo-slider .prev { left: 10px; }
+    .photo-slider .next { right: 10px; }
+    .photo-slider .nav svg { width: 18px; height: 18px; }
+
+    .photo-slider .dots {
+      display: flex; gap: 6px; justify-content: center; align-items: center;
+      margin-top: .6rem;
+    }
+    .photo-slider .dot {
+      width: 8px; height: 8px; border-radius: 999px; border: 1px solid var(--accent);
+      background: #fff; opacity: .7; cursor: pointer;
+    }
+    .photo-slider .dot.is-active { background: var(--green); border-color: var(--green-2); opacity: 1; }
+    .photo-slider .sr-only {
+      position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0,0,0,0); border: 0;
     }
   </style>
 </head>
@@ -214,37 +169,51 @@
 
       <div class="grid-2">
         <div>
-          <p>
-            Timeless images that capture the beauty of your special moments
-          </p>
+          <p>Timeless images that capture the beauty of your special moments.</p>
 
           <!-- Subsections -->
-         
           <h3 class="section-title" style="font-size:1.25rem; margin-top:1.5rem;">Families</h3>
-          <p>Capture your family’s joy in relaxed, candid sessions that highlight genuine connection</p>
+          <p>Capture your family’s joy in relaxed, candid sessions that highlight genuine connection.</p>
 
           <h3 class="section-title" style="font-size:1.25rem; margin-top:1.5rem;">Senior Shoots</h3>
-          <p>Celebrate milestones with confident, creative portraits that reflect personality and style</p>
+          <p>Celebrate milestones with confident, creative portraits that reflect personality and style.</p>
 
-          <div class="photo-grid">
-            <img src="assets/img/s7.jpg"  alt="Senior shoot photo" loading="lazy">
-            <img src="assets/img/s13.jpg" alt="Senior shoot photo" loading="lazy">
-            <img src="assets/img/s12.jpg" alt="Senior shoot photo" loading="lazy">
-            <img src="assets/img/s14.jpg" alt="Senior shoot photo" class="landscape" loading="lazy">
-            <img src="assets/img/s16.jpg" alt="Senior shoot photo" loading="lazy">
-            <img src="assets/img/s19.jpg" alt="Senior shoot photo" loading="lazy">
-            <img src="assets/img/s20.jpg" alt="Senior shoot photo" loading="lazy">
+          <!-- === SLIDER: one image at a time with arrows === -->
+          <div class="photo-slider" aria-label="Photography samples">
+            <div class="viewport" id="photoViewport">
+              <!-- Images: only first is visible; others lazy-load -->
+              <img src="assets/img/s7.jpg"  alt="Senior shoot" class="slide is-active" loading="eager" fetchpriority="high">
+              <img src="assets/img/s13.jpg" alt="Senior shoot" class="slide" loading="lazy">
+              <img src="assets/img/s12.jpg" alt="Senior shoot" class="slide" loading="lazy">
+              <img src="assets/img/s14.jpg" alt="Senior shoot" class="slide" loading="lazy">
+              <img src="assets/img/s16.jpg" alt="Senior shoot" class="slide" loading="lazy">
+              <img src="assets/img/s19.jpg" alt="Senior shoot" class="slide" loading="lazy">
+              <img src="assets/img/s20.jpg" alt="Senior shoot" class="slide" loading="lazy">
+
+              <!-- Prev / Next buttons -->
+              <button class="nav prev" aria-label="Previous photo" type="button">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="M15 6l-6 6 6 6"/>
+                </svg>
+              </button>
+              <button class="nav next" aria-label="Next photo" type="button">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="M9 6l6 6-6 6"/>
+                </svg>
+              </button>
+              <span class="sr-only" id="photoLive" aria-live="polite"></span>
+            </div>
+            <div class="dots" role="tablist" aria-label="Choose photo"></div>
           </div>
-          
-          <h3 class="section-title" style="font-size:1.25rem; margin-top:1.5rem;">Couples</h3>
-          <p>Natural, Candid Moments with the One You Love</p>
-          
-          <h3 class="section-title" style="font-size:1.25rem; margin-top:1.5rem;">Weddings</h3>
-          <p>From the first look to the final send-off, wedding photography focused on authentic storytelling</p>
 
-           <h3 class="section-title" style="font-size:1.25rem; margin-top:1.5rem;">Events</h3>
-          <p>Professional Storytelling for Every Occasion</p>
-          
+          <h3 class="section-title" style="font-size:1.25rem; margin-top:1.5rem;">Couples</h3>
+          <p>Natural, candid moments with the one you love.</p>
+
+          <h3 class="section-title" style="font-size:1.25rem; margin-top:1.5rem;">Weddings</h3>
+          <p>The moments you’ll relive for a lifetime.</p>
+
+          <h3 class="section-title" style="font-size:1.25rem; margin-top:1.5rem;">Events</h3>
+          <p>Professional storytelling for every occasion.</p>
         </div>
       </div>
     </div>
@@ -256,7 +225,7 @@
       <h2 class="section-title">Videography</h2>
       <p class="section-kicker">Cinematic Wedding Films • Full Ceremony Recordings</p>
 
-      <p>Story‑driven films with clean color, intentional music, and a focus on authentic emotion. Below are a couple of recent highlights:</p>
+      <p>Story-driven films with clean color, intentional music, and a focus on authentic emotion. Below are a couple of recent highlights:</p>
 
       <div class="video-grid">
         <div class="video-embed">
@@ -292,7 +261,6 @@
           </ul>
         </div>
         <div>
-          <!-- Optional: design sample -->
           <img src="assets/img/design-sample-1.jpg" alt="Design sample" class="rounded" loading="lazy">
         </div>
       </div>
@@ -307,20 +275,93 @@
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
   </script>
-  <script src="main.js"></script>
+
+  <!-- Slider logic: arrows, dots, keyboard, swipe -->
   <script>
-    // Brief zoom on tap for touch devices (mirrors the desktop hover)
-    (function () {
-      var imgs = document.querySelectorAll('.photo-grid img');
-      imgs.forEach(function (img) {
-        img.addEventListener('touchstart', function () {
-          img.classList.add('tap-zoom');
-          setTimeout(function () { img.classList.remove('tap-zoom'); }, 220);
-        }, { passive: true });
+    (function(){
+      var viewport = document.getElementById('photoViewport');
+      if (!viewport) return;
+
+      var slides = Array.from(viewport.querySelectorAll('.slide'));
+      var prevBtn = viewport.querySelector('.prev');
+      var nextBtn = viewport.querySelector('.next');
+      var live    = viewport.querySelector('#photoLive');
+      var dotsWrap = viewport.parentElement.querySelector('.dots');
+
+      var idx = 0;
+      function show(i){
+        idx = (i + slides.length) % slides.length;
+        slides.forEach(function(img, n){ img.classList.toggle('is-active', n === idx); });
+        if (dotsWrap){
+          var dots = dotsWrap.querySelectorAll('.dot');
+          dots.forEach(function(d, n){ d.classList.toggle('is-active', n === idx); d.setAttribute('aria-selected', n===idx); });
+        }
+        if (live) live.textContent = 'Photo ' + (idx+1) + ' of ' + slides.length;
+      }
+
+      // Dots
+      if (dotsWrap){
+        slides.forEach(function(_, n){
+          var b = document.createElement('button');
+          b.className = 'dot' + (n===0 ? ' is-active' : '');
+          b.type = 'button';
+          b.setAttribute('role','tab');
+          b.setAttribute('aria-label','Show photo ' + (n+1));
+          b.addEventListener('click', function(){ show(n); });
+          dotsWrap.appendChild(b);
+        });
+      }
+
+      // Buttons
+      prevBtn.addEventListener('click', function(){ show(idx - 1); });
+      nextBtn.addEventListener('click', function(){ show(idx + 1); });
+
+      // Keyboard
+      viewport.addEventListener('keydown', function(e){
+        if (e.key === 'ArrowLeft') { e.preventDefault(); show(idx - 1); }
+        if (e.key === 'ArrowRight'){ e.preventDefault(); show(idx + 1); }
       });
+      // Make viewport focusable for keyboard users
+      viewport.tabIndex = 0;
+
+      // Swipe (touch)
+      var startX = 0, active = false;
+      viewport.addEventListener('touchstart', function(e){
+        active = true; startX = e.changedTouches[0].clientX;
+      }, {passive:true});
+      viewport.addEventListener('touchend', function(e){
+        if (!active) return; active = false;
+        var dx = e.changedTouches[0].clientX - startX;
+        if (Math.abs(dx) > 40){
+          if (dx > 0) show(idx - 1); else show(idx + 1);
+        }
+      }, {passive:true});
+
+      // Lazy-load n+1 proactively when visible
+      var io = ('IntersectionObserver' in window) ? new IntersectionObserver(function(entries){
+        entries.forEach(function(entry){
+          if (entry.isIntersecting){
+            // Preload the next image
+            var next = slides[(idx + 1) % slides.length];
+            if (next && next.loading === 'lazy' && next.dataset.preloaded !== '1'){
+              var img = new Image();
+              img.src = next.src;
+              next.dataset.preloaded = '1';
+            }
+          }
+        });
+      }) : null;
+      if (io) io.observe(viewport);
+
+      // Init
+      show(0);
     })();
   </script>
+
+  <!-- Keep your main.js if needed -->
+  <script src="main.js"></script>
 </body>
 </html>
+
 
 

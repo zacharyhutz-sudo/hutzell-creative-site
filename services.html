@@ -163,6 +163,21 @@
       white-space: nowrap;
       border: 0;
     }
+    /* Buttons define the color */
+.photo-slider .nav {
+  /* ...your existing styles... */
+  color: var(--green-3);
+}
+
+/* SVGs inherit that color for their stroke */
+.photo-slider .nav svg,
+.photo-slider .nav svg path {
+  stroke: currentColor;      /* ensures visibility */
+  stroke-width: 2;           /* belt-and-suspenders */
+  fill: none;                /* keep it as an outline arrow */
+  display: block;
+}
+
   </style>
 </head>
 

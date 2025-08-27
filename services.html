@@ -20,7 +20,7 @@
     html { scroll-behavior: smooth; }
 
     /* Match sticky header height for clean anchor landings */
-    :root { --sticky-offset: 110px; }
+    :root { --sticky-offset: 110px; } /* keep in sync with header/nav height */
     section[id] { scroll-margin-top: var(--sticky-offset); }
 
     /* Section headers in EB Garamond (override global cursive) */
@@ -62,6 +62,7 @@
     .services-chooser {
       padding: 18px 0 8px; border-bottom: 1px solid var(--accent); background: transparent;
     }
+    /* Nice UX: stick under header on larger screens */
     @media (min-width: 800px) {
       .services-chooser {
         position: sticky; top: var(--sticky-offset);
@@ -71,6 +72,7 @@
       }
     }
     .services-chooser .pill-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    /* Match navbar "active" filled pill look + pop-in */
     .services-chooser .pill{
       display:inline-flex;align-items:center;justify-content:center;
       padding:10px 18px;border-radius:999px;background:rgba(126,164,147,.10);
@@ -85,38 +87,47 @@
     @keyframes pillIn{0%{opacity:0;transform:translateY(18px) scale(.92)}60%{opacity:1;transform:translateY(-3px) scale(1.04)}100%{opacity:1;transform:translateY(0) scale(1)}}
     @media (prefers-reduced-motion: reduce){.services-chooser .pill{animation:none;opacity:1;transform:none}}
 
-    /* ===== Photography Slider ===== */
+    /* ===== Photography Slider (no crop + blurred transparent backdrop) ===== */
     .photo-slider { max-width: 1200px; margin: 1rem auto; padding: 0; }
     .photo-slider .viewport {
       position: relative;
-      aspect-ratio: 3 / 2; width: 100%;
+      aspect-ratio: 3 / 2;            /* desktop frame */
+      width: 100%;
       overflow: hidden;
       border-radius: 16px;
       border: 1px solid var(--accent);
       background: transparent;
       box-shadow: 0 8px 20px rgba(0,0,0,.10);
-      --bg: none;
-      isolation: isolate;
+      --bg: none;                      /* set via JS to url(...) */
+      isolation: isolate;              /* keep blur layer behind controls */
     }
+    /* Blurred backdrop using the current image */
     .photo-slider .viewport::before {
       content: "";
       position: absolute; inset: 0;
       background-image: var(--bg);
       background-size: cover; background-position: center;
       filter: blur(24px) saturate(115%);
-      transform: scale(1.08);
-      opacity: .55;
+      transform: scale(1.08);          /* avoid edge clipping when blurred */
+      opacity: .55;                    /* transparent feel */
       pointer-events: none;
+      will-change: transform, filter, opacity;
     }
+
+    /* Always show full image (no crop) */
     .photo-slider .slide {
       position: absolute; inset: 0; width: 100%; height: 100%;
-      object-fit: contain; object-position: center;
-      opacity: 0; transition: opacity .4s ease;
-      background: transparent;
+      object-fit: contain;             /* key: no cropping */
+      object-position: center;
+      opacity: 0; transition: opacity .4s ease; will-change: opacity;
+      background: transparent;         /* no bars */
     }
     .photo-slider .slide.is-active { opacity: 1; }
+
+    /* Taller frame on small screens so 2x3 portraits look great */
     @media (max-width: 800px) { .photo-slider .viewport { aspect-ratio: 2 / 3; } }
 
+    /* Nav buttons — centered, with darker green arrows */
     .photo-slider .nav {
       position: absolute; top: 50%; transform: translateY(-50%);
       width: 42px; height: 42px; border-radius: 999px;
@@ -124,7 +135,8 @@
       background: rgba(255,255,255,.92);
       backdrop-filter: saturate(180%) blur(8px);
       display: inline-flex; align-items: center; justify-content: center;
-      cursor: pointer;
+      box-sizing: border-box; padding: 0; margin: 0; line-height: 0;
+      cursor: pointer; user-select: none;
       box-shadow: 0 4px 14px rgba(0,0,0,.10);
       z-index: 2;
     }
@@ -132,11 +144,6 @@
     .photo-slider .nav:active { transform: translateY(-50%) scale(.98); }
     .photo-slider .prev { left: 10px; }
     .photo-slider .next { right: 10px; }
-    .photo-slider .nav svg {
-      width: 18px; height: 18px;
-      stroke: var(--green-3);
-      display: block;
-    }
 
     .photo-slider .dots {
       display: flex; gap: 6px; justify-content: center; align-items: center;
@@ -163,21 +170,6 @@
       white-space: nowrap;
       border: 0;
     }
-    /* Buttons define the color */
-.photo-slider .nav {
-  /* ...your existing styles... */
-  color: var(--green-3);
-}
-
-/* SVGs inherit that color for their stroke */
-.photo-slider .nav svg,
-.photo-slider .nav svg path {
-  stroke: currentColor;      /* ensures visibility */
-  stroke-width: 2;           /* belt-and-suspenders */
-  fill: none;                /* keep it as an outline arrow */
-  display: block;
-}
-
   </style>
 </head>
 
@@ -238,10 +230,26 @@
               <img src="assets/img/s20.jpg" alt="Senior shoot" class="slide" loading="lazy">
 
               <button class="nav prev" aria-label="Previous photo" type="button">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M15 6l-6 6 6 6"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg"
+                     viewBox="0 0 24 24"
+                     fill="none"
+                     stroke="var(--green-3)"
+                     stroke-width="2"
+                     stroke-linecap="round"
+                     stroke-linejoin="round">
+                  <path d="M15 6l-6 6 6 6"/>
+                </svg>
               </button>
               <button class="nav next" aria-label="Next photo" type="button">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg"
+                     viewBox="0 0 24 24"
+                     fill="none"
+                     stroke="var(--green-3)"
+                     stroke-width="2"
+                     stroke-linecap="round"
+                     stroke-linejoin="round">
+                  <path d="M9 6l6 6-6 6"/>
+                </svg>
               </button>
 
               <!-- Hidden live region for screen readers -->
@@ -321,6 +329,7 @@
       var live     = viewport.querySelector('#photoLive');
       var dotsWrap = viewport.parentElement.querySelector('.dots');
 
+      /* Set blurred backdrop to current image */
       function setBackdrop(src){
         viewport.style.setProperty('--bg', 'url("' + src.replace(/"/g, '\\"') + '")');
       }
@@ -337,6 +346,7 @@
         if (live) live.textContent = 'Photo ' + (idx+1) + ' of ' + slides.length;
       }
 
+      /* Build dots */
       if (dotsWrap){
         slides.forEach((_,n)=>{
           var b=document.createElement('button');
@@ -348,15 +358,18 @@
         });
       }
 
+      /* Controls */
       prevBtn.addEventListener('click', ()=>show(idx-1));
       nextBtn.addEventListener('click', ()=>show(idx+1));
 
+      /* Keyboard */
       viewport.tabIndex=0;
       viewport.addEventListener('keydown', e=>{
         if(e.key==='ArrowLeft'){e.preventDefault();show(idx-1);}
         if(e.key==='ArrowRight'){e.preventDefault();show(idx+1);}
       });
 
+      /* Swipe */
       let startX=0,active=false;
       viewport.addEventListener('touchstart',e=>{active=true;startX=e.changedTouches[0].clientX;},{passive:true});
       viewport.addEventListener('touchend',e=>{
@@ -365,6 +378,7 @@
         if(Math.abs(dx)>40){dx>0?show(idx-1):show(idx+1);}
       },{passive:true});
 
+      /* Init */
       setBackdrop(slides[0].src);
       show(0);
     })();
@@ -373,8 +387,5 @@
   <script src="main.js"></script>
 </body>
 </html>
-
-
-
 
 

@@ -64,7 +64,7 @@ header {
   position: sticky; top: 0;
   background: rgba(247,250,248,.9);
   backdrop-filter: saturate(180%) blur(10px);
-  border-bottom: 1px solid var(--accent);
+  border-bottom: none !important;
   z-index: 1000;
 }
 

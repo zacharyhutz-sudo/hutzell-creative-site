@@ -85,53 +85,109 @@
     @keyframes pillIn{0%{opacity:0;transform:translateY(18px) scale(.92)}60%{opacity:1;transform:translateY(-3px) scale(1.04)}100%{opacity:1;transform:translateY(0) scale(1)}}
     @media (prefers-reduced-motion: reduce){.services-chooser .pill{animation:none;opacity:1;transform:none}}
 
-    /* ===== Photography Slider (replaces grid) ===== */
-    .photo-slider {
-      max-width: 1200px; margin: 1rem auto; padding: 0;
-    }
-    .photo-slider .viewport {
-      position: relative; aspect-ratio: 3 / 2; /* adjust if you prefer */
-      width: 100%; overflow: hidden; border-radius: 16px;
-      border: 1px solid var(--accent); background: #fff;
-      box-shadow: 0 8px 20px rgba(0,0,0,.10);
-    }
-    .photo-slider .slide {
-      position: absolute; inset: 0; width: 100%; height: 100%;
-      object-fit: cover; opacity: 0; transition: opacity .4s ease;
-      will-change: opacity;
-    }
-    .photo-slider .slide.is-active { opacity: 1; }
-    @media (prefers-reduced-motion: reduce){ .photo-slider .slide { transition: none; } }
+    /* ===== Photography Slider (updated) ===== */
+.photo-slider {
+  max-width: 1200px; margin: 1rem auto; padding: 0;
+}
+.photo-slider .viewport {
+  position: relative;
+  aspect-ratio: 3 / 2;             /* desktop: wider frame */
+  width: 100%;
+  overflow: hidden;
+  border-radius: 16px;
+  border: 1px solid var(--accent);
+  background: #fff;
+  box-shadow: 0 8px 20px rgba(0,0,0,.10);
+}
 
-    .photo-slider .nav {
-      position: absolute; top: 50%; transform: translateY(-50%);
-      width: 42px; height: 42px; border-radius: 999px; border: 1px solid var(--accent);
-      background: rgba(255,255,255,.9); backdrop-filter: saturate(180%) blur(8px);
-      display: grid; place-items: center; cursor: pointer; user-select: none;
-      box-shadow: 0 4px 14px rgba(0,0,0,.10);
-    }
-    .photo-slider .nav:hover { background: #fff; }
-    .photo-slider .nav:active { transform: translateY(-50%) scale(.98); }
-    .photo-slider .prev { left: 10px; }
-    .photo-slider .next { right: 10px; }
-    .photo-slider .nav svg { width: 18px; height: 18px; }
+/* Default: fill edge-to-edge for horizontal images */
+.photo-slider .slide {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center;
+  opacity: 0; transition: opacity .4s ease;
+  will-change: opacity;
+  background: #fff;
+}
+.photo-slider .slide.is-active { opacity: 1; }
 
-    .photo-slider .dots {
-      display: flex; gap: 6px; justify-content: center; align-items: center;
-      margin-top: .6rem;
-    }
-    .photo-slider .dot {
-      width: 8px; height: 8px; border-radius: 999px; border: 1px solid var(--accent);
-      background: #fff; opacity: .7; cursor: pointer;
-    }
-    .photo-slider .dot.is-active { background: var(--green); border-color: var(--green-2); opacity: 1; }
-    .photo-slider .sr-only {
-      position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px;
-      overflow: hidden; clip: rect(0,0,0,0); border: 0;
-    }
+/* Portrait images: show full image without cropping (letterbox left/right) */
+.photo-slider .slide.portrait {
+  object-fit: contain;
+  background: #000; /* you can make this #000 if you prefer cinema bars */
+}
+
+/* Make the frame taller on small screens so 2x3 looks great */
+@media (max-width: 800px) {
+  .photo-slider .viewport { aspect-ratio: 2 / 3; }
+}
+
+/* Nav buttons — perfectly centered circles */
+.photo-slider .nav {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  width: 42px; height: 42px; border-radius: 999px;
+  border: 1px solid var(--accent);
+  background: rgba(255,255,255,.92);
+  backdrop-filter: saturate(180%) blur(8px);
+  display: flex; align-items: center; justify-content: center;
+  box-sizing: border-box; padding: 0; margin: 0; line-height: 0;
+  cursor: pointer; user-select: none;
+  box-shadow: 0 4px 14px rgba(0,0,0,.10);
+}
+.photo-slider .nav:hover { background: #fff; }
+.photo-slider .nav:active { transform: translateY(-50%) scale(.98); }
+.photo-slider .prev { left: 10px; }
+.photo-slider .next { right: 10px; }
+
+/* Ensure SVGs are pixel-perfect centered */
+.photo-slider .nav svg {
+  width: 18px; height: 18px;
+  display: block; /* remove inline baseline gap */
+  pointer-events: none;
+}
+
+.photo-slider .dots {
+  display: flex; gap: 6px; justify-content: center; align-items: center;
+  margin-top: .6rem;
+}
+.photo-slider .dot {
+  width: 8px; height: 8px; border-radius: 999px;
+  border: 1px solid var(--accent);
+  background: #fff; opacity: .7; cursor: pointer;
+}
+.photo-slider .dot.is-active {
+  background: var(--green);
+  border-color: var(--green-2);
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .photo-slider .slide { transition: none; }
+}
+
   </style>
 </head>
 
+<script>
+  (function(){
+    var viewport = document.getElementById('photoViewport');
+    if (!viewport) return;
+    var slides = Array.from(viewport.querySelectorAll('.slide'));
+
+    // Mark portrait images (taller than wide)
+    slides.forEach(function(img){
+      if (img.complete) {
+        if (img.naturalHeight > img.naturalWidth) img.classList.add('portrait');
+      } else {
+        img.addEventListener('load', function(){
+          if (img.naturalHeight > img.naturalWidth) img.classList.add('portrait');
+        });
+      }
+    });
+  })();
+</script>
+
+  
 <body>
   <header>
     <div class="container nav">

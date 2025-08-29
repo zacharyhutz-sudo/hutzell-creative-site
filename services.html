@@ -23,13 +23,13 @@
     :root { --sticky-offset: 110px; } /* keep in sync with header/nav height */
     section[id] { scroll-margin-top: var(--sticky-offset); }
 
-    /* Section headers in EB Garamond (override global cursive) */
+    /* Section titles now Grenhil */
     .section-title {
-  font-family: 'TheGrenhil', serif !important; /* now Grenhil */
-  font-weight: 400; /* Grenhil looks better lighter */
-  letter-spacing: .2px;
-  margin: 0 0 .25rem 0;
-}
+      font-family: 'TheGrenhil', serif !important;
+      font-weight: 400;
+      letter-spacing: .2px;
+      margin: 0 0 .25rem 0;
+    }
     .section-kicker {
       font-family: var(--body-font, 'Della Respira', serif);
       color: var(--muted, #51645c);
@@ -58,37 +58,41 @@
 
     .section + .section { padding-top: 1rem; }
 
-    /* ===== Services chooser pills ===== */
-    .services-chooser {
-  padding: 18px 0 8px;
-  border-bottom: 1px solid var(--accent); /* <- this is the line */
-  background: transparent;
-}
-
-    /* Nice UX: stick under header on larger screens */
-    @media (min-width: 800px) {
-      .services-chooser {
-        position: sticky; top: var(--sticky-offset);
-        background: rgba(247,250,248,.9);
-        backdrop-filter: saturate(180%) blur(10px);
-        z-index: 900;
-      }
+    /* ===== Services chooser pills (now inside header nav) ===== */
+    .services-chooser .pill-row {
+      display: flex; gap: 12px; flex-wrap: wrap;
     }
-    .services-chooser .pill-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
-    /* Match navbar "active" filled pill look + pop-in */
-    .services-chooser .pill{
-      display:inline-flex;align-items:center;justify-content:center;
-      padding:10px 18px;border-radius:999px;background:rgba(126,164,147,.10);
-      border:1.5px solid transparent;color:var(--ink);font-family:var(--subhead-font);
-      font-size:clamp(15px,1.6vw,17px);text-decoration:none;
-      transform:translateY(14px) scale(.96);opacity:0;animation:pillIn 720ms cubic-bezier(.2,.8,.2,1) forwards;
+    .services-chooser .pill {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 10px 18px; border-radius: 999px; background: rgba(126,164,147,.10);
+      border: 1.5px solid transparent; color: var(--ink); font-family: var(--subhead-font);
+      font-size: clamp(15px, 1.6vw, 17px); text-decoration: none;
+      transform: translateY(14px) scale(.96); opacity: 0;
+      animation: pillIn 720ms cubic-bezier(.2,.8,.2,1) forwards;
     }
     .services-chooser .pill:nth-child(1){animation-delay:0ms}
     .services-chooser .pill:nth-child(2){animation-delay:120ms}
     .services-chooser .pill:nth-child(3){animation-delay:240ms}
-    .services-chooser .pill:hover{background:var(--accent);transform:translateY(-2px);box-shadow:0 8px 22px rgba(0,0,0,.08)}
+    .services-chooser .pill:hover{background:var(--accent); transform:translateY(-2px); box-shadow:0 8px 22px rgba(0,0,0,.08)}
     @keyframes pillIn{0%{opacity:0;transform:translateY(18px) scale(.92)}60%{opacity:1;transform:translateY(-3px) scale(1.04)}100%{opacity:1;transform:translateY(0) scale(1)}}
     @media (prefers-reduced-motion: reduce){.services-chooser .pill{animation:none;opacity:1;transform:none}}
+
+    /* Desktop: inject pills inline with navbar (after main links) */
+    @media (min-width: 900px) {
+      .services-page header nav { display: flex; align-items: center; }
+      .services-page header nav ul { display: flex; align-items: center; gap: 22px; }
+      .services-page header nav .services-chooser { display: contents; }
+      .services-page header nav .services-chooser .pill-row { margin-left: 24px; }
+    }
+
+    /* Mobile: show pills as a compact row under the nav links (inside header) */
+    @media (max-width: 899px) {
+      .services-page header nav .services-chooser {
+        display: block;
+        margin-top: 8px;
+      }
+      .services-page header nav .services-chooser .pill-row { justify-content: center; }
+    }
 
     /* ===== Photography Slider (no crop + blurred transparent backdrop) ===== */
     .photo-slider { max-width: 1200px; margin: 1rem auto; padding: 0; }
@@ -142,11 +146,16 @@
       cursor: pointer; user-select: none;
       box-shadow: 0 4px 14px rgba(0,0,0,.10);
       z-index: 2;
+      color: var(--green-3);           /* arrows inherit this color */
     }
     .photo-slider .nav:hover { background: #fff; }
     .photo-slider .nav:active { transform: translateY(-50%) scale(.98); }
     .photo-slider .prev { left: 10px; }
     .photo-slider .next { right: 10px; }
+    .photo-slider .nav svg,
+    .photo-slider .nav svg path {
+      stroke: currentColor; fill: none; stroke-width: 2; display: block;
+    }
 
     .photo-slider .dots {
       display: flex; gap: 6px; justify-content: center; align-items: center;
@@ -176,7 +185,7 @@
   </style>
 </head>
 
-<body>
+<body class="services-page">
   <header>
     <div class="container nav">
       <div class="brand">
@@ -190,20 +199,17 @@
           <li><a class="nav-script active" href="services.html">Services</a></li>
           <li><a class="nav-script" href="contact.html">Inquiry</a></li>
         </ul>
+        <!-- SERVICES CHOOSER (now inside navbar) -->
+        <nav class="services-chooser" aria-label="Jump to service">
+          <div class="pill-row">
+            <a href="#photography" class="pill">Photography</a>
+            <a href="#videography" class="pill">Videography</a>
+            <a href="#design" class="pill">Design &amp; Branding</a>
+          </div>
+        </nav>
       </nav>
     </div>
   </header>
-
-  <!-- SERVICES CHOOSER -->
-  <nav class="services-chooser" aria-label="Jump to service">
-    <div class="container">
-      <div class="pill-row">
-        <a href="#photography" class="pill">Photography</a>
-        <a href="#videography" class="pill">Videography</a>
-        <a href="#design" class="pill">Design &amp; Branding</a>
-      </div>
-    </div>
-  </nav>
 
   <!-- PHOTOGRAPHY -->
   <section class="section" id="photography">
@@ -233,24 +239,12 @@
               <img src="assets/img/s20.jpg" alt="Senior shoot" class="slide" loading="lazy">
 
               <button class="nav prev" aria-label="Previous photo" type="button">
-                <svg xmlns="http://www.w3.org/2000/svg"
-                     viewBox="0 0 24 24"
-                     fill="none"
-                     stroke="var(--green-3)"
-                     stroke-width="2"
-                     stroke-linecap="round"
-                     stroke-linejoin="round">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                   <path d="M15 6l-6 6 6 6"/>
                 </svg>
               </button>
               <button class="nav next" aria-label="Next photo" type="button">
-                <svg xmlns="http://www.w3.org/2000/svg"
-                     viewBox="0 0 24 24"
-                     fill="none"
-                     stroke="var(--green-3)"
-                     stroke-width="2"
-                     stroke-linecap="round"
-                     stroke-linejoin="round">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                   <path d="M9 6l6 6-6 6"/>
                 </svg>
               </button>

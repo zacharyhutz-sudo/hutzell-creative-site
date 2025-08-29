@@ -14,11 +14,17 @@
   <link rel="stylesheet" href="style.css"/>
 
   <style>
-    /* Left-align paragraphs after the note */
-    .about-us .about-note-title + p,
-    .about-us .about-note-title + p ~ p {
-      text-align: left;
+    /* About Us label: match Note style, centered */
+    .about-us .about-label {
+      font-family: 'EB Garamond', serif;
+      font-weight: 500;
+      font-size: 1.5rem;
+      text-align: center;
+      margin: 16px 0 6px;
     }
+
+    /* Remove section borders */
+    .section { border-bottom: none !important; }
   </style>
 </head>
 
@@ -44,7 +50,10 @@
     <div class="container">
       <div class="kicker">Hutzell Creative Co. • Est. 2024</div>
       <h1>
-        The single team for all your creative needs — photography, videography, and design.
+        The single team for all your creative needs —
+        <strong>photography</strong>,
+        <strong>videography</strong>, and
+        <strong>design</strong>.
       </h1>
       <p class="subtitle">
         A husband-and-wife led creative agency serving Athens, GA and beyond.
@@ -89,8 +98,8 @@
   <section class="section about-us" id="about">
     <div class="container">
 
-      <!-- Move heading ABOVE the image -->
-      <h3 class="about-label">About us:</h3>
+      <!-- About Us title centered -->
+      <h3 class="about-label">About Us</h3>
 
       <img
         src="assets/img/aboutus.png"

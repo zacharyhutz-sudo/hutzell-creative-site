@@ -36,6 +36,27 @@
 
   /* Layout */
   --max: 1240px;
+
+  /* Rhythm & Type scale (added) */
+  --space-1: 8px;
+  --space-2: 12px;
+  --space-3: 16px;
+  --space-4: 24px;
+  --space-5: 32px;
+  --space-6: 48px;
+  --space-7: 72px;
+
+  --fs-xs: clamp(12px, .9vw, 14px);
+  --fs-sm: clamp(14px, 1.2vw, 16px);
+  --fs-md: clamp(16px, 1.5vw, 18px);
+  --fs-lg: clamp(18px, 2vw, 22px);
+  --fs-xl: clamp(28px, 4vw, 40px);
+  --fs-xxl: clamp(40px, 6vw, 64px);
+
+  --lh-tight: 1.15;
+  --lh-body: 1.6;
+
+  --readable: 72ch; /* comfortable paragraph width */
 }
 
 /* ===========================
@@ -49,6 +70,7 @@ a { color: inherit; text-decoration: none; }
 
 /* Typography mapping */
 body, p, li, label, input, textarea, button { font-family: var(--body-font); }
+p, li { font-size: var(--fs-md); line-height: var(--lh-body); } /* added */
 h1, h2, h3, header .brand .name { font-family: var(--script-font); font-weight: 400; }
 h4, h5 { font-family: var(--subhead-font); }
 
@@ -64,7 +86,7 @@ header {
   position: sticky; top: 0;
   background: rgba(247,250,248,.9);
   backdrop-filter: saturate(180%) blur(10px);
-  border-bottom: none !important;
+  border-bottom: none !important; /* remove nav line */
   z-index: 1000;
 }
 
@@ -91,10 +113,11 @@ nav { margin-left: auto; }
 nav ul { display: flex; list-style: none; gap: 22px; margin: 0; padding: 0; }
 nav a {
   display: inline-flex; align-items: center; justify-content: center;
-  padding: 10px 14px;
+  padding: 12px 18px; /* slightly larger targets */
   border-radius: 999px;
   border: 1.5px solid transparent;
   font-family: var(--subhead-font);
+  font-size: var(--fs-sm);
   transition: background .2s ease, border-color .2s ease, color .2s ease;
 }
 nav a:hover { background: var(--accent); }
@@ -104,21 +127,24 @@ nav a.active { background: rgba(126,164,147,.10); border-color: transparent; }
    Hero
    =========================== */
 .hero {
-  padding: 64px 0 36px;
-  border-bottom: 1px solid var(--accent);
+  padding: var(--space-6) 0 var(--space-4);
+  border-bottom: none; /* remove section divider line */
   text-align: center;
 }
 .hero h1 {
   font-family: var(--headline-font);
-  font-size: clamp(36px, 6vw, 72px);
-  line-height: 1.05;
-  margin: 10px 0 14px;
+  font-size: var(--fs-xxl);
+  line-height: var(--lh-tight);
+  margin: 0 0 var(--space-3);
+  max-width: 18ch;            /* shorter line for emphasis */
+  margin-inline: auto;
 }
 .hero h1 .hero-key { color: var(--green-3); font-style: italic; }
+.hero h1 strong { font-weight: 600; color: var(--green-3); } /* subtle emphasis */
 .hero p {
-  font-size: clamp(16px, 1.7vw, 20px);
+  font-size: var(--fs-lg);
   color: var(--muted);
-  max-width: 800px;
+  max-width: 42ch;
   margin-left: auto; margin-right: auto;
 }
 .hero p.subtitle { font-family: var(--subhead-font); }
@@ -137,10 +163,24 @@ nav a.active { background: rgba(126,164,147,.10); border-color: transparent; }
 }
 .button.secondary { background: transparent; color: var(--green-2); }
 
+/* CTA pills to match nav sizing */
+.cta-row { display: flex; gap: var(--space-3); justify-content: center; margin-top: var(--space-4); }
+.cta-row .nav-script {
+  border-radius: 999px;
+  background: rgba(126,164,147,.10);
+  border: 1.5px solid transparent;
+  padding: 12px 18px;              /* match nav */
+  font-family: var(--subhead-font);
+  font-size: var(--fs-sm);
+  color: var(--ink);
+  transition: background .2s ease, color .2s ease;
+}
+.cta-row .nav-script:hover { background: var(--accent); }
+
 /* ===========================
    Sections
    =========================== */
-.section { padding: 72px 0; border-bottom: 1px solid var(--accent); }
+.section { padding: var(--space-7) 0; border-bottom: none; } /* no dividers */
 .section h2 {
   font-size: 28px; margin: 0 0 8px; font-family: var(--script-font); font-weight: 400;
 }
@@ -260,7 +300,7 @@ nav a.active { background: rgba(126,164,147,.10); border-color: transparent; }
 .features-bubbles .bubble-seq {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 24px;
+  gap: var(--space-4);
 }
 .features-bubbles .bubble {
   background: #f3f4e7;
@@ -298,7 +338,7 @@ nav a.active { background: rgba(126,164,147,.10); border-color: transparent; }
 }
 .features-bubbles .bubble-copy p {
   margin: 0;
-  font-size: clamp(18px, 1.8vw, 20px);
+  font-size: var(--fs-md);
   line-height: 1.6;
 }
 @media (max-width: 780px) {
@@ -350,7 +390,7 @@ nav a.active { background: rgba(126,164,147,.10); border-color: transparent; }
    About Us
    =========================== */
 .about-us .about-photo {
-  display: block; margin: 0 auto 18px;
+  display: block; margin: 0 auto var(--space-4);
   width: clamp(240px, 44vw, 420px);
   height: auto;
   border-radius: 18px;
@@ -358,7 +398,7 @@ nav a.active { background: rgba(126,164,147,.10); border-color: transparent; }
   box-shadow: 0 10px 28px rgba(0,0,0,.06);
   object-fit: cover;
 }
-.about-us .about-copy { max-width: 820px; margin: 0 auto; text-align: center; }
+.about-us .about-copy { max-width: var(--readable); margin: 0 auto; text-align: center; }
 .about-us .about-copy p { margin: 0 0 14px; line-height: 1.65; }
 .about-us .about-note-title {
   margin: 16px 0 8px;
@@ -368,7 +408,7 @@ nav a.active { background: rgba(126,164,147,.10); border-color: transparent; }
 }
 .about-us .about-sign { margin-top: 6px; font-size: 1.05rem; color: var(--muted); }
 
-/* Reusable script heading to match “Note from the Hutzells:” */
+/* Reusable script heading (unchanged) */
 .script-heading { 
   font-family: var(--script-font);
   font-weight: 400;
@@ -377,7 +417,7 @@ nav a.active { background: rgba(126,164,147,.10); border-color: transparent; }
   letter-spacing: .2px;
 }
 
-/* About layout helpers (if present in HTML) */
+/* About layout helpers */
 #about .about-label { margin-top: 1rem; margin-bottom: .5rem; display: block; }
 #about .about-text { margin-bottom: 1.75rem; }
 #about .note-section { margin-top: 1.75rem; }
@@ -390,23 +430,6 @@ nav a.active { background: rgba(126,164,147,.10); border-color: transparent; }
   margin-top: .5rem;
 }
 @media (max-width: 640px) { .signature { text-align: center; } }
-
-/* Match nav active pill look */
-.cta-row .nav-script {
-  border-radius: 999px; /* ensure pill shape */
-  background: rgba(126,164,147,.10); /* same as nav a.active */
-  border: 1.5px solid transparent;   /* no hard edge */
-  padding: 10px 18px;                /* match nav padding */
-  font-family: var(--subhead-font);
-  color: var(--ink);
-  transition: background .2s ease, color .2s ease;
-}
-
-/* Hover effect same as navbar */
-.cta-row .nav-script:hover {
-  background: var(--accent);
-}
-
 
 /* ===========================
    Home-specific tweaks

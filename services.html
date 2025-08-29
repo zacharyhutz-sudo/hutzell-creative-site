@@ -19,11 +19,11 @@
     /* Smooth scroll for in-page anchors */
     html { scroll-behavior: smooth; }
 
-    /* Match sticky header height for clean anchor landings */
-    :root { --sticky-offset: 110px; } /* keep in sync with header/nav height */
+    /* Offset anchor landings for sticky header */
+    :root { --sticky-offset: 110px; }
     section[id] { scroll-margin-top: var(--sticky-offset); }
 
-    /* Section titles now Grenhil */
+    /* Section titles use Grenhil */
     .section-title {
       font-family: 'TheGrenhil', serif !important;
       font-weight: 400;
@@ -58,40 +58,71 @@
 
     .section + .section { padding-top: 1rem; }
 
-    /* ===== Services chooser pills (now inside header nav) ===== */
-    .services-chooser .pill-row {
-      display: flex; gap: 12px; flex-wrap: wrap;
+    /* =========================
+       SERVICES PAGE — HEADER LAYOUT
+       Brand (left) | Service Pills (center) | Page Nav (right)
+       ========================= */
+    /* Desktop: 3-column grid header layout */
+    @media (min-width: 900px) {
+      .services-page .nav {
+        display: grid !important;
+        grid-template-columns: 1fr auto 1fr;
+        align-items: center;
+      }
+      .services-page .brand { justify-self: start; }
+      .services-page .site-nav { justify-self: end; }
+
+      /* Pills centered in header */
+      .services-page .services-chooser {
+        display: block;
+        justify-self: center;
+      }
+      .services-page .services-chooser .pill-row {
+        display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;
+      }
     }
+
+    /* Mobile: stack brand, nav, then pills under nav */
+    @media (max-width: 899px) {
+      .services-page .nav {
+        display: flex; flex-direction: column; align-items: stretch; gap: 8px;
+      }
+      .services-page .site-nav { order: 2; }
+      .services-page .services-chooser { order: 3; }
+      .services-page .services-chooser .pill-row {
+        display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;
+      }
+    }
+
+    /* Pills look like active nav pills */
     .services-chooser .pill {
       display: inline-flex; align-items: center; justify-content: center;
-      padding: 10px 18px; border-radius: 999px; background: rgba(126,164,147,.10);
-      border: 1.5px solid transparent; color: var(--ink); font-family: var(--subhead-font);
-      font-size: clamp(15px, 1.6vw, 17px); text-decoration: none;
-      transform: translateY(14px) scale(.96); opacity: 0;
+      padding: 10px 18px; border-radius: 999px;
+      background: rgba(126,164,147,.10);
+      border: 1.5px solid transparent;
+      color: var(--ink);
+      font-family: var(--subhead-font);
+      font-size: clamp(15px, 1.6vw, 17px);
+      text-decoration: none;
+      transform: translateY(14px) scale(.96);
+      opacity: 0;
       animation: pillIn 720ms cubic-bezier(.2,.8,.2,1) forwards;
     }
     .services-chooser .pill:nth-child(1){animation-delay:0ms}
     .services-chooser .pill:nth-child(2){animation-delay:120ms}
     .services-chooser .pill:nth-child(3){animation-delay:240ms}
-    .services-chooser .pill:hover{background:var(--accent); transform:translateY(-2px); box-shadow:0 8px 22px rgba(0,0,0,.08)}
-    @keyframes pillIn{0%{opacity:0;transform:translateY(18px) scale(.92)}60%{opacity:1;transform:translateY(-3px) scale(1.04)}100%{opacity:1;transform:translateY(0) scale(1)}}
-    @media (prefers-reduced-motion: reduce){.services-chooser .pill{animation:none;opacity:1;transform:none}}
-
-    /* Desktop: inject pills inline with navbar (after main links) */
-    @media (min-width: 900px) {
-      .services-page header nav { display: flex; align-items: center; }
-      .services-page header nav ul { display: flex; align-items: center; gap: 22px; }
-      .services-page header nav .services-chooser { display: contents; }
-      .services-page header nav .services-chooser .pill-row { margin-left: 24px; }
+    .services-chooser .pill:hover{
+      background: var(--accent);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 22px rgba(0,0,0,.08);
     }
-
-    /* Mobile: show pills as a compact row under the nav links (inside header) */
-    @media (max-width: 899px) {
-      .services-page header nav .services-chooser {
-        display: block;
-        margin-top: 8px;
-      }
-      .services-page header nav .services-chooser .pill-row { justify-content: center; }
+    @keyframes pillIn{
+      0%{opacity:0;transform:translateY(18px) scale(.92)}
+      60%{opacity:1;transform:translateY(-3px) scale(1.04)}
+      100%{opacity:1;transform:translateY(0) scale(1)}
+    }
+    @media (prefers-reduced-motion: reduce){
+      .services-chooser .pill{animation:none;opacity:1;transform:none}
     }
 
     /* ===== Photography Slider (no crop + blurred transparent backdrop) ===== */
@@ -108,15 +139,14 @@
       --bg: none;                      /* set via JS to url(...) */
       isolation: isolate;              /* keep blur layer behind controls */
     }
-    /* Blurred backdrop using the current image */
     .photo-slider .viewport::before {
       content: "";
       position: absolute; inset: 0;
       background-image: var(--bg);
       background-size: cover; background-position: center;
       filter: blur(24px) saturate(115%);
-      transform: scale(1.08);          /* avoid edge clipping when blurred */
-      opacity: .55;                    /* transparent feel */
+      transform: scale(1.08);
+      opacity: .55;
       pointer-events: none;
       will-change: transform, filter, opacity;
     }
@@ -124,10 +154,9 @@
     /* Always show full image (no crop) */
     .photo-slider .slide {
       position: absolute; inset: 0; width: 100%; height: 100%;
-      object-fit: contain;             /* key: no cropping */
-      object-position: center;
+      object-fit: contain; object-position: center;
       opacity: 0; transition: opacity .4s ease; will-change: opacity;
-      background: transparent;         /* no bars */
+      background: transparent;
     }
     .photo-slider .slide.is-active { opacity: 1; }
 
@@ -188,25 +217,29 @@
 <body class="services-page">
   <header>
     <div class="container nav">
+      <!-- Left: Brand -->
       <div class="brand">
         <a href="index.html" class="brand-link">
           <img src="assets/logo.png" alt="Hutzell Creative Co. logo" class="brand-logo">
         </a>
       </div>
-      <nav>
+
+      <!-- Center: Services pills (desktop), under nav on mobile -->
+      <nav class="services-chooser" aria-label="Jump to service">
+        <div class="pill-row">
+          <a href="#photography" class="pill">Photography</a>
+          <a href="#videography" class="pill">Videography</a>
+          <a href="#design" class="pill">Design &amp; Branding</a>
+        </div>
+      </nav>
+
+      <!-- Right: Page nav -->
+      <nav class="site-nav">
         <ul>
           <li><a class="nav-script" href="index.html">Home</a></li>
           <li><a class="nav-script active" href="services.html">Services</a></li>
           <li><a class="nav-script" href="contact.html">Inquiry</a></li>
         </ul>
-        <!-- SERVICES CHOOSER (now inside navbar) -->
-        <nav class="services-chooser" aria-label="Jump to service">
-          <div class="pill-row">
-            <a href="#photography" class="pill">Photography</a>
-            <a href="#videography" class="pill">Videography</a>
-            <a href="#design" class="pill">Design &amp; Branding</a>
-          </div>
-        </nav>
       </nav>
     </div>
   </header>
@@ -326,7 +359,6 @@
       var live     = viewport.querySelector('#photoLive');
       var dotsWrap = viewport.parentElement.querySelector('.dots');
 
-      /* Set blurred backdrop to current image */
       function setBackdrop(src){
         viewport.style.setProperty('--bg', 'url("' + src.replace(/"/g, '\\"') + '")');
       }
@@ -343,7 +375,6 @@
         if (live) live.textContent = 'Photo ' + (idx+1) + ' of ' + slides.length;
       }
 
-      /* Build dots */
       if (dotsWrap){
         slides.forEach((_,n)=>{
           var b=document.createElement('button');
@@ -355,18 +386,15 @@
         });
       }
 
-      /* Controls */
       prevBtn.addEventListener('click', ()=>show(idx-1));
       nextBtn.addEventListener('click', ()=>show(idx+1));
 
-      /* Keyboard */
       viewport.tabIndex=0;
       viewport.addEventListener('keydown', e=>{
         if(e.key==='ArrowLeft'){e.preventDefault();show(idx-1);}
         if(e.key==='ArrowRight'){e.preventDefault();show(idx+1);}
       });
 
-      /* Swipe */
       let startX=0,active=false;
       viewport.addEventListener('touchstart',e=>{active=true;startX=e.changedTouches[0].clientX;},{passive:true});
       viewport.addEventListener('touchend',e=>{
@@ -375,7 +403,6 @@
         if(Math.abs(dx)>40){dx>0?show(idx-1):show(idx+1);}
       },{passive:true});
 
-      /* Init */
       setBackdrop(slides[0].src);
       show(0);
     })();

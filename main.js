@@ -1,16 +1,9 @@
-// Hutzell Creative Co. — Core UX behaviors
 document.addEventListener('DOMContentLoaded', () => {
-  /* ---------------------------------------------
-   * 0) Footer year
-   * --------------------------------------------- */
+  
   const yearEl = document.getElementById('year');
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-  /* ---------------------------------------------
-   * 1) Hero: emphasize specific words (non-destructive)
-   *    - Keeps your exact source copy
-   *    - Adds <em class="hero-key"> around target words
-   * --------------------------------------------- */
+  
   const heroH1 = document.querySelector('.hero h1');
   if (heroH1 && !heroH1.querySelector('.hero-key')) {
     const original = heroH1.textContent; // preserve exact text
@@ -18,10 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     heroH1.innerHTML = original.replace(re, (m) => `<em class="hero-key">${m}</em>`);
   }
 
-  /* ---------------------------------------------
-   * 2) Nav: mark current page as active (for the pill/bubble)
-   *    - Ignores query strings, hashes, and trailing slash
-   * --------------------------------------------- */
+  
   const setActiveNav = () => {
     const links = document.querySelectorAll('nav a[href]');
     const last = location.pathname.split('/').pop() || 'index.html';
@@ -36,11 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
   setActiveNav();
 
-  /* ---------------------------------------------
-   * 3) Bubbles: reveal/hide with very gentle motion (esp. mobile)
-   *    - Hysteresis thresholds + minimum visible time
-   *    - Respects prefers-reduced-motion
-   * --------------------------------------------- */
+  
   const bubbles = Array.from(document.querySelectorAll('.bubble.reveal'));
   if (!bubbles.length) return;
 
@@ -54,7 +40,6 @@ document.addEventListener('DOMContentLoaded', () => {
     return;
   }
 
-  // Tuned for subtle mobile motion
   const SHOW_RATIO     = isMobile ? 0.16 : 0.22; // show once this much is visible
   const HIDE_RATIO     = isMobile ? 0.03 : 0.08; // hide only when well out of view
   const STAGGER_MS     = isMobile ? 120  : 150;  // entrance stagger
@@ -78,7 +63,6 @@ document.addEventListener('DOMContentLoaded', () => {
       const idx = Number(el.dataset.seq) || 0;
 
       if (entry.intersectionRatio > SHOW_RATIO) {
-        // Show (with stagger) and mark when it became visible
         if (!el.classList.contains('visible')) {
           clearTimers(el);
           el._showTimer = setTimeout(() => {
@@ -86,11 +70,9 @@ document.addEventListener('DOMContentLoaded', () => {
             el._visibleAt = Date.now();
           }, idx * STAGGER_MS);
         } else {
-          // already visible—cancel any pending hide
           if (el._hideTimer) { clearTimeout(el._hideTimer); el._hideTimer = null; }
         }
       } else if (entry.intersectionRatio < HIDE_RATIO) {
-        // Schedule a gentle hide, respecting a minimum visible time
         if (el.classList.contains('visible')) {
           clearTimeout(el._showTimer);
           const elapsed = Date.now() - (el._visibleAt || 0);
@@ -102,7 +84,6 @@ document.addEventListener('DOMContentLoaded', () => {
           }, HIDE_DELAY + waitMore);
         }
       } else {
-        // Between thresholds: cancel pending hides (prevents flicker near edges)
         if (el._hideTimer) { clearTimeout(el._hideTimer); el._hideTimer = null; }
       }
     });
@@ -110,7 +91,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   bubbles.forEach((b) => io.observe(b));
 
-  // Safety: clear timers on page hide/unload
   window.addEventListener('pagehide', () => bubbles.forEach(clearTimers));
   window.addEventListener('beforeunload', () => bubbles.forEach(clearTimers));
 });

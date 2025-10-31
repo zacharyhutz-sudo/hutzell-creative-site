@@ -7,15 +7,12 @@
     const fig = document.createElement('figure');
     fig.className = 'tile';
     fig.innerHTML = `<img src="${it.src}" alt="${it.alt}">`;
-    // lightbox
     fig.addEventListener('click', () => openLightbox(it.src, it.alt));
-    // tilt effect
     fig.addEventListener('mousemove', (e) => tilt(fig, e));
     fig.addEventListener('mouseleave', () => resetTilt(fig));
     gallery.appendChild(fig);
   });
 
-  // Tilt math
   function tilt(el, e){
     const b = el.getBoundingClientRect();
     const rx = ((e.clientY - b.top)/b.height - .5) * -8; // rotateX
@@ -24,7 +21,6 @@
   }
   function resetTilt(el){ el.style.transform = 'rotateX(0) rotateY(0)'; }
 
-  // Lightbox
   const lb = document.getElementById('lightbox');
   const lbImg = document.getElementById('lbImg');
   const lbClose = document.getElementById('lbClose');

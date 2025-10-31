@@ -1,17 +1,4 @@
-<!doctype html>
-<html lang="en">
-<head><meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Inquiry — Hutzell Creative Co.</title>
-
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Della+Respira&family=Pinyon+Script&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-  <!-- Site CSS -->
-  <link rel="stylesheet" href="style.css">
-
-  <style>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Inquiry — Hutzell Creative Co.</title><link href="https://fonts.googleapis.com/css2?family=Della+Respira&family=Pinyon+Script&display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="style.css"><style>
     .contact-wrapper {
       max-width: 900px;
       margin: 60px auto;
@@ -129,102 +116,7 @@ form input[type="date"] {
 form select {
   height: 48px;
 }
-  </style>
-</head>
-
-<body>
-<header>
-  <div class="container nav">
-    <div class="brand"><a href="index.html" class="brand-link"><img src="assets/logo.png" alt="Hutzell Creative Co. logo" class="brand-logo"></a></div>
-    <nav>
-      <ul>
-        <li><a class="nav-script" href="index.html">Home</a></li>
-        <li><a class="nav-script" href="services.html">Services</a></li>
-        <li><a class="nav-script active" href="contact.html">Inquiry</a></li>
-      </ul>
-    </nav>
-  </div>
-</header>
-
-  <div class="contact-wrapper">
-    <h1 class="contact-title">Let’s Connect</h1>
-    <p class="contact-intro">We’d love to hear from you. Select a service and fill out the form below.</p>
-    
-    <!-- Service Selection (kept full width) -->
-    <div class="service-options">
-      <button type="button" class="service-btn" data-value="Photography">Photography</button>
-      <button type="button" class="service-btn" data-value="Videography">Videography</button>
-      <button type="button" class="service-btn" data-value="Graphic Design">Graphic Design</button>
-      <button type="button" class="service-btn" data-value="Other">Other</button>
-    </div>
-    
-    <form action="https://formspree.io/f/xvgqjkno" method="POST">
-      <!-- hidden field to capture service -->
-      <input type="hidden" name="service" id="serviceField">
-
-      <div class="form-grid">
-        <!-- Left / Right columns on desktop -->
-        <div>
-          <label for="name">Your Name</label>
-          <input type="text" id="name" name="name" autocomplete="name" required>
-        </div>
-
-        <div>
-          <label for="email">Your Email</label>
-          <input type="email" id="email" name="_replyto" autocomplete="email" required>
-        </div>
-
-        <div>
-          <label for="phone">Your Phone Number</label>
-          <input type="tel" id="phone" name="phone" inputmode="tel" autocomplete="tel">
-        </div>
-
-        <div>
-          <label for="eventDate">Event Date (If any)</label>
-          <input type="date" id="eventDate" name="event_date">
-        </div>
-
-        <div>
-          <label for="eventLocation">Event Location (If any)</label>
-          <input type="text" id="eventLocation" name="event_location" placeholder="City, venue, or address">
-        </div>
-
-        <div>
-          <label for="referral">How’d You Hear About Us?</label>
-          <select id="referral" name="referral">
-            <option value="" selected disabled>Choose one…</option>
-            <option>Friend / Family</option>
-            <option>Instagram</option>
-            <option>Facebook</option>
-            <option>Google Search</option>
-            <option>Venue / Vendor Referral</option>
-            <option>Other</option>
-          </select>
-        </div>
-
-        <div class="full-width">
-          <label for="pinterest">Your Pinterest Board (If You Have One)</label>
-          <input type="url" id="pinterest" name="pinterest_board" placeholder="https://www.pinterest.com/your-board">
-        </div>
-
-        <!-- Message (full width) -->
-        <div class="full-width">
-          <label for="message">Message</label>
-          <textarea id="message" name="message" required placeholder="Tell us a little about your project, date, and vision…"></textarea>
-        </div>
-      </div>
-
-      <button type="submit" class="submit-btn">Send Inquiry</button>
-    </form>
-  </div>
-
-  <footer class="footer">
-    <div class="container">© <span id="year"></span> Hutzell Creative Co.</div>
-  </footer>
-
-  <script>document.getElementById('year').textContent=new Date().getFullYear();</script>
-
-  <script>
+  </style></head><body><header><div class="container nav"><div class="brand"><a href="index.html" class="brand-link"><img src="assets/logo.png" alt="Hutzell Creative Co. logo" class="brand-logo"></a></div><nav><ul><li><a class="nav-script" href="index.html">Home</a></li><li><a class="nav-script" href="services.html">Services</a></li><li><a class="nav-script active" href="contact.html">Inquiry</a></li></ul></nav></div></header><div class="contact-wrapper"><h1 class="contact-title">Let’s Connect</h1><p class="contact-intro">We’d love to hear from you. Select a service and fill out the form below.</p><div class="service-options"><button type="button" class="service-btn" data-value="Photography">Photography</button><button type="button" class="service-btn" data-value="Videography">Videography</button><button type="button" class="service-btn" data-value="Graphic Design">Graphic Design</button><button type="button" class="service-btn" data-value="Other">Other</button></div><form action="https://formspree.io/f/xvgqjkno" method="POST"><input type="hidden" name="service" id="serviceField"><div class="form-grid"><div><label for="name">Your Name</label><input type="text" id="name" name="name" autocomplete="name" required></div><div><label for="email">Your Email</label><input type="email" id="email" name="_replyto" autocomplete="email" required></div><div><label for="phone">Your Phone Number</label><input type="tel" id="phone" name="phone" inputmode="tel" autocomplete="tel"></div><div><label for="eventDate">Event Date (If any)</label><input type="date" id="eventDate" name="event_date"></div><div><label for="eventLocation">Event Location (If any)</label><input type="text" id="eventLocation" name="event_location" placeholder="City, venue, or address"></div><div><label for="referral">How’d You Hear About Us?</label><select id="referral" name="referral"><option value="" selected disabled>Choose one…</option><option>Friend / Family</option><option>Instagram</option><option>Facebook</option><option>Google Search</option><option>Venue / Vendor Referral</option><option>Other</option></select></div><div class="full-width"><label for="pinterest">Your Pinterest Board (If You Have One)</label><input type="url" id="pinterest" name="pinterest_board" placeholder="https://www.pinterest.com/your-board"></div><div class="full-width"><label for="message">Message</label><textarea id="message" name="message" required placeholder="Tell us a little about your project, date, and vision…"></textarea></div></div><button type="submit" class="submit-btn">Send Inquiry</button></form></div><footer class="footer"><div class="container">© <span id="year"></span> Hutzell Creative Co.</div></footer><script>document.getElementById('year').textContent=new Date().getFullYear();</script><script>
     // Toggle active service button + set hidden field
     const serviceBtns = document.querySelectorAll('.service-btn');
     const serviceField = document.getElementById('serviceField');
@@ -235,8 +127,4 @@ form select {
         serviceField.value = btn.dataset.value;
       });
     });
-  </script>
-
-  <script src="main.js"></script>
-</body>
-</html>
+  </script><script src="main.js"></script></body></html>

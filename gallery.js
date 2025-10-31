@@ -1,13 +1,5 @@
-// Hutzell Creative Co. — Scroll-reveal slideshow with lightbox
-// How to use:
-// 1) Put your photos in assets/img/gallery/ (JPG/PNG/WebP).
-// 2) List them below in the `photos` array (use exact filenames).
-// 3) Ensure services.html has: <div class="slideshow" id="slideshow"></div>
-// 4) Ensure services.html loads this file: <script src="assets/js/gallery.js"></script>
 
-// ====== EDIT THIS LIST ======
 const photos = [
-  // Example filenames — replace with your ~12 images:
   "assets/img/gallery/photo1.jpg",
   "assets/img/gallery/photo2.jpg",
   "assets/img/gallery/photo3.jpg",
@@ -21,7 +13,6 @@ const photos = [
   "assets/img/gallery/photo11.jpg",
   "assets/img/gallery/photo12.jpg"
 ];
-// ============================
 
 document.addEventListener("DOMContentLoaded", () => {
   const root = document.getElementById("slideshow") || document.getElementById("gallery");
@@ -30,7 +21,6 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
-  // Build slides
   photos.forEach((src, i) => {
     const fig = document.createElement("figure");
     fig.className = "slide";
@@ -46,7 +36,6 @@ document.addEventListener("DOMContentLoaded", () => {
     root.appendChild(fig);
   });
 
-  // Reveal on scroll + lazy-set src
   const io = new IntersectionObserver((entries, obs) => {
     entries.forEach(entry => {
       if(entry.isIntersecting){
@@ -61,7 +50,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.querySelectorAll(".slide").forEach(s => io.observe(s));
 
-  // Lightbox
   const lb = document.createElement("div");
   lb.className = "lb";
   lb.innerHTML = `
@@ -92,7 +80,6 @@ document.addEventListener("DOMContentLoaded", () => {
     if(e.target === lb || e.target === lbClose) close();
   });
 
-  // Click to open & keyboard nav
   const slides = Array.from(document.querySelectorAll(".slide img"));
   slides.forEach((img, idx) => {
     img.style.cursor = "zoom-in";

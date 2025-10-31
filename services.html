@@ -1,21 +1,4 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Services — Hutzell Creative Co.</title>
-
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;600;700&family=Della+Respira&family=Pinyon+Script&display=swap" rel="stylesheet">
-
-  <!-- Site CSS -->
-  <link rel="stylesheet" href="style.css">
-  <link rel="preload" href="assets/fonts/SloopScriptPro-Regular.otf" as="font" type="font/otf" crossorigin>
-
-  <!-- Page-specific CSS -->
-  <style>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Services — Hutzell Creative Co.</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;600;700&family=Della+Respira&family=Pinyon+Script&display=swap" rel="stylesheet"><link rel="stylesheet" href="style.css"><link rel="preload" href="assets/fonts/SloopScriptPro-Regular.otf" as="font" type="font/otf" crossorigin><style>
     /* Smooth scroll for in-page anchors */
     html { scroll-behavior: smooth; }
 
@@ -211,144 +194,7 @@
       white-space: nowrap;
       border: 0;
     }
-  </style>
-</head>
-
-<body class="services-page">
-  <header>
-    <div class="container nav">
-      <!-- Left: Brand -->
-      <div class="brand">
-        <a href="index.html" class="brand-link">
-          <img src="assets/logo.png" alt="Hutzell Creative Co. logo" class="brand-logo">
-        </a>
-      </div>
-
-      <!-- Center: Services pills (desktop), under nav on mobile -->
-      <nav class="services-chooser" aria-label="Jump to service">
-        <div class="pill-row">
-          <a href="#photography" class="pill">Photography</a>
-          <a href="#videography" class="pill">Videography</a>
-          <a href="#design" class="pill">Design &amp; Branding</a>
-        </div>
-      </nav>
-
-      <!-- Right: Page nav -->
-      <nav class="site-nav">
-        <ul>
-          <li><a class="nav-script" href="index.html">Home</a></li>
-          <li><a class="nav-script active" href="services.html">Services</a></li>
-          <li><a class="nav-script" href="contact.html">Inquiry</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
-
-  <!-- PHOTOGRAPHY -->
-  <section class="section" id="photography">
-    <div class="container">
-      <h2 class="section-title">Photography</h2>
-      <p class="section-kicker">Families • Senior Shoots • Couples • Weddings • Events</p>
-
-      <div class="grid-2">
-        <div>
-          <p>Timeless images that capture the beauty of your special moments.</p>
-
-          <h3 class="section-title" style="font-size:1.25rem; margin-top:1.5rem;">Families</h3>
-          <p>Capture your family’s joy in relaxed, candid sessions that highlight genuine connection.</p>
-
-          <h3 class="section-title" style="font-size:1.25rem; margin-top:1.5rem;">Senior Shoots</h3>
-          <p>Celebrate milestones with confident, creative portraits that reflect personality and style.</p>
-
-          <!-- Slider -->
-          <div class="photo-slider" aria-label="Photography samples">
-            <div class="viewport" id="photoViewport">
-              <img src="assets/img/s7.jpg"  alt="Senior shoot" class="slide is-active" loading="eager">
-              <img src="assets/img/s13.jpg" alt="Senior shoot" class="slide" loading="lazy">
-              <img src="assets/img/s12.jpg" alt="Senior shoot" class="slide" loading="lazy">
-              <img src="assets/img/s14.jpg" alt="Senior shoot" class="slide" loading="lazy">
-              <img src="assets/img/s16.jpg" alt="Senior shoot" class="slide" loading="lazy">
-              <img src="assets/img/s19.jpg" alt="Senior shoot" class="slide" loading="lazy">
-              <img src="assets/img/s20.jpg" alt="Senior shoot" class="slide" loading="lazy">
-
-              <button class="nav prev" aria-label="Previous photo" type="button">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                  <path d="M15 6l-6 6 6 6"/>
-                </svg>
-              </button>
-              <button class="nav next" aria-label="Next photo" type="button">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                  <path d="M9 6l6 6-6 6"/>
-                </svg>
-              </button>
-
-              <!-- Hidden live region for screen readers -->
-              <span class="sr-only" id="photoLive" aria-live="polite"></span>
-            </div>
-            <div class="dots" role="tablist" aria-label="Choose photo"></div>
-          </div>
-
-          <h3 class="section-title" style="font-size:1.25rem; margin-top:1.5rem;">Couples</h3>
-          <p>Natural, candid moments with the one you love.</p>
-
-          <h3 class="section-title" style="font-size:1.25rem; margin-top:1.5rem;">Weddings</h3>
-          <p>The moments you’ll relive for a lifetime.</p>
-
-          <h3 class="section-title" style="font-size:1.25rem; margin-top:1.5rem;">Events</h3>
-          <p>Professional storytelling for every occasion.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- VIDEOGRAPHY -->
-  <section class="section" id="videography">
-    <div class="container">
-      <h2 class="section-title">Videography</h2>
-      <p class="section-kicker">Cinematic Wedding Films • Full Ceremony Recordings</p>
-
-      <p>Story-driven films with clean color, intentional music, and a focus on authentic emotion.</p>
-
-      <div class="video-grid">
-        <div class="video-embed">
-          <iframe src="https://www.youtube.com/embed/Vpdc_gn-qrw" allowfullscreen></iframe>
-        </div>
-        <div class="video-embed">
-          <iframe src="https://www.youtube.com/embed/fQBHS2ZIFLU" allowfullscreen></iframe>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- DESIGN -->
-  <section class="section" id="design">
-    <div class="container">
-      <h2 class="section-title">Design</h2>
-      <p class="section-kicker">Branding • Logos • Print & Web</p>
-      <div class="grid-2">
-        <div>
-          <p>Identity systems that feel like you: wordmarks, icons, palettes, and type that work across socials, print, and web.</p>
-          <ul>
-            <li>Logo suites &amp; brand guidelines</li>
-            <li>Social &amp; print collateral</li>
-            <li>Website layout &amp; visual direction</li>
-          </ul>
-        </div>
-        <div>
-          <img src="assets/img/design-sample-1.jpg" alt="Design sample" class="rounded" loading="lazy">
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <footer class="footer">
-    <div class="container">© <span id="year"></span> Hutzell Creative Co.</div>
-  </footer>
-
-  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
-
-  <!-- Slider logic -->
-  <script>
+  </style></head><body class="services-page"><header><div class="container nav"><div class="brand"><a href="index.html" class="brand-link"><img src="assets/logo.png" alt="Hutzell Creative Co. logo" class="brand-logo"></a></div><nav class="services-chooser" aria-label="Jump to service"><div class="pill-row"><a href="#photography" class="pill">Photography</a><a href="#videography" class="pill">Videography</a><a href="#design" class="pill">Design &amp; Branding</a></div></nav><nav class="site-nav"><ul><li><a class="nav-script" href="index.html">Home</a></li><li><a class="nav-script active" href="services.html">Services</a></li><li><a class="nav-script" href="contact.html">Inquiry</a></li></ul></nav></div></header><section class="section" id="photography"><div class="container"><h2 class="section-title">Photography</h2><p class="section-kicker">Families • Senior Shoots • Couples • Weddings • Events</p><div class="grid-2"><div><p>Timeless images that capture the beauty of your special moments.</p><h3 class="section-title" style="font-size:1.25rem; margin-top:1.5rem;">Families</h3><p>Capture your family’s joy in relaxed, candid sessions that highlight genuine connection.</p><h3 class="section-title" style="font-size:1.25rem; margin-top:1.5rem;">Senior Shoots</h3><p>Celebrate milestones with confident, creative portraits that reflect personality and style.</p><div class="photo-slider" aria-label="Photography samples"><div class="viewport" id="photoViewport"><img src="assets/img/s7.jpg"  alt="Senior shoot" class="slide is-active" loading="eager"><img src="assets/img/s13.jpg" alt="Senior shoot" class="slide" loading="lazy"><img src="assets/img/s12.jpg" alt="Senior shoot" class="slide" loading="lazy"><img src="assets/img/s14.jpg" alt="Senior shoot" class="slide" loading="lazy"><img src="assets/img/s16.jpg" alt="Senior shoot" class="slide" loading="lazy"><img src="assets/img/s19.jpg" alt="Senior shoot" class="slide" loading="lazy"><img src="assets/img/s20.jpg" alt="Senior shoot" class="slide" loading="lazy"><button class="nav prev" aria-label="Previous photo" type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></button><button class="nav next" aria-label="Next photo" type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></button><span class="sr-only" id="photoLive" aria-live="polite"></span></div><div class="dots" role="tablist" aria-label="Choose photo"></div></div><h3 class="section-title" style="font-size:1.25rem; margin-top:1.5rem;">Couples</h3><p>Natural, candid moments with the one you love.</p><h3 class="section-title" style="font-size:1.25rem; margin-top:1.5rem;">Weddings</h3><p>The moments you’ll relive for a lifetime.</p><h3 class="section-title" style="font-size:1.25rem; margin-top:1.5rem;">Events</h3><p>Professional storytelling for every occasion.</p></div></div></div></section><section class="section" id="videography"><div class="container"><h2 class="section-title">Videography</h2><p class="section-kicker">Cinematic Wedding Films • Full Ceremony Recordings</p><p>Story-driven films with clean color, intentional music, and a focus on authentic emotion.</p><div class="video-grid"><div class="video-embed"><iframe src="https://www.youtube.com/embed/Vpdc_gn-qrw" allowfullscreen></iframe></div><div class="video-embed"><iframe src="https://www.youtube.com/embed/fQBHS2ZIFLU" allowfullscreen></iframe></div></div></div></section><section class="section" id="design"><div class="container"><h2 class="section-title">Design</h2><p class="section-kicker">Branding • Logos • Print & Web</p><div class="grid-2"><div><p>Identity systems that feel like you: wordmarks, icons, palettes, and type that work across socials, print, and web.</p><ul><li>Logo suites &amp; brand guidelines</li><li>Social &amp; print collateral</li><li>Website layout &amp; visual direction</li></ul></div><div><img src="assets/img/design-sample-1.jpg" alt="Design sample" class="rounded" loading="lazy"></div></div></div></section><footer class="footer"><div class="container">© <span id="year"></span> Hutzell Creative Co.</div></footer><script>document.getElementById('year').textContent = new Date().getFullYear();</script><script>
     (function(){
       var viewport = document.getElementById('photoViewport');
       if (!viewport) return;
@@ -406,10 +252,6 @@
       setBackdrop(slides[0].src);
       show(0);
     })();
-  </script>
-
-  <script src="main.js"></script>
-</body>
-</html>
+  </script><script src="main.js"></script></body></html>
 
 

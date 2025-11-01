@@ -263,6 +263,38 @@
   .photo-slider .dots { gap: 8px; margin-top: .8rem; }
   .photo-slider .dot { width: 9px; height: 9px; }
 }
+
+/* === Mobile polish v2 (≤899px): keep gallery fully in view, move page nav to top-right, avoid clipping === */
+@media (max-width: 899px) {
+  /* Use small viewport units to avoid browser UI shrinking; tune sticky offset */
+  :root { --sticky-offset: 150px; }
+
+  header { position: sticky; top: 0; z-index: 20; background: rgba(255,255,255,0.92); backdrop-filter: saturate(160%) blur(8px); }
+
+  /* Reflow header rows: brand first (left), page nav second (right), service pills third (center) */
+  .services-page .nav { display: grid !important; grid-template-columns: 1fr auto; align-items: center; gap: 10px; }
+  .services-page .brand { order: 0; justify-self: start; }
+  .services-page .site-nav { order: 1; justify-self: end; }
+  .services-page .site-nav ul { display: flex; gap: 18px; justify-content: flex-end; align-items: center; padding-right: 6px; }
+  .services-page .services-chooser { order: 2; grid-column: 1 / -1; margin-top: 6px; margin-bottom: 8px; }
+  .services-page .services-chooser .pill-row { justify-content: center; gap: 8px; }
+
+  /* Prevent the pills from colliding and disable their entrance transform on phones */
+  .services-chooser .pill { transform: none !important; animation: none !important; padding: 8px 14px; font-size: clamp(14px, 3.8vw, 16px); }
+
+  /* Ensure first content section starts fully below the sticky header + pills */
+  section.section:first-of-type .container { padding-top: 6px; }
+
+  /* Make the photo viewport fit entirely on screen without needing to zoom/scroll */
+  .photo-slider { margin: 0.75rem auto; padding: 0 8px; }
+  .photo-slider .viewport {
+    aspect-ratio: 3 / 4;                   /* slightly wider than 4:5 to fit screens */
+    max-height: calc(100svh - var(--sticky-offset) - 20px);  /* fill remaining vertical space */
+  }
+  .photo-slider .nav { width: 44px; height: 44px; }          /* bigger tap targets */
+  .photo-slider .dots { gap: 8px; margin-top: .8rem; }
+  .photo-slider .dot { width: 9px; height: 9px; }
+}
 </style></head><body class="services-page"><header><div class="container nav"><div class="brand"><a class="brand-link" href="index.html"><img alt="Hutzell Creative Co. logo" class="brand-logo" src="assets/logo.png"/></a></div><nav aria-label="Jump to service" class="services-chooser"><div class="pill-row"><a class="pill" href="#photography">Photography</a><a class="pill" href="#videography">Videography</a><a class="pill" href="#design">Design &amp; Branding</a></div></nav><nav class="site-nav"><ul><li><a class="nav-script" href="index.html">Home</a></li><li><a class="nav-script active" href="services.html">Services</a></li><li><a class="nav-script" href="contact.html">Inquiry</a></li></ul></nav></div></header><section class="section" id="photography"><div class="container"><h2 class="section-title">Photography</h2><p class="section-kicker">Families • Senior Shoots • Couples • Weddings</p><div class="grid-2"><div><h3 class="section-title" style="font-size:1.25rem; margin-top:1.5rem;">Families</h3><div aria-label="Family photography samples" class="photo-slider"><div class="viewport"><button aria-label="Previous photo" class="nav prev" type="button"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M15 6l-6 6 6 6"></path></svg></button><button aria-label="Next photo" class="nav next" type="button"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9 6l6 6-6 6"></path></svg></button><span aria-live="polite" class="sr-only"></span><img alt="Family photo 1" class="slide is-active" loading="eager" src="assets/img/f1.jpg"/><img alt="Family photo 2" class="slide" loading="lazy" src="assets/img/f2.jpg"/><img alt="Family photo 3" class="slide" loading="lazy" src="assets/img/f3.jpg"/><img alt="Family photo 4" class="slide" loading="lazy" src="assets/img/f4.jpg"/><img alt="Family photo 5" class="slide" loading="lazy" src="assets/img/f5.jpg"/><img alt="Family photo 6" class="slide" loading="lazy" src="assets/img/f6.jpg"/><img alt="Family photo 7" class="slide" loading="lazy" src="assets/img/f7.jpg"/><img alt="Family photo 8" class="slide" loading="lazy" src="assets/img/f8.jpg"/><img alt="Family photo 9" class="slide" loading="lazy" src="assets/img/f9.jpg"/><img alt="Family photo 10" class="slide" loading="lazy" src="assets/img/f10.jpg"/><img alt="Family photo 11" class="slide" loading="lazy" src="assets/img/f11.jpg"/><img alt="Family photo 12" class="slide" loading="lazy" src="assets/img/f12.jpg"/><img alt="Family photo 13" class="slide" loading="lazy" src="assets/img/f13.jpg"/><img alt="Family photo 14" class="slide" loading="lazy" src="assets/img/f14.jpg"/><img alt="Family photo 15" class="slide" loading="lazy" src="assets/img/f15.jpg"/><img alt="Family photo 16" class="slide" loading="lazy" src="assets/img/f16.jpg"/><img alt="Family photo 17" class="slide" loading="lazy" src="assets/img/f17.jpg"/><img alt="Family photo 18" class="slide" loading="lazy" src="assets/img/f18.jpg"/><img alt="Family photo 19" class="slide" loading="lazy" src="assets/img/f19.jpg"/><img alt="Family photo 20" class="slide" loading="lazy" src="assets/img/f20.jpg"/><img alt="Family photo 21" class="slide" loading="lazy" src="assets/img/f21.jpg"/><img alt="Family photo 22" class="slide" loading="lazy" src="assets/img/f22.jpg"/></div><div aria-label="Choose photo" class="dots" role="tablist"></div></div><h3 class="section-title" style="font-size:1.25rem; margin-top:1.5rem;">Senior Shoots</h3><div aria-label="Photography samples" class="photo-slider"><div class="viewport" id="photoViewport"><button aria-label="Previous photo" class="nav prev" type="button"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M15 6l-6 6 6 6"></path></svg></button><button aria-label="Next photo" class="nav next" type="button"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9 6l6 6-6 6"></path></svg></button><span aria-live="polite" class="sr-only" id="photoLive"></span><img alt="Seniors photo 3" class="slide is-active" loading="eager" src="assets/img/s3.jpg"/><img alt="Seniors photo 4" class="slide" loading="lazy" src="assets/img/s4.jpg"/><img alt="Senior shoot" class="slide" loading="lazy" src="assets/img/s7.jpg"/><img alt="Seniors photo 10" class="slide" loading="lazy" src="assets/img/s10.jpg"/><img alt="Senior shoot" class="slide" loading="lazy" src="assets/img/s12.jpg"/><img alt="Senior shoot" class="slide" loading="lazy" src="assets/img/s13.jpg"/><img alt="Senior shoot" class="slide" loading="lazy" src="assets/img/s14.jpg"/><img alt="Seniors photo 14" class="slide" loading="lazy" src="assets/img/s14.jpg"/><img alt="Senior shoot" class="slide" loading="lazy" src="assets/img/s16.jpg"/><img alt="Seniors photo 17" class="slide" loading="lazy" src="assets/img/s17.jpg"/><img alt="Senior shoot" class="slide" loading="lazy" src="assets/img/s19.jpg"/><img alt="Senior shoot" class="slide" loading="lazy" src="assets/img/s20.jpg"/></div><div aria-label="Choose photo" class="dots" role="tablist"></div></div><h3 class="section-title" style="font-size:1.25rem; margin-top:1.5rem;">Couples</h3>
 <div aria-label="Couples photography samples" class="photo-slider"><!-- New Couples slider -->
 <div class="viewport">

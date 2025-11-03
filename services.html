@@ -9,35 +9,30 @@
   <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600&family=Della+Respira&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
   <style>
-    /* --- Performance-focused additions --- */
-    /* Prevent CLS by reserving space (these match the common 3:2 ratio used on site) */
-    .photo-slider img { aspect-ratio: 3 / 2; height: auto; }
-
-    /* Slider basics (non-destructive to your existing style.css) */
+    /* --- Performance-focused, filename-safe version (JPG only) --- */
     .photo-section { padding: 48px 0; }
     .photo-section h2 { text-align:center; font-family:'EB Garamond',serif; font-weight:500; margin-bottom:20px; }
+
     .photo-slider { position: relative; overflow: hidden; }
     .photo-slider .viewport { position:relative; width:100%; max-width:1100px; margin:0 auto; }
 
-    /* Blurred backdrop uses tiny LQIP instead of full image */
+    /* Soft gradient backdrop only (no image double-load) */
     .photo-slider .viewport::before {
       content:""; position:absolute; inset:-40px; z-index:0; border-radius:24px;
-      background-position:center; background-size:cover; background-repeat:no-repeat;
-      filter: blur(28px) saturate(115%);
-      transform: scale(1.08);
+      background: radial-gradient(1200px 400px at 50% -10%, rgba(0,0,0,0.06), transparent),
+                  radial-gradient(800px 300px at 50% 110%, rgba(0,0,0,0.05), transparent);
+      filter: blur(24px) saturate(110%);
+      transform: scale(1.05);
     }
     .photo-slider .frame { position:relative; z-index:1; border-radius:20px; overflow:hidden; }
 
-    /* Slides */
     .slides { display:grid; grid-auto-flow:column; grid-auto-columns:100%; align-items:center; }
     .slide { display:flex; align-items:center; justify-content:center; }
-    .slide picture, .slide img { display:block; width:100%; }
+    .slide img { display:block; width:100%; height:auto; aspect-ratio: 3 / 2; }
 
-    /* Controls */
     .controls { display:flex; justify-content:center; gap:12px; margin-top:12px; }
     .btn { border:1px solid #ddd; padding:8px 14px; border-radius:999px; cursor:pointer; background:#fff; }
 
-    /* Reduce motion when user prefers it */
     @media (prefers-reduced-motion: reduce) {
       .slides { scroll-behavior:auto; }
     }
@@ -56,32 +51,15 @@
 </header>
 
 <main>
-  <!-- Families Gallery (example) -->
+  <!-- Families Gallery -->
   <section class="photo-section" id="families">
     <h2>Families</h2>
-    <div class="photo-slider" data-gallery="families" data-lqip="assets/img/f1-64.jpg">
+    <!-- Keep original JPG file names. List them here; first one is eagerly loaded. -->
+    <div class="photo-slider" data-files="f1.jpg,f2.jpg,f3.jpg,f4.jpg,f5.jpg,f6.jpg,f7.jpg,f8.jpg,f9.jpg,f10.jpg,f11.jpg,f12.jpg,f13.jpg,f14.jpg,f15.jpg,f16.jpg,f17.jpg,f18.jpg,f19.jpg,f20.jpg,f21.jpg,f22.jpg">
       <div class="viewport">
         <div class="frame">
           <div class="slides" data-index="0">
-            <!-- First slide: eagerly loaded & high priority -->
-            <div class="slide is-active">
-              <picture>
-                <source type="image/avif" srcset="assets/img/f1-960.avif 960w, assets/img/f1-1600.avif 1600w" sizes="(max-width: 800px) 92vw, 1100px">
-                <source type="image/webp" srcset="assets/img/f1-960.webp 960w, assets/img/f1-1600.webp 1600w" sizes="(max-width: 800px) 92vw, 1100px">
-                <img
-                  alt="Family 1"
-                  width="1600" height="1067"
-                  loading="eager" fetchpriority="high" decoding="async"
-                  src="assets/img/f1-960.jpg"
-                  srcset="assets/img/f1-960.jpg 960w, assets/img/f1-1600.jpg 1600w"
-                  sizes="(max-width: 800px) 92vw, 1100px">
-              </picture>
-            </div>
-
-            <!-- Subsequent slides: created lazily from data-* when needed -->
-            <div class="slide" data-src-base="assets/img/f2" data-alt="Family 2"></div>
-            <div class="slide" data-src-base="assets/img/f3" data-alt="Family 3"></div>
-            <div class="slide" data-src-base="assets/img/f4" data-alt="Family 4"></div>
+            <!-- First slide inserted by JS as eager -->
           </div>
         </div>
       </div>
@@ -92,27 +70,13 @@
     </div>
   </section>
 
-  <!-- Weddings Gallery (example) -->
+  <!-- Weddings Gallery -->
   <section class="photo-section" id="weddings">
     <h2>Weddings</h2>
-    <div class="photo-slider" data-gallery="weddings" data-lqip="assets/img/w1-64.jpg">
+    <div class="photo-slider" data-files="w1.jpg,w2.jpg,w3.jpg,w4.jpg,w5.jpg">
       <div class="viewport">
         <div class="frame">
-          <div class="slides" data-index="0">
-            <div class="slide is-active">
-              <picture>
-                <source type="image/avif" srcset="assets/img/w1-960.avif 960w, assets/img/w1-1600.avif 1600w" sizes="(max-width: 800px) 92vw, 1100px">
-                <source type="image/webp" srcset="assets/img/w1-960.webp 960w, assets/img/w1-1600.webp 1600w" sizes="(max-width: 800px) 92vw, 1100px">
-                <img alt="Wedding 1" width="1600" height="1067" loading="eager" fetchpriority="high" decoding="async"
-                     src="assets/img/w1-960.jpg"
-                     srcset="assets/img/w1-960.jpg 960w, assets/img/w1-1600.jpg 1600w"
-                     sizes="(max-width: 800px) 92vw, 1100px">
-              </picture>
-            </div>
-            <div class="slide" data-src-base="assets/img/w2" data-alt="Wedding 2"></div>
-            <div class="slide" data-src-base="assets/img/w3" data-alt="Wedding 3"></div>
-            <div class="slide" data-src-base="assets/img/w4" data-alt="Wedding 4"></div>
-          </div>
+          <div class="slides" data-index="0"></div>
         </div>
       </div>
       <div class="controls">
@@ -122,29 +86,13 @@
     </div>
   </section>
 
-  <!-- Seniors Gallery (example) -->
+  <!-- Seniors Gallery -->
   <section class="photo-section" id="seniors">
     <h2>Seniors</h2>
-    <div class="photo-slider" data-gallery="seniors" data-lqip="assets/img/s1-64.jpg">
+    <div class="photo-slider" data-files="s1.jpg,s3.jpg,s4.jpg,s10.jpg,s14.jpg,s17.jpg">
       <div class="viewport">
         <div class="frame">
-          <div class="slides" data-index="0">
-            <div class="slide is-active">
-              <picture>
-                <source type="image/avif" srcset="assets/img/s1-960.avif 960w, assets/img/s1-1600.avif 1600w" sizes="(max-width: 800px) 92vw, 1100px">
-                <source type="image/webp" srcset="assets/img/s1-960.webp 960w, assets/img/s1-1600.webp 1600w" sizes="(max-width: 800px) 92vw, 1100px">
-                <img alt="Senior 1" width="1600" height="1067" loading="eager" fetchpriority="high" decoding="async"
-                     src="assets/img/s1-960.jpg"
-                     srcset="assets/img/s1-960.jpg 960w, assets/img/s1-1600.jpg 1600w"
-                     sizes="(max-width: 800px) 92vw, 1100px">
-              </picture>
-            </div>
-            <div class="slide" data-src-base="assets/img/s3" data-alt="Senior 3"></div>
-            <div class="slide" data-src-base="assets/img/s4" data-alt="Senior 4"></div>
-            <div class="slide" data-src-base="assets/img/s10" data-alt="Senior 10"></div>
-            <div class="slide" data-src-base="assets/img/s14" data-alt="Senior 14"></div>
-            <div class="slide" data-src-base="assets/img/s17" data-alt="Senior 17"></div>
-          </div>
+          <div class="slides" data-index="0"></div>
         </div>
       </div>
       <div class="controls">
@@ -161,115 +109,86 @@
   // Year
   document.getElementById('year').textContent = new Date().getFullYear();
 
-  // Utility: set blurred LQIP background for each slider
-  function applyLQIP(slider) {
-    const lqip = slider.getAttribute('data-lqip');
-    const viewport = slider.querySelector('.viewport');
-    if (lqip && viewport) viewport.style.setProperty('--bg-lqip', `url("${lqip}")`);
-    viewport && (viewport.style.background = 'transparent');
-    const before = getComputedStyle(viewport, '::before'); // trigger paint
-  }
-
-  // Build a <picture> element for a given base path (expects -960/-1600 in jpg/webp/avif if available)
-  function buildPicture(base, alt) {
-    const pic = document.createElement('picture');
-    const sAvif = document.createElement('source');
-    sAvif.type = 'image/avif';
-    sAvif.srcset = `${base}-960.avif 960w, ${base}-1600.avif 1600w`;
-    sAvif.sizes = '(max-width: 800px) 92vw, 1100px';
-
-    const sWebp = document.createElement('source');
-    sWebp.type = 'image/webp';
-    sWebp.srcset = `${base}-960.webp 960w, ${base}-1600.webp 1600w`;
-    sWebp.sizes = '(max-width: 800px) 92vw, 1100px';
-
+  // Helper to create a slide <img> from a plain JPG filename (keeps names the same)
+  function createImg(src, alt, eager) {
     const img = document.createElement('img');
     img.alt = alt || '';
-    img.width = 1600; img.height = 1067; // 3:2 default ratio; adjust if yours differ
-    img.loading = 'lazy';
     img.decoding = 'async';
-    img.fetchPriority = 'low';
-    img.src = `${base}-960.jpg`;
-    img.srcset = `${base}-960.jpg 960w, ${base}-1600.jpg 1600w`;
-    img.sizes = '(max-width: 800px) 92vw, 1100px';
-
-    pic.appendChild(sAvif);
-    pic.appendChild(sWebp);
-    pic.appendChild(img);
-    return pic;
+    img.loading = eager ? 'eager' : 'lazy';
+    if (eager) img.fetchPriority = 'high';
+    img.width = 1600; // safe default; adjust if your originals differ
+    img.height = 1067;
+    img.src = src;
+    return img;
   }
 
-  function ensureSlideLoaded(slide) {
-    if (!slide || slide.dataset.loaded) return;
-    const base = slide.getAttribute('data-src-base');
-    const alt = slide.getAttribute('data-alt') || '';
-    if (!base) return;
-    const pic = buildPicture(base, alt);
-    slide.appendChild(pic);
-    slide.dataset.loaded = '1';
+  function makeSlide(node) {
+    const div = document.createElement('div');
+    div.className = 'slide';
+    if (node) div.appendChild(node);
+    return div;
   }
 
-  // Slider logic with just-in-time image creation
-  document.querySelectorAll('.photo-slider').forEach(slider => {
-    applyLQIP(slider);
+  function initSlider(slider) {
+    const folder = 'assets/img/';
+    const files = (slider.getAttribute('data-files') || '').split(',').map(s => s.trim()).filter(Boolean);
     const slidesWrap = slider.querySelector('.slides');
-    const slides = Array.from(slidesWrap.children);
-    let index = +slidesWrap.dataset.index || 0;
+    const slides = [];
+    files.forEach((fname, i) => {
+      if (i === 0) {
+        const img = createImg(folder + fname, fname.replace(/\..+$/, '').toUpperCase(), true);
+        const s = makeSlide(img);
+        s.classList.add('is-active');
+        slidesWrap.appendChild(s);
+        slides.push(s);
+      } else {
+        const s = makeSlide();
+        s.dataset.src = folder + fname; // lazy source (exact filename retained)
+        s.dataset.alt = fname.replace(/\..+$/, '');
+        slidesWrap.appendChild(s);
+        slides.push(s);
+      }
+    });
 
-    // Ensure next slide is ready when approaching
-    function preloadNeighbors() {
-      ensureSlideLoaded(slides[index]);
-      ensureSlideLoaded(slides[index + 1]);
-      ensureSlideLoaded(slides[index - 1]);
+    let index = 0;
+
+    function ensureLoaded(i) {
+      const s = slides[i];
+      if (!s || s.dataset.loaded) return;
+      const img = createImg(s.dataset.src, s.dataset.alt, false);
+      s.appendChild(img);
+      s.dataset.loaded = '1';
     }
 
-    function updateBackdrop() {
-      // Use a tiny preview for the blur layer if available, otherwise fall back to current visible img
-      const lqip = slider.getAttribute('data-lqip');
-      const viewport = slider.querySelector('.viewport');
-      if (lqip) {
-        viewport.style.setProperty('--bg-lqip', `url("${lqip}")`);
-        viewport.style.setProperty('background-image', 'none');
-        viewport.style.setProperty('position', 'relative');
-      }
-      const activeImg = slides[index].querySelector('img');
-      viewport.style.setProperty('--bg-live', activeImg ? `url("${activeImg.currentSrc || activeImg.src}")` : '');
-      // paint ::before with LQIP
-      viewport.style.setProperty('background', 'transparent');
-      viewport.style.setProperty('contain', 'paint');
-      viewport.style.setProperty('will-change', 'transform');
-      viewport.style.setProperty('filter', 'none');
-      // and set ::before background via inline style (CSS var)
-      viewport.style.setProperty('--bg-lqip', `url("${lqip}")`);
-      viewport.style.setProperty('--bg-live', activeImg ? `url("${activeImg.currentSrc || activeImg.src}")` : '');
-      // apply background to pseudo via a helper class if desired
+    function preloadNeighbors() {
+      ensureLoaded(index);
+      ensureLoaded(index + 1);
+      ensureLoaded(index - 1);
     }
 
     function go(dir) {
       const total = slides.length;
       index = (index + dir + total) % total;
-      slidesWrap.dataset.index = index;
       slides.forEach((s, i) => s.classList.toggle('is-active', i === index));
       preloadNeighbors();
-      updateBackdrop();
     }
 
-    // Controls
     slider.querySelector('.prev')?.addEventListener('click', () => go(-1));
     slider.querySelector('.next')?.addEventListener('click', () => go(1));
 
-    // Lazy-build images only when gallery is near viewport
+    // Lazy-build when near viewport
     const io = new IntersectionObserver((entries) => {
       entries.forEach(e => {
         if (e.isIntersecting) {
           preloadNeighbors();
-          updateBackdrop();
           io.disconnect();
         }
       });
     }, { rootMargin: '600px' });
     io.observe(slider);
-  });
+  }
+
+  document.querySelectorAll('.photo-slider').forEach(initSlider);
 </script>
 </body>
 </html>

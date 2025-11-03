@@ -1,6 +1,14 @@
 <!DOCTYPE html>
-
-<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/><title>Hutzell Creative Co. — Films • Photo • Design</title><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600&amp;family=Della+Respira&amp;display=swap" rel="stylesheet"/><link href="style.css" rel="stylesheet"/><style>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>Hutzell Creative Co. — Films • Photo • Design</title>
+  <link href="https://fonts.googleapis.com" rel="preconnect"/>
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600&family=Della+Respira&display=swap" rel="stylesheet"/>
+  <link href="style.css" rel="stylesheet"/>
+  <style>
     /* About Us label: match Note style, centered */
     .about-us .about-label {
       font-family: 'EB Garamond', serif;
@@ -12,34 +20,115 @@
 
     /* Remove section borders */
     .section { border-bottom: none !important; }
-  </style><style>
-/* Disable reveal/scroll animations for feature bubbles */
-.features-bubbles .bubble {
-  opacity: 1 !important;
-  transform: none !important;
-  transition: none !important;
-  will-change: auto !important;
-}
-</style><style>
-/* Enlarge note image and add extra spacing */
-.about-copy img.about-photo[src*="note.jpg"] {
-  display: block;
-  margin: 4rem auto 0 auto; /* doubled top space */
-  width: 160%;
-  max-width: 900px;
-  height: auto;
-}
-@media (max-width: 900px) {
-  .about-copy img.about-photo[src*="note.jpg"] {
-    width: 100%;
-    margin-top: 3rem;
-  }
-}
-</style></head><body><header><div class="container nav"><div class="brand"><a class="brand-link" href="index.html"><img alt="Hutzell Creative Co. logo" class="brand-logo" src="assets/logo.png"/></a></div><nav><ul><li><a class="nav-script active" href="index.html">Home</a></li><li><a class="nav-script" href="services.html">Services</a></li><li><a class="nav-script" href="contact.html">Inquiry</a></li></ul></nav></div></header><section class="hero"><div class="container"><div class="kicker">Hutzell Creative Co. • Est. 2024</div><h1>
-  The single team for all your creative needs —
-  <strong>photography</strong>, <strong>videography</strong>, and <strong>design</strong>.
-</h1><p class="subtitle">
+  </style>
+  <style>
+    /* Disable reveal/scroll animations for feature bubbles */
+    .features-bubbles .bubble {
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
+      will-change: auto !important;
+    }
+  </style>
+  <style>
+    /* Center note image, reduce size by 10%, add more top spacing (desktop only) */
+    .about-copy img.about-photo[src*="note.jpg"] {
+      display: block;
+      margin: 6rem auto 0 auto; /* increased top spacing */
+      width: 90%; /* reduced from 100% to 90% */
+      max-width: 800px; /* ensures consistent desktop sizing */
+      height: auto;
+    }
+
+    @media (max-width: 900px) {
+      .about-copy img.about-photo[src*="note.jpg"] {
+        width: 100%;
+        margin-top: 3rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <a class="brand-link" href="index.html">
+          <img alt="Hutzell Creative Co. logo" class="brand-logo" src="assets/logo.png"/>
+        </a>
+      </div>
+      <nav>
+        <ul>
+          <li><a class="nav-script active" href="index.html">Home</a></li>
+          <li><a class="nav-script" href="services.html">Services</a></li>
+          <li><a class="nav-script" href="contact.html">Inquiry</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container">
+      <div class="kicker">Hutzell Creative Co. • Est. 2024</div>
+      <h1>
+        The single team for all your creative needs —
+        <strong>photography</strong>, <strong>videography</strong>, and <strong>design</strong>.
+      </h1>
+      <p class="subtitle">
         A husband-and-wife led creative agency serving Athens, GA and beyond.
-      </p><div class="cta-row"><a class="nav-script" href="contact.html">Let’s Connect</a><a class="nav-script" href="services.html">View Portfolio</a></div></div></section><section class="section features-bubbles"><div class="container"><div class="bubble-seq"><a class="bubble left" data-seq="0" href="services.html#photography"><img alt="Photography logo" class="bubble-icon" src="assets/img/bubble-photography.png"/><div class="bubble-copy"><h3 class="subhead">Photography</h3><p>Timeless images that capture the beauty of real moments — from weddings to families to senior portraits.</p></div></a><a class="bubble left" data-seq="1" href="services.html#videography"><img alt="Videography logo" class="bubble-icon" src="assets/img/bubble-videography.png"/><div class="bubble-copy"><h3 class="subhead">Videography</h3><p>Cinematic storytelling that brings your memories and milestones to life, frame by frame.</p></div></a><a class="bubble left" data-seq="2" href="services.html#design"><img alt="Design and Branding logo" class="bubble-icon" src="assets/img/bubble-design.png"/><div class="bubble-copy"><h3 class="subhead">Design &amp; Branding</h3><p>Custom logos, branding, and creative design that help your business stand out with clarity and confidence.</p></div></a></div></div></section><section class="section about-us" id="about"><div class="container"><h3 class="about-label">About Us</h3><img alt="Zach and Avery Hutzell" class="about-photo" loading="lazy" src="assets/img/aboutus.png"/><div class="about-copy"><p class="about-text">
+      </p>
+      <div class="cta-row">
+        <a class="nav-script" href="contact.html">Let’s Connect</a>
+        <a class="nav-script" href="services.html">View Portfolio</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section features-bubbles">
+    <div class="container">
+      <div class="bubble-seq">
+        <a class="bubble left" data-seq="0" href="services.html#photography">
+          <img alt="Photography logo" class="bubble-icon" src="assets/img/bubble-photography.png"/>
+          <div class="bubble-copy">
+            <h3 class="subhead">Photography</h3>
+            <p>Timeless images that capture the beauty of real moments — from weddings to families to senior portraits.</p>
+          </div>
+        </a>
+        <a class="bubble left" data-seq="1" href="services.html#videography">
+          <img alt="Videography logo" class="bubble-icon" src="assets/img/bubble-videography.png"/>
+          <div class="bubble-copy">
+            <h3 class="subhead">Videography</h3>
+            <p>Cinematic storytelling that brings your memories and milestones to life, frame by frame.</p>
+          </div>
+        </a>
+        <a class="bubble left" data-seq="2" href="services.html#design">
+          <img alt="Design and Branding logo" class="bubble-icon" src="assets/img/bubble-design.png"/>
+          <div class="bubble-copy">
+            <h3 class="subhead">Design & Branding</h3>
+            <p>Custom logos, branding, and creative design that help your business stand out with clarity and confidence.</p>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section about-us" id="about">
+    <div class="container">
+      <h3 class="about-label">About Us</h3>
+      <img alt="Zach and Avery Hutzell" class="about-photo" loading="lazy" src="assets/img/aboutus.png"/>
+      <div class="about-copy">
+        <p class="about-text">
           Zach and Avery Hutzell are the husband-and-wife team behind Hutzell Creative Co. Zach is a graduate student studying horticulture, and Avery is a full-time graphic designer for a local nonprofit. In every spare moment they have, they love creating together. Nothing excites them more than walking alongside people as they celebrate life’s biggest moments — from starting a business to starting a life together in marriage.
-        </p><img alt="Note from the Hutzells" class="about-photo" src="assets/img/note.jpg"/></div></div></section><footer class="footer"><div class="container">© <span id="year"></span> Hutzell Creative Co.</div></footer><script src="main.js"></script><script>document.getElementById('year').textContent = new Date().getFullYear();</script></body></html>
+        </p>
+        <img alt="Note from the Hutzells" class="about-photo" src="assets/img/note.jpg"/>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">© <span id="year"></span> Hutzell Creative Co.</div>
+  </footer>
+
+  <script src="main.js"></script>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

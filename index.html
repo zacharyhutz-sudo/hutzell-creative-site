@@ -12,11 +12,12 @@
   <style>
     /* === Aesthetic Parallax Background === */
     body {
-      /* Remove default white bg so we see the collage */
-      background-color: transparent; 
+      background-color: #faf9f6; /* Warm off-white base color behind everything */
+      overflow-x: hidden; /* Prevent horizontal scroll from tilted bg */
     }
 
-    .parallax-bg {
+    /* The fixed window that holds our moving layer */
+    .parallax-viewport {
       position: fixed;
       top: 0;
       left: 0;
@@ -24,54 +25,59 @@
       height: 100vh;
       z-index: -10;
       overflow: hidden;
-      background: #faf9f6; /* Warm off-white base */
+      pointer-events: none;
+    }
+
+    /* The layer that actually moves */
+    .parallax-layer {
+      position: absolute;
+      top: -10%; /* Start slightly higher to allow for movement */
+      left: -10%;
+      width: 120%;
+      will-change: transform; /* Performance optimization */
     }
 
     .collage-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr); /* 4 columns */
+      grid-template-columns: repeat(4, 1fr);
       gap: 1.5rem;
-      width: 120%; /* Wider than screen to accommodate tilt */
-      margin-left: -10%; /* Center the over-width grid */
-      transform: rotate(-6deg) scale(1.1) translateY(-5%);
-      opacity: 0.25; /* Low opacity to keep text readable */
-      filter: grayscale(20%) sepia(5%); /* Slight vintage modern tone */
-      pointer-events: none; /* Mouse passes through to content */
+      /* The tilt aesthetic */
+      transform: rotate(-6deg) scale(1.1); 
+      /* Reduced fade: increased opacity to 0.40 (was 0.25) */
+      opacity: 0.40; 
+      filter: grayscale(20%) sepia(5%);
     }
 
     .collage-item {
       width: 100%;
       border-radius: 8px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
       display: block;
-      /* Vary heights for masonry feel */
       aspect-ratio: 2/3; 
       object-fit: cover;
     }
     
-    /* Make specific items offset or different sizes for "random" look */
+    /* Randomize the masonry feel */
     .collage-item:nth-child(2n) { transform: translateY(30px); }
     .collage-item:nth-child(3n) { transform: translateY(-20px); }
+    .collage-item:nth-child(4n) { transform: translateY(10px); }
 
-    /* Frosted glass effect for content to ensure readability over photos */
-    .hero, .section, .footer {
-      position: relative;
-      z-index: 2;
-    }
+    /* Frosted glass content to ensure text is readable over the stronger images */
+    .hero, .section, .footer { position: relative; z-index: 2; }
     
-    /* Add a subtle backing to the bubbles so they pop off the background */
+    /* Bubbles pop off the background */
     .features-bubbles .bubble {
-      background: rgba(255, 255, 255, 0.85) !important;
-      backdrop-filter: blur(8px);
-      border: 1px solid rgba(255,255,255,0.9);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+      background: rgba(255, 255, 255, 0.9) !important; /* Slightly more opaque background */
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.8);
+      box-shadow: 0 10px 40px rgba(0,0,0,0.06);
     }
 
-    /* Mobile adjustments for the background */
     @media (max-width: 768px) {
       .collage-grid {
-        grid-template-columns: repeat(2, 1fr); /* Fewer columns on mobile */
-        opacity: 0.15; /* Even lighter on mobile */
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+        opacity: 0.20; /* Keep it lighter on mobile to save screen real estate */
       }
     }
   </style>
@@ -85,12 +91,9 @@
       text-align: center;
       margin: 16px 0 6px;
     }
-
-    /* Remove section borders */
     .section { border-bottom: none !important; }
   </style>
   <style>
-    /* Disable reveal/scroll animations for feature bubbles */
     .features-bubbles .bubble {
       opacity: 1 !important;
       transform: none !important;
@@ -99,7 +102,6 @@
     }
   </style>
   <style>
-    /* Center note image, reduce size by 10%, add more top spacing (desktop only) */
     .about-copy img.about-photo[src*="note.jpg"] {
       display: block;
       margin: 6rem auto 0 auto;
@@ -107,7 +109,6 @@
       max-width: 800px;
       height: auto;
     }
-
     @media (max-width: 900px) {
       .about-copy img.about-photo[src*="note.jpg"] {
         width: 100%;
@@ -117,7 +118,7 @@
   </style>
   
   <style>
-    /* === Mobile-only header unification (match Services) === */
+    /* Mobile Header Fix */
     @media (max-width: 899px){
       html, body { margin:0; padding:0; overflow-x:hidden !important; touch-action: pan-y; -webkit-text-size-adjust:100%; }
       header{ position: sticky; top:0; z-index:40; padding-top: max(2px, env(safe-area-inset-top)); background: rgba(255,255,255,0.92); backdrop-filter: saturate(160%) blur(8px); }
@@ -132,22 +133,40 @@
 </head>
 <body>
 
-  <div class="parallax-bg">
-    <div class="collage-grid">
-      <img src="assets/img/w1.jpg" class="collage-item" alt="Background aesthetic" loading="lazy">
-      <img src="assets/img/f1.jpg" class="collage-item" alt="Background aesthetic" loading="lazy">
-      <img src="assets/img/c1.jpg" class="collage-item" alt="Background aesthetic" loading="lazy">
-      <img src="assets/img/s3.jpg" class="collage-item" alt="Background aesthetic" loading="lazy">
-      
-      <img src="assets/img/c5.jpg" class="collage-item" alt="Background aesthetic" loading="lazy">
-      <img src="assets/img/w3.jpg" class="collage-item" alt="Background aesthetic" loading="lazy">
-      <img src="assets/img/design-sample-1.jpg" class="collage-item" alt="Background aesthetic" loading="lazy">
-      <img src="assets/img/f4.jpg" class="collage-item" alt="Background aesthetic" loading="lazy">
-      
-      <img src="assets/img/s10.jpg" class="collage-item" alt="Background aesthetic" loading="lazy">
-      <img src="assets/img/c2.jpg" class="collage-item" alt="Background aesthetic" loading="lazy">
-      <img src="assets/img/w2.jpg" class="collage-item" alt="Background aesthetic" loading="lazy">
-      <img src="assets/img/f8.jpg" class="collage-item" alt="Background aesthetic" loading="lazy">
+  <div class="parallax-viewport">
+    <div class="parallax-layer" id="parallaxLayer">
+      <div class="collage-grid">
+        <img src="assets/img/w1.jpg" class="collage-item" alt="" loading="lazy">
+        <img src="assets/img/f1.jpg" class="collage-item" alt="" loading="lazy">
+        <img src="assets/img/c1.jpg" class="collage-item" alt="" loading="lazy">
+        <img src="assets/img/s3.jpg" class="collage-item" alt="" loading="lazy">
+        
+        <img src="assets/img/c5.jpg" class="collage-item" alt="" loading="lazy">
+        <img src="assets/img/w3.jpg" class="collage-item" alt="" loading="lazy">
+        <img src="assets/img/design-sample-1.jpg" class="collage-item" alt="" loading="lazy">
+        <img src="assets/img/f4.jpg" class="collage-item" alt="" loading="lazy">
+        
+        <img src="assets/img/s10.jpg" class="collage-item" alt="" loading="lazy">
+        <img src="assets/img/c2.jpg" class="collage-item" alt="" loading="lazy">
+        <img src="assets/img/w2.jpg" class="collage-item" alt="" loading="lazy">
+        <img src="assets/img/f8.jpg" class="collage-item" alt="" loading="lazy">
+
+        <img src="assets/img/s14.jpg" class="collage-item" alt="" loading="lazy">
+        <img src="assets/img/c7.jpg" class="collage-item" alt="" loading="lazy">
+        <img src="assets/img/w5.jpg" class="collage-item" alt="" loading="lazy">
+        <img src="assets/img/f12.jpg" class="collage-item" alt="" loading="lazy">
+
+        <img src="assets/img/w4.jpg" class="collage-item" alt="" loading="lazy">
+        <img src="assets/img/c8.jpg" class="collage-item" alt="" loading="lazy">
+        <img src="assets/img/s17.jpg" class="collage-item" alt="" loading="lazy">
+        <img src="assets/img/f15.jpg" class="collage-item" alt="" loading="lazy">
+        
+        <img src="assets/img/c10.jpg" class="collage-item" alt="" loading="lazy">
+        <img src="assets/img/s20.jpg" class="collage-item" alt="" loading="lazy">
+        <img src="assets/img/w1.jpg" class="collage-item" alt="" loading="lazy">
+        <img src="assets/img/f19.jpg" class="collage-item" alt="" loading="lazy">
+
+      </div>
     </div>
   </div>
 
@@ -231,6 +250,19 @@
   </footer>
 
   <script src="main.js"></script>
-  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    
+    // === Parallax Script ===
+    // Moves the background up at 25% of the scroll speed
+    window.addEventListener('scroll', function() {
+      const scrollPosition = window.scrollY;
+      const layer = document.getElementById('parallaxLayer');
+      if(layer) {
+        // Translate Y negative (move up) but slowly (* 0.25)
+        layer.style.transform = `translateY(-${scrollPosition * 0.25}px)`;
+      }
+    });
+  </script>
 </body>
 </html>

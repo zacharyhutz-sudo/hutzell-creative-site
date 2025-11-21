@@ -8,6 +8,74 @@
   <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
   <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600&family=Della+Respira&display=swap" rel="stylesheet"/>
   <link href="style.css" rel="stylesheet"/>
+  
+  <style>
+    /* === Aesthetic Parallax Background === */
+    body {
+      /* Remove default white bg so we see the collage */
+      background-color: transparent; 
+    }
+
+    .parallax-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: -10;
+      overflow: hidden;
+      background: #faf9f6; /* Warm off-white base */
+    }
+
+    .collage-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr); /* 4 columns */
+      gap: 1.5rem;
+      width: 120%; /* Wider than screen to accommodate tilt */
+      margin-left: -10%; /* Center the over-width grid */
+      transform: rotate(-6deg) scale(1.1) translateY(-5%);
+      opacity: 0.25; /* Low opacity to keep text readable */
+      filter: grayscale(20%) sepia(5%); /* Slight vintage modern tone */
+      pointer-events: none; /* Mouse passes through to content */
+    }
+
+    .collage-item {
+      width: 100%;
+      border-radius: 8px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      display: block;
+      /* Vary heights for masonry feel */
+      aspect-ratio: 2/3; 
+      object-fit: cover;
+    }
+    
+    /* Make specific items offset or different sizes for "random" look */
+    .collage-item:nth-child(2n) { transform: translateY(30px); }
+    .collage-item:nth-child(3n) { transform: translateY(-20px); }
+
+    /* Frosted glass effect for content to ensure readability over photos */
+    .hero, .section, .footer {
+      position: relative;
+      z-index: 2;
+    }
+    
+    /* Add a subtle backing to the bubbles so they pop off the background */
+    .features-bubbles .bubble {
+      background: rgba(255, 255, 255, 0.85) !important;
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.9);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    }
+
+    /* Mobile adjustments for the background */
+    @media (max-width: 768px) {
+      .collage-grid {
+        grid-template-columns: repeat(2, 1fr); /* Fewer columns on mobile */
+        opacity: 0.15; /* Even lighter on mobile */
+      }
+    }
+  </style>
+
   <style>
     /* About Us label: match Note style, centered */
     .about-us .about-label {
@@ -34,9 +102,9 @@
     /* Center note image, reduce size by 10%, add more top spacing (desktop only) */
     .about-copy img.about-photo[src*="note.jpg"] {
       display: block;
-      margin: 6rem auto 0 auto; /* increased top spacing */
-      width: 90%; /* reduced from 100% to 90% */
-      max-width: 800px; /* ensures consistent desktop sizing */
+      margin: 6rem auto 0 auto;
+      width: 90%;
+      max-width: 800px;
       height: auto;
     }
 
@@ -63,6 +131,26 @@
   </style>
 </head>
 <body>
+
+  <div class="parallax-bg">
+    <div class="collage-grid">
+      <img src="assets/img/w1.jpg" class="collage-item" alt="Background aesthetic" loading="lazy">
+      <img src="assets/img/f1.jpg" class="collage-item" alt="Background aesthetic" loading="lazy">
+      <img src="assets/img/c1.jpg" class="collage-item" alt="Background aesthetic" loading="lazy">
+      <img src="assets/img/s3.jpg" class="collage-item" alt="Background aesthetic" loading="lazy">
+      
+      <img src="assets/img/c5.jpg" class="collage-item" alt="Background aesthetic" loading="lazy">
+      <img src="assets/img/w3.jpg" class="collage-item" alt="Background aesthetic" loading="lazy">
+      <img src="assets/img/design-sample-1.jpg" class="collage-item" alt="Background aesthetic" loading="lazy">
+      <img src="assets/img/f4.jpg" class="collage-item" alt="Background aesthetic" loading="lazy">
+      
+      <img src="assets/img/s10.jpg" class="collage-item" alt="Background aesthetic" loading="lazy">
+      <img src="assets/img/c2.jpg" class="collage-item" alt="Background aesthetic" loading="lazy">
+      <img src="assets/img/w2.jpg" class="collage-item" alt="Background aesthetic" loading="lazy">
+      <img src="assets/img/f8.jpg" class="collage-item" alt="Background aesthetic" loading="lazy">
+    </div>
+  </div>
+
   <header>
     <div class="container nav">
       <div class="brand">

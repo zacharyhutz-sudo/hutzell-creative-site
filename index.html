@@ -57,7 +57,7 @@
       transition: transform 0.1s;
     }
     
-    /* === Column-Sync Offsets (Prevents Overlap) === */
+    /* === Desktop Column-Sync Offsets (4 Cols) === */
     .collage-item:nth-child(4n+1) { transform: translateY(0px); }
     .collage-item:nth-child(4n+2) { transform: translateY(50px); }
     .collage-item:nth-child(4n+3) { transform: translateY(-30px); }
@@ -155,11 +155,13 @@
       position: relative;
     }
 
+    /* Dramatized Note Tilt */
     .about-note-img {
       width: 90%;
       max-width: 450px;
       height: auto;
-      transform: rotate(3deg);
+      /* INCREASED TILT: was 3deg, now 6deg for drama */
+      transform: rotate(6deg);
       box-shadow: 2px 8px 24px rgba(0,0,0,0.12);
       transition: transform 0.4s ease;
       background: #fff;
@@ -180,23 +182,24 @@
 
     /* === Mobile Adjustments === */
     @media (max-width: 768px) {
-      /* FIX: Widen the layer drastically to handle rotation swing on tall screens */
       .parallax-layer {
         width: 180%; 
         left: -40%;
       }
       
       .collage-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 1rem;
+        /* UPDATED: 3 columns makes images smaller */
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.75rem; /* Tighter gap for smaller images */
         opacity: 0.20;
-        /* FIX: Reduce rotation on mobile to minimize empty gaps */
         transform: rotate(-3deg) scale(1.1); 
       }
       
+      /* UPDATED: Mobile 3-Column Offsets */
       .collage-item:nth-child(n) { transform: none; }
-      .collage-item:nth-child(2n+1) { transform: translateY(0px); }
-      .collage-item:nth-child(2n) { transform: translateY(30px); }
+      .collage-item:nth-child(3n+1) { transform: translateY(0px); }
+      .collage-item:nth-child(3n+2) { transform: translateY(40px); }
+      .collage-item:nth-child(3n+3) { transform: translateY(-20px); }
 
       .hero-glass {
         padding: 2rem 1.5rem;
@@ -210,7 +213,8 @@
       
       .about-note-img {
         width: 100%;
-        transform: rotate(1deg);
+        /* INCREASED TILT: was 1deg, now 3deg */
+        transform: rotate(3deg);
       }
     }
   </style>
@@ -268,6 +272,21 @@
         <img src="assets/img/s20.jpg" class="collage-item" alt="" loading="lazy">
         <img src="assets/img/w1.jpg" class="collage-item" alt="" loading="lazy">
         <img src="assets/img/f19.jpg" class="collage-item" alt="" loading="lazy">
+
+        <img src="assets/img/c3.jpg" class="collage-item" alt="" loading="lazy">
+        <img src="assets/img/s4.jpg" class="collage-item" alt="" loading="lazy">
+        <img src="assets/img/f9.jpg" class="collage-item" alt="" loading="lazy">
+        <img src="assets/img/w2.jpg" class="collage-item" alt="" loading="lazy">
+
+        <img src="assets/img/s12.jpg" class="collage-item" alt="" loading="lazy">
+        <img src="assets/img/c11.jpg" class="collage-item" alt="" loading="lazy">
+        <img src="assets/img/f6.jpg" class="collage-item" alt="" loading="lazy">
+        <img src="assets/img/w3.jpg" class="collage-item" alt="" loading="lazy">
+
+        <img src="assets/img/c12.jpg" class="collage-item" alt="" loading="lazy">
+        <img src="assets/img/s16.jpg" class="collage-item" alt="" loading="lazy">
+        <img src="assets/img/f14.jpg" class="collage-item" alt="" loading="lazy">
+        <img src="assets/img/c1.jpg" class="collage-item" alt="" loading="lazy">
 
       </div>
     </div>
@@ -366,11 +385,20 @@
     document.getElementById('year').textContent = new Date().getFullYear();
     
     // === Parallax Script ===
+    let ticking = false;
     window.addEventListener('scroll', function() {
-      const scrollPosition = window.scrollY;
-      const layer = document.getElementById('parallaxLayer');
-      if(layer) {
-        layer.style.transform = `translateY(-${scrollPosition * 0.25}px)`;
+      if (!ticking) {
+        window.requestAnimationFrame(function() {
+          // Only calculate movement on desktop (>768px)
+          if (window.innerWidth > 768) {
+            const layer = document.getElementById('parallaxLayer');
+            if(layer) {
+              layer.style.transform = `translateY(-${window.scrollY * 0.25}px)`;
+            }
+          }
+          ticking = false;
+        });
+        ticking = true;
       }
     });
   </script>

@@ -11,9 +11,12 @@
   
   <style>
     /* === Aesthetic Parallax Background === */
-    body {
-      background-color: #faf9f6; /* Warm off-white base color behind everything */
-      overflow-x: hidden; /* Prevent horizontal scroll from tilted bg */
+    html, body {
+      /* FIX: Must be transparent so we can see the layer behind it */
+      background-color: transparent;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
     }
 
     /* The fixed window that holds our moving layer */
@@ -23,27 +26,28 @@
       left: 0;
       width: 100vw;
       height: 100vh;
-      z-index: -10;
+      z-index: -10; /* Sits behind everything */
       overflow: hidden;
       pointer-events: none;
+      /* FIX: Background color goes here, so it sits with the images */
+      background-color: #faf9f6; 
     }
 
     /* The layer that actually moves */
     .parallax-layer {
       position: absolute;
-      top: -10%; /* Start slightly higher to allow for movement */
+      top: -10%;
       left: -10%;
       width: 120%;
-      will-change: transform; /* Performance optimization */
+      will-change: transform;
     }
 
     .collage-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 1.5rem;
-      /* The tilt aesthetic */
       transform: rotate(-6deg) scale(1.1); 
-      /* Reduced fade: increased opacity to 0.40 (was 0.25) */
+      /* Opacity 0.40 provides the soft fade */
       opacity: 0.40; 
       filter: grayscale(20%) sepia(5%);
     }
@@ -62,22 +66,36 @@
     .collage-item:nth-child(3n) { transform: translateY(-20px); }
     .collage-item:nth-child(4n) { transform: translateY(10px); }
 
-    /* Frosted glass content to ensure text is readable over the stronger images */
-    .hero, .section, .footer { position: relative; z-index: 2; }
+    /* Content Styling (Frosted Glass) */
+    .hero, .section, .footer { 
+      position: relative; 
+      z-index: 2; /* Ensures content sits ABOVE the background */
+    }
     
-    /* Bubbles pop off the background */
     .features-bubbles .bubble {
-      background: rgba(255, 255, 255, 0.9) !important; /* Slightly more opaque background */
+      background: rgba(255, 255, 255, 0.9) !important;
       backdrop-filter: blur(12px);
       border: 1px solid rgba(255,255,255,0.8);
       box-shadow: 0 10px 40px rgba(0,0,0,0.06);
+    }
+    
+    /* Ensure About Section text is readable */
+    .about-us .about-copy {
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(8px);
+      padding: 2rem;
+      border-radius: 16px;
+      margin-top: 1rem;
     }
 
     @media (max-width: 768px) {
       .collage-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 1rem;
-        opacity: 0.20; /* Keep it lighter on mobile to save screen real estate */
+        opacity: 0.20;
+      }
+      .about-us .about-copy {
+        padding: 1rem;
       }
     }
   </style>
@@ -104,7 +122,7 @@
   <style>
     .about-copy img.about-photo[src*="note.jpg"] {
       display: block;
-      margin: 6rem auto 0 auto;
+      margin: 2rem auto 0 auto; /* Adjusted spacing inside the new bubble */
       width: 90%;
       max-width: 800px;
       height: auto;
@@ -112,7 +130,7 @@
     @media (max-width: 900px) {
       .about-copy img.about-photo[src*="note.jpg"] {
         width: 100%;
-        margin-top: 3rem;
+        margin-top: 2rem;
       }
     }
   </style>

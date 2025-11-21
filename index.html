@@ -12,28 +12,24 @@
   <style>
     /* === Aesthetic Parallax Background === */
     html, body {
-      /* FIX: Must be transparent so we can see the layer behind it */
       background-color: transparent;
       margin: 0;
       padding: 0;
       overflow-x: hidden;
     }
 
-    /* The fixed window that holds our moving layer */
     .parallax-viewport {
       position: fixed;
       top: 0;
       left: 0;
       width: 100vw;
       height: 100vh;
-      z-index: -10; /* Sits behind everything */
+      z-index: -10;
       overflow: hidden;
       pointer-events: none;
-      /* FIX: Background color goes here, so it sits with the images */
       background-color: #faf9f6; 
     }
 
-    /* The layer that actually moves */
     .parallax-layer {
       position: absolute;
       top: -10%;
@@ -47,7 +43,6 @@
       grid-template-columns: repeat(4, 1fr);
       gap: 1.5rem;
       transform: rotate(-6deg) scale(1.1); 
-      /* Opacity 0.40 provides the soft fade */
       opacity: 0.40; 
       filter: grayscale(20%) sepia(5%);
     }
@@ -59,17 +54,29 @@
       display: block;
       aspect-ratio: 2/3; 
       object-fit: cover;
+      /* Default transition for smooth resizing */
+      transition: transform 0.1s;
     }
     
-    /* Randomize the masonry feel */
-    .collage-item:nth-child(2n) { transform: translateY(30px); }
-    .collage-item:nth-child(3n) { transform: translateY(-20px); }
-    .collage-item:nth-child(4n) { transform: translateY(10px); }
+    /* === FIXED: Column-Sync Offsets (Prevents Overlap) === */
+    /* Instead of random items, we move entire columns so they never crash */
+    
+    /* Column 1 (Items 1, 5, 9...) - Stay put */
+    .collage-item:nth-child(4n+1) { transform: translateY(0px); }
+    
+    /* Column 2 (Items 2, 6, 10...) - Move DOWN strongly */
+    .collage-item:nth-child(4n+2) { transform: translateY(50px); }
+    
+    /* Column 3 (Items 3, 7, 11...) - Move UP strongly */
+    .collage-item:nth-child(4n+3) { transform: translateY(-30px); }
+    
+    /* Column 4 (Items 4, 8, 12...) - Move DOWN slightly */
+    .collage-item:nth-child(4n+4) { transform: translateY(20px); }
 
-    /* Content Styling (Frosted Glass) */
+    /* Content Styling */
     .hero, .section, .footer { 
       position: relative; 
-      z-index: 2; /* Ensures content sits ABOVE the background */
+      z-index: 2; 
     }
     
     .features-bubbles .bubble {
@@ -79,7 +86,6 @@
       box-shadow: 0 10px 40px rgba(0,0,0,0.06);
     }
     
-    /* Ensure About Section text is readable */
     .about-us .about-copy {
       background: rgba(255,255,255,0.85);
       backdrop-filter: blur(8px);
@@ -88,12 +94,22 @@
       margin-top: 1rem;
     }
 
+    /* === Mobile Adjustments === */
     @media (max-width: 768px) {
       .collage-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(2, 1fr); /* Switch to 2 columns */
         gap: 1rem;
         opacity: 0.20;
       }
+      
+      /* Reset desktop offsets and use simple 2-col logic for mobile */
+      .collage-item:nth-child(n) { transform: none; }
+      
+      /* Col 1: Stay */
+      .collage-item:nth-child(2n+1) { transform: translateY(0px); }
+      /* Col 2: Move down */
+      .collage-item:nth-child(2n) { transform: translateY(30px); }
+
       .about-us .about-copy {
         padding: 1rem;
       }
@@ -101,7 +117,7 @@
   </style>
 
   <style>
-    /* About Us label: match Note style, centered */
+    /* About Us label */
     .about-us .about-label {
       font-family: 'EB Garamond', serif;
       font-weight: 500;
@@ -122,7 +138,7 @@
   <style>
     .about-copy img.about-photo[src*="note.jpg"] {
       display: block;
-      margin: 2rem auto 0 auto; /* Adjusted spacing inside the new bubble */
+      margin: 2rem auto 0 auto;
       width: 90%;
       max-width: 800px;
       height: auto;
@@ -161,8 +177,7 @@
         
         <img src="assets/img/c5.jpg" class="collage-item" alt="" loading="lazy">
         <img src="assets/img/w3.jpg" class="collage-item" alt="" loading="lazy">
-        <img src="assets/img/design-sample-1.jpg" class="collage-item" alt="" loading="lazy">
-        <img src="assets/img/f4.jpg" class="collage-item" alt="" loading="lazy">
+        <img src="assets/img/c6.jpg" class="collage-item" alt="" loading="lazy"> <img src="assets/img/f4.jpg" class="collage-item" alt="" loading="lazy">
         
         <img src="assets/img/s10.jpg" class="collage-item" alt="" loading="lazy">
         <img src="assets/img/c2.jpg" class="collage-item" alt="" loading="lazy">
@@ -272,12 +287,10 @@
     document.getElementById('year').textContent = new Date().getFullYear();
     
     // === Parallax Script ===
-    // Moves the background up at 25% of the scroll speed
     window.addEventListener('scroll', function() {
       const scrollPosition = window.scrollY;
       const layer = document.getElementById('parallaxLayer');
       if(layer) {
-        // Translate Y negative (move up) but slowly (* 0.25)
         layer.style.transform = `translateY(-${scrollPosition * 0.25}px)`;
       }
     });

@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="style.css"/>
 
 <style>
-  /* === Base Aesthetics (Matching Home) === */
+  /* === Base Aesthetics === */
   :root {
     --bg-color: #faf9f6;
     --dark-bg: #121614; 
@@ -18,7 +18,6 @@
     --ink: #1a1a1a;
   }
 
-  /* GLOBAL RESET: Crucial for alignment */
   * { box-sizing: border-box; }
 
   html { scroll-behavior: smooth; }
@@ -44,15 +43,14 @@
     display: block;
   }
 
-  /* === Layout Utilities === */
   .container {
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 2rem; /* Standard desktop padding */
+    padding: 0 2rem; 
   }
 
-  /* === Header (Fixed Alignment) === */
+  /* === Header === */
   header {
     position: sticky;
     top: 0;
@@ -63,7 +61,7 @@
     border-bottom: 1px solid rgba(255,255,255,0.3);
     transition: background 0.3s ease;
     padding-top: max(2px, env(safe-area-inset-top));
-    width: 100%; /* Force full width */
+    width: 100%; 
   }
 
   header .nav {
@@ -104,7 +102,6 @@
     color: #666;
   }
 
-  /* Gallery content on the right */
   .gallery-flow {
     display: flex;
     flex-direction: column;
@@ -119,7 +116,7 @@
     display: inline-block;
   }
 
-  /* === Component: Glass Sliders === */
+  /* === Component: Aesthetic Blur Slider === */
   .photo-slider {
     position: relative;
     width: 100%;
@@ -128,14 +125,30 @@
 
   .photo-slider .viewport {
     position: relative;
-    /* Desktop Ratio: 3/2 (Standard landscape) */
+    /* Desktop Ratio: 3/2 */
     aspect-ratio: 3/2;
     width: 100%;
     overflow: hidden;
     border-radius: 12px;
-    background: #fff;
+    background: #e5e5e5; /* Fallback gray */
     box-shadow: 0 20px 40px rgba(0,0,0,0.08), 0 1px 3px rgba(0,0,0,0.05);
     isolation: isolate;
+    --bg: url('about:blank'); /* Placeholder for blur effect */
+  }
+
+  /* This creates the blurred background behind the photo */
+  .photo-slider .viewport::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: var(--bg);
+    background-size: cover;
+    background-position: center;
+    filter: blur(20px) saturate(120%); /* heavy blur */
+    transform: scale(1.1); /* scale up to hide blur edges */
+    opacity: 0.5; /* Softness */
+    z-index: -1;
+    transition: background-image 0.4s ease;
   }
 
   .photo-slider .slide {
@@ -143,12 +156,12 @@
     inset: 0;
     width: 100%;
     height: 100%;
-    /* Cover ensures no white bars, but correct aspect ratio prevents cropping */
-    object-fit: cover; 
-    background: #f4f4f4;
+    /* FIX: CONTAIN prevents cropping */
+    object-fit: contain; 
     opacity: 0;
     transition: opacity 0.6s ease-in-out;
     will-change: opacity;
+    z-index: 1;
   }
   .photo-slider .slide.is-active { opacity: 1; }
 
@@ -255,13 +268,12 @@
   /* === MOBILE FIXES === */
   @media (max-width: 900px) {
     
-    /* 1. Fix "Left Alignment" by ensuring container fills width */
     .container {
       width: 100% !important;
-      padding: 0 1.5rem; /* Proper mobile side padding */
+      padding: 0 1.5rem;
     }
 
-    /* 2. Fix Header Layout */
+    /* Header Layout */
     header .nav {
       display: grid !important;
       grid-template-columns: auto 1fr;
@@ -275,7 +287,7 @@
     header nav ul { display: flex; gap: 12px; align-items: center; margin: 0; padding: 0; }
     .nav-script { display: inline-block; padding: 6px 12px; border-radius: 999px; font-size: 14px; }
 
-    /* 3. Fix Editorial Grid Stacking */
+    /* Editorial Grid Stacking */
     .editorial-grid {
       display: flex;
       flex-direction: column;
@@ -285,27 +297,27 @@
       position: relative;
       top: 0;
       padding-right: 0;
-      text-align: center; /* Center align titles on mobile */
+      text-align: center;
     }
     .sticky-sidebar h2 { font-size: 2.5rem; }
     
     .gallery-flow { gap: 4rem; width: 100%; }
     .editorial-section { padding: 4rem 0; }
 
-    /* 4. FIX PHOTO SIZING: Use 3/2 (Landscape) instead of 4/5 (Portrait) */
-    /* This prevents zooming/cropping on landscape images */
+    /* FIX: MOBILE PHOTO SIZING 
+       1. Use 4/5 Ratio (Portrait) so vertical photos have room.
+       2. The 'contain' rule handles the rest, preventing cropping.
+    */
     .photo-slider .viewport { 
-      aspect-ratio: 3/2; 
+      aspect-ratio: 4/5; 
     } 
     
-    /* Cinema Mode Mobile */
     .cinema-section { padding: 4rem 0; text-align: center; }
     .cinema-section p { margin: 0 auto 2rem auto; }
     .video-grid { grid-template-columns: 1fr; gap: 1.5rem; }
 
-    /* Design Mobile */
     .design-grid { grid-template-columns: 1fr; gap: 2rem; }
-    .design-sample { order: -1; } /* Show image first */
+    .design-sample { order: -1; }
     .design-sample img { width: 100%; }
   }
 </style>
@@ -510,11 +522,16 @@
     }
     const dots = dotsContainer ? Array.from(dotsContainer.querySelectorAll('.dot')) : [];
 
+    // Function to update blurred background
+    function setBackdrop(src) {
+      viewport.style.setProperty('--bg', `url("${src}")`);
+    }
+
     function updateClasses() {
       slides.forEach((slide, index) => {
         slide.classList.toggle('is-active', index === activeIndex);
         
-        // Lazy load handling logic
+        // Lazy load logic
         if (index === activeIndex && slide.dataset.src) {
             slide.src = slide.dataset.src;
             slide.removeAttribute('data-src');
@@ -531,6 +548,11 @@
         dots.forEach((dot, index) => {
           dot.classList.toggle('is-active', index === activeIndex);
         });
+      }
+      
+      // Update background blur
+      if(slides[activeIndex].src) {
+        setBackdrop(slides[activeIndex].src);
       }
     }
 
@@ -560,7 +582,7 @@
       if (touchEndX > touchStartX + 50) goToSlide(activeIndex - 1);
     }
 
-    // Initialize first slide logic
+    // Initialize first slide
     updateClasses();
   });
 })();

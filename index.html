@@ -98,20 +98,19 @@
       backdrop-filter: blur(12px);
       border: 1px solid rgba(255,255,255,0.8);
       box-shadow: 0 10px 40px rgba(0,0,0,0.06);
-      opacity: 1 !important; /* Disable scroll reveal */
+      opacity: 1 !important;
       transform: none !important;
       transition: none !important;
       will-change: auto !important;
     }
 
-    /* === New About Section Layout === */
+    /* === About Section Layout === */
     .about-layout {
       display: grid;
-      grid-template-columns: 1fr; /* Mobile default: Stacked */
+      grid-template-columns: 1fr;
       gap: 2.5rem;
     }
 
-    /* Left Column: Glass Card for Bio */
     .about-card-left {
       background: rgba(255, 255, 255, 0.75);
       backdrop-filter: blur(16px);
@@ -145,11 +144,10 @@
       font-family: 'Della Respira', serif; 
       line-height: 1.7;
       color: #444;
-      text-align: left; /* Reads better for paragraphs */
+      text-align: left;
       font-size: 1rem;
     }
 
-    /* Right Column: Floating Note */
     .about-note-wrapper {
       display: flex;
       align-items: center;
@@ -159,34 +157,43 @@
 
     .about-note-img {
       width: 90%;
-      max-width: 450px; /* Prevent it from getting too huge */
+      max-width: 450px;
       height: auto;
-      transform: rotate(3deg); /* Aesthetic tilt */
-      box-shadow: 2px 8px 24px rgba(0,0,0,0.12); /* Lifted paper effect */
+      transform: rotate(3deg);
+      box-shadow: 2px 8px 24px rgba(0,0,0,0.12);
       transition: transform 0.4s ease;
-      background: #fff; /* Ensure it looks like paper */
+      background: #fff;
     }
 
     .about-note-img:hover {
-      transform: rotate(0deg) scale(1.02); /* Interactive hover */
+      transform: rotate(0deg) scale(1.02);
     }
 
     /* Desktop Adjustments */
     @media (min-width: 900px) {
       .about-layout {
-        grid-template-columns: 1.1fr 0.9fr; /* Left col slightly wider */
+        grid-template-columns: 1.1fr 0.9fr;
         align-items: center; 
         gap: 4rem;
       }
     }
 
-    /* Mobile Adjustments */
+    /* === Mobile Adjustments === */
     @media (max-width: 768px) {
+      /* FIX: Widen the layer drastically to handle rotation swing on tall screens */
+      .parallax-layer {
+        width: 180%; 
+        left: -40%;
+      }
+      
       .collage-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 1rem;
         opacity: 0.20;
+        /* FIX: Reduce rotation on mobile to minimize empty gaps */
+        transform: rotate(-3deg) scale(1.1); 
       }
+      
       .collage-item:nth-child(n) { transform: none; }
       .collage-item:nth-child(2n+1) { transform: translateY(0px); }
       .collage-item:nth-child(2n) { transform: translateY(30px); }
@@ -203,7 +210,7 @@
       
       .about-note-img {
         width: 100%;
-        transform: rotate(1deg); /* Less tilt on mobile */
+        transform: rotate(1deg);
       }
     }
   </style>

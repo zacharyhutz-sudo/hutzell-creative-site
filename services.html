@@ -13,12 +13,13 @@
   /* === Base Aesthetics (Matching Home) === */
   :root {
     --bg-color: #faf9f6;
-    --dark-bg: #121614; /* Deep rich charcoal/green for Cinema Mode */
+    --dark-bg: #121614; 
     --accent: #dcdcdc;
     --ink: #1a1a1a;
-    --glass: rgba(255, 255, 255, 0.65);
-    --glass-border: rgba(255, 255, 255, 0.4);
   }
+
+  /* GLOBAL RESET: Crucial for alignment */
+  * { box-sizing: border-box; }
 
   html { scroll-behavior: smooth; }
   body {
@@ -43,7 +44,15 @@
     display: block;
   }
 
-  /* === Header (Consistent with Index) === */
+  /* === Layout Utilities === */
+  .container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem; /* Standard desktop padding */
+  }
+
+  /* === Header (Fixed Alignment) === */
   header {
     position: sticky;
     top: 0;
@@ -54,6 +63,14 @@
     border-bottom: 1px solid rgba(255,255,255,0.3);
     transition: background 0.3s ease;
     padding-top: max(2px, env(safe-area-inset-top));
+    width: 100%; /* Force full width */
+  }
+
+  header .nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 2rem;
   }
 
   /* === Layout: Sticky Editorial Grid (Desktop) === */
@@ -71,7 +88,7 @@
 
   .sticky-sidebar {
     position: sticky;
-    top: 120px; /* Stick below the header */
+    top: 120px;
     padding-right: 2rem;
   }
 
@@ -91,7 +108,7 @@
   .gallery-flow {
     display: flex;
     flex-direction: column;
-    gap: 5rem; /* Space between categories (Families vs Seniors) */
+    gap: 5rem; 
   }
 
   .gallery-block h3 {
@@ -111,12 +128,12 @@
 
   .photo-slider .viewport {
     position: relative;
+    /* Desktop Ratio: 3/2 (Standard landscape) */
     aspect-ratio: 3/2;
     width: 100%;
     overflow: hidden;
     border-radius: 12px;
-    background: #fff; /* Fallback */
-    /* Soft premium shadow instead of border */
+    background: #fff;
     box-shadow: 0 20px 40px rgba(0,0,0,0.08), 0 1px 3px rgba(0,0,0,0.05);
     isolation: isolate;
   }
@@ -126,8 +143,9 @@
     inset: 0;
     width: 100%;
     height: 100%;
-    object-fit: contain; /* Ensure full image is seen */
-    background: #f4f4f4; /* Subtle backing for transparent/loading imgs */
+    /* Cover ensures no white bars, but correct aspect ratio prevents cropping */
+    object-fit: cover; 
+    background: #f4f4f4;
     opacity: 0;
     transition: opacity 0.6s ease-in-out;
     will-change: opacity;
@@ -166,7 +184,7 @@
   }
   .photo-slider .dot {
     width: 30px;
-    height: 4px; /* Bar style dots */
+    height: 4px;
     background: #ddd;
     border-radius: 4px;
     cursor: pointer;
@@ -199,7 +217,7 @@
     aspect-ratio: 16/9;
     border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.3); /* Deep shadow for cinema feel */
+    box-shadow: 0 20px 50px rgba(0,0,0,0.3); 
     background: #000;
   }
   .video-embed iframe { width: 100%; height: 100%; border: 0; }
@@ -234,9 +252,30 @@
   }
 
 
-  /* === Mobile Responsiveness === */
+  /* === MOBILE FIXES === */
   @media (max-width: 900px) {
-    /* Disable sticky grid, stack everything */
+    
+    /* 1. Fix "Left Alignment" by ensuring container fills width */
+    .container {
+      width: 100% !important;
+      padding: 0 1.5rem; /* Proper mobile side padding */
+    }
+
+    /* 2. Fix Header Layout */
+    header .nav {
+      display: grid !important;
+      grid-template-columns: auto 1fr;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 1.5rem !important;
+      width: 100%;
+    }
+    .brand .brand-logo { height: 50px !important; width: auto; display: block; }
+    header nav { justify-self: end; }
+    header nav ul { display: flex; gap: 12px; align-items: center; margin: 0; padding: 0; }
+    .nav-script { display: inline-block; padding: 6px 12px; border-radius: 999px; font-size: 14px; }
+
+    /* 3. Fix Editorial Grid Stacking */
     .editorial-grid {
       display: flex;
       flex-direction: column;
@@ -246,15 +285,18 @@
       position: relative;
       top: 0;
       padding-right: 0;
-      text-align: center;
+      text-align: center; /* Center align titles on mobile */
     }
     .sticky-sidebar h2 { font-size: 2.5rem; }
     
-    .gallery-flow { gap: 4rem; }
+    .gallery-flow { gap: 4rem; width: 100%; }
     .editorial-section { padding: 4rem 0; }
 
-    /* Make sliders taller on mobile for impact */
-    .photo-slider .viewport { aspect-ratio: 4/5; } 
+    /* 4. FIX PHOTO SIZING: Use 3/2 (Landscape) instead of 4/5 (Portrait) */
+    /* This prevents zooming/cropping on landscape images */
+    .photo-slider .viewport { 
+      aspect-ratio: 3/2; 
+    } 
     
     /* Cinema Mode Mobile */
     .cinema-section { padding: 4rem 0; text-align: center; }
@@ -264,13 +306,7 @@
     /* Design Mobile */
     .design-grid { grid-template-columns: 1fr; gap: 2rem; }
     .design-sample { order: -1; } /* Show image first */
-
-    /* Header Tweaks */
-    .nav{ display:grid !important; grid-template-columns:auto 1fr; align-items:center; gap:10px; padding:6px 12px !important; }
-    .brand .brand-logo{ height:66px !important; width:auto; display:block; }
-    header nav{ justify-self:end; }
-    header nav ul{ display:flex; gap:12px; align-items:center; margin:0; padding:0; }
-    .nav-script{ display:inline-block; padding:6px 12px; border-radius:999px; }
+    .design-sample img { width: 100%; }
   }
 </style>
 </head>

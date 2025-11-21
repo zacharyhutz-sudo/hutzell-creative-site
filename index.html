@@ -90,7 +90,12 @@
       margin: 1rem auto;
       box-shadow: 0 12px 40px rgba(0,0,0,0.04);
     }
-    .hero-glass h1 { margin-top: 0.5rem; }
+    .hero-glass h1 { 
+      margin-top: 0.5rem;
+      font-size: clamp(2rem, 4vw, 3.2rem); /* Fluid font size */
+      letter-spacing: -0.03em; /* Tighter spacing */
+      text-wrap: balance; /* Ensures balanced lines */
+    }
     .hero-glass .kicker { opacity: 0.8; }
 
     /* === Bubbles === */
@@ -223,6 +228,7 @@
       .hero-glass h1 {
         line-height: 1.3; /* Loosen the title line height */
         margin-bottom: 1rem;
+        font-size: 1.8rem; /* Reduced size for mobile to prevent awkward breaks */
       }
 
       .hero-glass .subtitle {
@@ -355,7 +361,7 @@
           <strong>photography</strong>, <strong>videography</strong>, and <strong>design</strong>.
         </h1>
         <p class="subtitle">
-          A husband-and-wife led creative agency serving Athens, GA and beyond.
+          A husband and wife led creative agency serving Athens, GA and beyond.
         </p>
         <div class="cta-row">
           <a class="nav-script" href="contact.html">Let’s Connect</a>
@@ -401,7 +407,7 @@
           <h3 class="about-label">About Us</h3>
           <img alt="Zach and Avery Hutzell" class="about-photo-main" loading="lazy" src="assets/img/aboutus.png"/>
           <p class="about-text">
-            Zach and Avery Hutzell are the husband-and-wife team behind Hutzell Creative Co. Zach is a graduate student studying horticulture, and Avery is a full-time graphic designer for a local nonprofit. In every spare moment they have, they love creating together. Nothing excites them more than walking alongside people as they celebrate life’s biggest moments — from starting a business to starting a life together in marriage.
+            Zach and Avery Hutzell are the husband and wife team behind Hutzell Creative Co. Zach is a graduate student studying horticulture, and Avery is a full-time graphic designer for a local nonprofit. In every spare moment they have, they love creating together. Nothing excites them more than walking alongside people as they celebrate life’s biggest moments — from starting a business to starting a life together in marriage.
           </p>
         </div>
 

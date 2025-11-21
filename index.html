@@ -47,6 +47,20 @@
       }
     }
   </style>
+  
+  <style>
+    /* === Mobile-only header unification (match Services) === */
+    @media (max-width: 899px){
+      html, body { margin:0; padding:0; overflow-x:hidden !important; touch-action: pan-y; -webkit-text-size-adjust:100%; }
+      header{ position: sticky; top:0; z-index:40; padding-top: max(2px, env(safe-area-inset-top)); background: rgba(255,255,255,0.92); backdrop-filter: saturate(160%) blur(8px); }
+      .nav{ display:grid !important; grid-template-columns:auto 1fr; align-items:center; gap:10px; padding:6px 12px !important; }
+      .brand{ order:1; }
+      .brand .brand-logo{ height:66px !important; max-height:66px !important; width:auto; display:block; }
+      header nav{ order:2; justify-self:end; }
+      header nav ul{ display:flex; gap:12px; align-items:center; margin:0; padding:0; }
+      .nav-script{ display:inline-block; padding:6px 12px; border-radius:999px; }
+    }
+  </style>
 </head>
 <body>
   <header>

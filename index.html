@@ -90,16 +90,23 @@
       margin: 1rem auto;
       box-shadow: 0 12px 40px rgba(0,0,0,0.04);
     }
+    
+    /* UPDATED: Using text-wrap: balance to fix orphan lines */
     .hero-glass h1 { 
       margin-top: 0.5rem;
       font-size: clamp(2rem, 4vw, 3.2rem); 
       letter-spacing: -0.03em; 
-      text-wrap: pretty; /* Changed from 'balance' to allow lines to fill naturally */
+      text-wrap: balance; 
     }
+    
     .hero-glass .subtitle {
       opacity: 0.9;
-      text-wrap: pretty; 
+      text-wrap: balance; 
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
     }
+    
     .hero-glass .kicker { opacity: 0.8; }
 
     /* === Bubbles === */
@@ -361,7 +368,7 @@
       <div class="hero-glass">
         <div class="kicker">Hutzell Creative Co. • Est. 2024</div>
         <h1>
-          The single team for all your creative needs —
+          The single team for all your creative&nbsp;needs&nbsp;—
           <strong>photography</strong>, <strong>videography</strong>, and&nbsp;<strong>design</strong>.
         </h1>
         <p class="subtitle">

@@ -236,34 +236,65 @@
   .video-embed iframe { width: 100%; height: 100%; border: 0; }
 
 
-  /* === Section: Design (Moodboard Style) === */
-  .design-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+  /* === Section: Design (Updated Checkerboard Grid) === */
+  .design-container {
+    display: flex;
+    flex-direction: column;
     gap: 3rem;
-    align-items: center;
   }
-  
-  .design-sample img {
+
+  .design-text {
+    max-width: 800px;
+  }
+
+  /* The 2x2 Grid for Kits & Logos */
+  .design-gallery {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* 2 Columns */
+    gap: 1.5rem;
+  }
+
+  .design-gallery img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
     border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    transition: transform 0.3s ease;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    aspect-ratio: 4/3; /* Keeps boxes uniform */
   }
-  .design-sample img:hover { transform: scale(1.02) rotate(1deg); }
+
+  /* Hover Effect */
+  .design-gallery img:hover {
+    transform: scale(1.02);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+    z-index: 2;
+  }
 
   .design-list {
     list-style: none;
     padding: 0;
-    margin: 2rem 0 0 0;
+    margin: 1.5rem 0 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem 2rem; /* Gap between items */
   }
+  
   .design-list li {
-    padding: 0.75rem 0;
-    border-bottom: 1px solid #eee;
     font-family: 'EB Garamond', serif;
-    font-size: 1.2rem;
+    font-size: 1.15rem;
     color: #555;
+    position: relative;
+    padding-left: 1rem;
   }
-
+  
+  /* Add a small bullet/dash via CSS */
+  .design-list li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: #ccc;
+  }
 
   /* === MOBILE FIXES === */
   @media (max-width: 900px) {
@@ -304,10 +335,7 @@
     .gallery-flow { gap: 4rem; width: 100%; }
     .editorial-section { padding: 4rem 0; }
 
-    /* FIX: MOBILE PHOTO SIZING 
-       1. Use 4/5 Ratio (Portrait) so vertical photos have room.
-       2. The 'contain' rule handles the rest, preventing cropping.
-    */
+    /* FIX: MOBILE PHOTO SIZING */
     .photo-slider .viewport { 
       aspect-ratio: 4/5; 
     } 
@@ -316,9 +344,8 @@
     .cinema-section p { margin: 0 auto 2rem auto; }
     .video-grid { grid-template-columns: 1fr; gap: 1.5rem; }
 
-    .design-grid { grid-template-columns: 1fr; gap: 2rem; }
-    .design-sample { order: -1; }
-    .design-sample img { width: 100%; }
+    /* Design Section Mobile Stacking */
+    .design-gallery { grid-template-columns: 1fr; gap: 1rem; }
   }
 </style>
 </head>
@@ -473,10 +500,10 @@
         <p>Identity systems that feel like you. We build clarity and confidence through custom design.</p>
       </div>
 
-      <div class="design-grid">
+      <div class="design-container">
         
         <div class="design-text">
-          <p>Whether you are launching a new business or refreshing an existing one, we create visual languages that speak to your audience.</p>
+          <p>Whether you are launching a new business or refreshing an existing one, we create visual languages that speak to your audience. We believe in comprehensive branding that goes beyond just a logo.</p>
           <ul class="design-list">
             <li>Logo Suites & Brand Guidelines</li>
             <li>Social Media Collateral</li>
@@ -485,8 +512,12 @@
           </ul>
         </div>
 
-        <div class="design-sample">
-          <img src="assets/img/design-sample-1.jpg" alt="Design Moodboard" loading="lazy">
+        <div class="design-gallery">
+          <img src="assets/img/d1.jpg" alt="Full Branding Kit Sample 1" loading="lazy">
+          <img src="assets/img/d2.jpg" alt="Logo Design Detail 1" loading="lazy">
+          
+          <img src="assets/img/d3.jpg" alt="Logo Design Detail 2" loading="lazy">
+          <img src="assets/img/d4.jpg" alt="Full Branding Kit Sample 2" loading="lazy">
         </div>
 
       </div>

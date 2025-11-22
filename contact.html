@@ -81,12 +81,13 @@
 
     /* Typography */
     .contact-title {
-      font-family: 'EB Garamond', serif !important;
-      font-weight: 500;
-      font-size: clamp(2.5rem, 4vw, 3.5rem);
+      /* Changed to Pinyon Script */
+      font-family: 'Pinyon Script', cursive !important; 
+      font-weight: 400;
+      /* Increased size slightly for readability */
+      font-size: clamp(3.5rem, 6vw, 5rem); 
       margin: 0 0 12px 0;
       text-align: center;
-      letter-spacing: -0.02em;
       color: var(--ink);
     }
 
@@ -148,7 +149,7 @@
       color: #333;
     }
 
-    /* Inputs - UPDATED FONT HERE */
+    /* Inputs - EB Garamond */
     form input, form textarea, form select {
       width: 100%;
       padding: 14px;
@@ -156,9 +157,9 @@
       border: 1px solid rgba(0,0,0,0.1);
       background: rgba(255,255,255,0.5); /* See-through input */
       
-      /* Changed to EB Garamond */
+      /* Font */
       font-family: "EB Garamond", serif; 
-      font-size: 1.1rem; /* Slightly larger for readability */
+      font-size: 1.1rem; 
       
       transition: all 0.2s ease;
       color: #222;
@@ -207,7 +208,8 @@
         width: 90%;
         border-radius: 20px;
       }
-      .contact-title { font-size: 2.2rem; }
+      /* Adjust title size on mobile */
+      .contact-title { font-size: 3rem; }
     }
   </style>
 

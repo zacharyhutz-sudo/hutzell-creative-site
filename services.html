@@ -248,22 +248,18 @@
   }
 
   /* The 2x2 Grid for Kits & Logos */
- .design-gallery img {
-    width: 100%;
-    height: auto; /* Changed to auto so the full vertical image shows */
-    border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-    transition: transform 0.4s ease, box-shadow 0.4s ease;
+  .design-gallery {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* 2 Columns */
+    gap: 1.5rem;
   }
 
   .design-gallery img {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    height: auto; /* Let image grow vertically (no crop) */
     border-radius: 12px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.08);
     transition: transform 0.4s ease, box-shadow 0.4s ease;
-    aspect-ratio: 4/3; /* Keeps boxes uniform */
   }
 
   /* Hover Effect */

@@ -6,7 +6,7 @@
 <title>Services — Hutzell Creative Co.</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600;700&family=Della+Respira&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600;700&family=Della+Respira&family=Pinyon+Script&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="style.css"/>
 
 <style>
@@ -30,7 +30,7 @@
   }
 
   /* Typography */
-  h1, h2, h3 { font-family: 'EB Garamond', serif; font-weight: 500; margin: 0; }
+  h1, h3 { font-family: 'EB Garamond', serif; font-weight: 500; margin: 0; }
   p { line-height: 1.7; margin-bottom: 1rem; color: #4a4a4a; }
   
   .section-kicker {
@@ -42,9 +42,6 @@
     margin-bottom: 1rem;
     display: block;
   }
-
-  /* REMOVED: .container definition to allow inheritance from style.css */
-  /* REMOVED: header .nav definition to allow inheritance from style.css */
 
   /* === Layout: Sticky Editorial Grid (Desktop) === */
   .editorial-section {
@@ -65,10 +62,14 @@
     padding-right: 2rem;
   }
 
-  .sticky-sidebar h2 {
-    font-size: 3rem;
-    line-height: 1;
-    margin-bottom: 1rem;
+  /* === UPDATED: Section Titles (Script Font) === */
+  .sticky-sidebar h2, 
+  .cinema-section h2 {
+    font-family: 'Pinyon Script', cursive; 
+    font-weight: 400;
+    font-size: 4.5rem; /* Increased size for script readability */
+    line-height: 1.1;
+    margin-bottom: 0.5rem;
     color: var(--ink);
   }
 
@@ -189,7 +190,9 @@
     position: relative;
   }
 
-  .cinema-section h2 { color: #fff; font-size: 3rem; margin-bottom: 1rem;}
+  /* Ensure the title is white in the dark section */
+  .cinema-section h2 { color: #fff; }
+  
   .cinema-section .section-kicker { color: rgba(255,255,255,0.6); }
   .cinema-section p { color: rgba(255,255,255,0.8); font-size: 1.2rem; max-width: 600px; }
 
@@ -272,8 +275,6 @@
   /* === MOBILE FIXES (General) === */
   @media (max-width: 900px) {
     
-    /* REMOVED: .container re-definition to prevent mobile mismatch */
-
     /* Editorial Grid Stacking */
     .editorial-grid {
       display: flex;
@@ -286,7 +287,11 @@
       padding-right: 0;
       text-align: center;
     }
-    .sticky-sidebar h2 { font-size: 2.5rem; }
+    
+    /* Adjusted Mobile Title Size */
+    .sticky-sidebar h2, .cinema-section h2 { 
+      font-size: 3.5rem; 
+    }
     
     .gallery-flow { gap: 4rem; width: 100%; }
     .editorial-section { padding: 4rem 0; }

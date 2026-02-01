@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Families — Hutzell Creative Co.</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;600;700&family=Della+Respira&family=Pinyon+Script&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+  <link rel="preload" href="assets/fonts/SloopScriptPro-Regular.otf" as="font" type="font/otf" crossorigin>
+
+  <style>
+    body { background: #fff; }
+
+    .portfolio-header {
+      text-align: center;
+      padding: 3rem 1rem;
+      background: linear-gradient(135deg, rgba(126,164,147,0.05) 0%, rgba(126,164,147,0.02) 100%);
+    }
+
+    .portfolio-title {
+      font-family: 'Pinyon Script', cursive;
+      font-size: clamp(2rem, 8vw, 3.5rem);
+      margin: 0 0 0.5rem 0;
+      color: var(--ink);
+    }
+
+    .portfolio-subtitle {
+      font-family: var(--body-font);
+      font-size: 1rem;
+      color: var(--muted);
+      margin: 0;
+    }
+
+    .portfolio-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2rem 1rem;
+    }
+
+    /* Desktop: CSS columns masonry */
+    @media (min-width: 1024px) {
+      .masonry {
+        display: block;
+        column-count: 3;
+        column-gap: 1.5rem;
+      }
+
+      .masonry-item {
+        break-inside: avoid;
+        margin-bottom: 1.5rem;
+        border-radius: 12px;
+        overflow: hidden;
+      }
+
+      .masonry-item img {
+        width: 100%;
+        height: auto;
+        display: block;
+        border-radius: 12px;
+      }
+    }
+
+    /* Tablet: 2 columns */
+    @media (min-width: 768px) and (max-width: 1023px) {
+      .masonry {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+      }
+
+      .masonry-item {
+        border-radius: 12px;
+        overflow: hidden;
+      }
+
+      .masonry-item img {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+
+      /* Landscape photos span both columns */
+      .masonry-item[data-landscape] {
+        grid-column: 1 / -1;
+        max-width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+
+    /* Mobile: 2 columns with smart spanning */
+    @media (max-width: 767px) {
+      .masonry {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+      }
+
+      .masonry-item {
+        border-radius: 12px;
+        overflow: hidden;
+      }
+
+      .masonry-item img {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+
+      /* Landscape photos span both columns and center */
+      .masonry-item[data-landscape] {
+        grid-column: 1 / -1;
+        max-width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+      color: var(--ink);
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: color 0.3s ease;
+    }
+
+    .back-link:hover {
+      color: var(--accent);
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <a href="index.html" class="brand-link">
+          <img src="assets/logo.png" alt="Hutzell Creative Co. logo" class="brand-logo">
+        </a>
+      </div>
+      <nav class="site-nav">
+        <ul>
+          <li><a class="nav-script" href="index.html">Home</a></li>
+          <li><a class="nav-script" href="services.html">Services</a></li>
+          <li><a class="nav-script" href="contact.html">Inquiry</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <div class="portfolio-header">
+    <div class="container">
+      <a href="services.html#photography" class="back-link">← Back to Photography</a>
+      <h1 class="portfolio-title">Families</h1>
+      <p class="portfolio-subtitle">15 photos celebrating joy and connection</p>
+    </div>
+  </div>
+
+  <div class="portfolio-container">
+    <div class="masonry" id="masonry">
+      <div class="masonry-item"><img src="assets/img/f1.jpg" alt="Family photo" loading="lazy"></div>
+      <div class="masonry-item"><img src="assets/img/f2.jpg" alt="Family photo" loading="lazy"></div>
+      <div class="masonry-item"><img src="assets/img/f3.jpg" alt="Family photo" loading="lazy"></div>
+      <div class="masonry-item"><img src="assets/img/f4.jpg" alt="Family photo" loading="lazy"></div>
+      <div class="masonry-item"><img src="assets/img/f5.jpg" alt="Family photo" loading="lazy"></div>
+      <div class="masonry-item"><img src="assets/img/f6.jpg" alt="Family photo" loading="lazy"></div>
+      <div class="masonry-item"><img src="assets/img/f7.jpg" alt="Family photo" loading="lazy"></div>
+      <div class="masonry-item"><img src="assets/img/f8.jpg" alt="Family photo" loading="lazy"></div>
+      <div class="masonry-item"><img src="assets/img/f9.jpg" alt="Family photo" loading="lazy"></div>
+      <div class="masonry-item"><img src="assets/img/f10.jpg" alt="Family photo" loading="lazy"></div>
+      <div class="masonry-item"><img src="assets/img/f11.jpg" alt="Family photo" loading="lazy"></div>
+      <div class="masonry-item"><img src="assets/img/f12.jpg" alt="Family photo" loading="lazy"></div>
+      <div class="masonry-item"><img src="assets/img/f13.jpg" alt="Family photo" loading="lazy"></div>
+      <div class="masonry-item"><img src="assets/img/f14.jpg" alt="Family photo" loading="lazy"></div>
+      <div class="masonry-item"><img src="assets/img/f15.jpg" alt="Family photo" loading="lazy"></div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">© <span id="year"></span> Hutzell Creative Co.</div>
+  </footer>
+
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+  <script src="main.js"></script>
+
+  <!-- Aspect ratio detection for mobile/tablet -->
+  <script>
+    (function() {
+      const masonry = document.getElementById('masonry');
+      if (!masonry) return;
+
+      const items = masonry.querySelectorAll('.masonry-item');
+      items.forEach(item => {
+        const img = item.querySelector('img');
+        if (!img) return;
+
+        img.addEventListener('load', function() {
+          const aspectRatio = img.naturalWidth / img.naturalHeight;
+          if (aspectRatio > 1.2) {
+            item.setAttribute('data-landscape', '');
+          } else {
+            item.removeAttribute('data-landscape');
+          }
+        });
+
+        // Fallback for cached images
+        if (img.complete) {
+          img.dispatchEvent(new Event('load'));
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

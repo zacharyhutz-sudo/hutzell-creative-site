@@ -19,8 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ---------------------------------------------
-   * 2) Nav: mark current page as active (for the pill/bubble)
-   *    - Ignores query strings, hashes, and trailing slash
+   * 2) Nav: mark current page as active
    * --------------------------------------------- */
   const setActiveNav = () => {
     const links = document.querySelectorAll('nav a[href]');
@@ -49,27 +48,28 @@ document.addEventListener('DOMContentLoaded', () => {
       const sectionHeight = bubbleSection.offsetHeight;
       const viewportHeight = window.innerHeight;
 
-      // Calculate progress (0 to 1)
-      const totalScrollable = sectionHeight - viewportHeight;
-      let progress = -sectionRect.top / totalScrollable;
+      // Progress calculation: 
+      // 0 when section starts entering viewport
+      // 1 when section bottom leaves viewport
+      let progress = -sectionRect.top / (sectionHeight - viewportHeight);
       progress = Math.max(0, Math.min(1, progress));
 
       const containerWidth = bubbleSection.offsetWidth;
       const firstBubble = bubbles[0];
       const lastBubble = bubbles[bubbles.length - 1];
 
-      // Precise center calculations
-      const firstBubbleCenter = firstBubble.offsetLeft + firstBubble.offsetWidth / 2;
-      const lastBubbleCenter = lastBubble.offsetLeft + lastBubble.offsetWidth / 2;
+      // Centers for first and last bubbles relative to the bubble-seq container
+      const firstBubbleCenter = firstBubble.offsetLeft + (firstBubble.offsetWidth / 2);
+      const lastBubbleCenter = lastBubble.offsetLeft + (lastBubble.offsetWidth / 2);
       
+      // Calculate start and end X to keep active bubble centered
       const startX = (containerWidth / 2) - firstBubbleCenter;
       const endX = (containerWidth / 2) - lastBubbleCenter;
       
       const translateX = startX + (progress * (endX - startX));
-      
       bubbleSeq.style.transform = `translate3d(${translateX}px, 0, 0)`;
 
-      // Active state for bubbles based on proximity to center
+      // Active state for bubbles
       bubbles.forEach((bubble) => {
         const rect = bubble.getBoundingClientRect();
         const bubbleCenter = rect.left + rect.width / 2;
@@ -85,7 +85,8 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll(); // Initial check
+    window.addEventListener('resize', handleScroll);
+    handleScroll();
   }
 
   /* ---------------------------------------------
@@ -121,8 +122,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const marquee = document.createElement('div');
     marquee.className = 'bg-marquee';
 
-    // Create 4 columns of photos, repeat set twice for seamless loop
-    for (let i = 0; i < 2; i++) {
+    // We need 3 copies of the photo sets to ensure seamlessness at large widths
+    for (let i = 0; i < 3; i++) {
       for (let j = 0; j < 4; j++) {
         const chunk = images.slice(j * 6, (j + 1) * 6);
         marquee.appendChild(createCol(chunk));

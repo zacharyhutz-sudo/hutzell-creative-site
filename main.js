@@ -82,7 +82,14 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!el.classList.contains('visible')) {
           clearTimers(el);
           el._showTimer = setTimeout(() => {
-            el.classList.add('visible');
+            // Use View Transition API for smooth reveal if available, fallback to class
+            if (document.startViewTransition) {
+              document.startViewTransition(() => {
+                el.classList.add('visible');
+              });
+            } else {
+              el.classList.add('visible');
+            }
             el._visibleAt = Date.now();
           }, idx * STAGGER_MS);
         } else {
@@ -97,7 +104,14 @@ document.addEventListener('DOMContentLoaded', () => {
           const waitMore = Math.max(0, MIN_VISIBLE_MS - elapsed);
           clearTimeout(el._hideTimer);
           el._hideTimer = setTimeout(() => {
-            el.classList.remove('visible');
+            // Use View Transition API for smooth hide if available, fallback to class removal
+            if (document.startViewTransition) {
+              document.startViewTransition(() => {
+                el.classList.remove('visible');
+              });
+            } else {
+              el.classList.remove('visible');
+            }
             el._visibleAt = null;
           }, HIDE_DELAY + waitMore);
         }

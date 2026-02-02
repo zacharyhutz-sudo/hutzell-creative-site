@@ -50,13 +50,15 @@ document.addEventListener('DOMContentLoaded', () => {
       const sectionHeight = bubbleSection.offsetHeight;
       const currentScroll = window.scrollY;
 
-      // START: Trigger point. We want 0 progress when the top of the section is centered vertically.
-      // This ensures the sticky container is already active and the first bubble is ready.
-      const triggerPoint = sectionTop - (viewportHeight / 2);
-      // END: The distance the section remains sticky.
-      const scrollRange = sectionHeight - viewportHeight;
-      
-      let progress = (currentScroll - triggerPoint) / scrollRange;
+      // Calculate progress (0 to 1)
+      const sectionTop = bubbleSection.offsetTop;
+      const sectionHeight = bubbleSection.offsetHeight;
+      const viewportHeight = window.innerHeight;
+      const viewportWidth = window.innerWidth;
+
+      // Start the horizontal slide only after the section is pinned
+      // 0 progress = top of section hits top of viewport
+      let progress = (window.scrollY - sectionTop) / (sectionHeight - viewportHeight);
       progress = Math.max(0, Math.min(1, progress));
 
       const viewCenter = viewportWidth / 2;
@@ -66,6 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const firstCenter = first.offsetLeft + (first.offsetWidth / 2);
       const lastCenter = last.offsetLeft + (last.offsetWidth / 2);
       
+      // SHIFTED MATH: Ensure the last bubble is perfectly centered at the end
       const startTranslate = viewCenter - firstCenter;
       const endTranslate = viewCenter - lastCenter;
       

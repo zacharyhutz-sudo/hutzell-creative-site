@@ -43,53 +43,67 @@ document.addEventListener('DOMContentLoaded', () => {
   const bubbles = document.querySelectorAll('.features-bubbles .bubble');
 
   if (bubbleSection && bubbleSeq && bubbles.length) {
-    const handleScroll = () => {
+    let ticking = false;
+
+    const updateBubbles = () => {
       const sectionRect = bubbleSection.getBoundingClientRect();
       const sectionHeight = bubbleSection.offsetHeight;
       const viewportHeight = window.innerHeight;
 
-      // Calculate progress (0 to 1)
-      const totalScrollable = sectionHeight - viewportHeight;
-      // Use offsetTop to get the distance from the top of the document
+      // Use absolute scroll position for progress
       const sectionTop = bubbleSection.offsetTop;
       const currentScroll = window.scrollY;
       
-      let progress = (currentScroll - sectionTop) / totalScrollable;
+      let progress = (currentScroll - sectionTop) / (sectionHeight - viewportHeight);
       progress = Math.max(0, Math.min(1, progress));
 
-      const containerWidth = bubbleSection.offsetWidth;
+      const viewportWidth = window.innerWidth;
       const firstBubble = bubbles[0];
       const lastBubble = bubbles[bubbles.length - 1];
 
-      // Centers for first and last bubbles relative to the bubble-seq container
-      const firstBubbleCenter = firstBubble.offsetLeft + (firstBubble.offsetWidth / 2);
-      const lastBubbleCenter = lastBubble.offsetLeft + (lastBubble.offsetWidth / 2);
+      // Calculate the center of the first and last bubbles relative to the bubble-seq container
+      const firstCenter = firstBubble.offsetLeft + (firstBubble.offsetWidth / 2);
+      const lastCenter = lastBubble.offsetLeft + (lastBubble.offsetWidth / 2);
       
-      // Calculate start and end X to keep active bubble centered
-      const startX = (containerWidth / 2) - firstBubbleCenter;
-      const endX = (containerWidth / 2) - lastBubbleCenter;
+      // Start position (progress 0): First bubble centered in viewport
+      const startX = (viewportWidth / 2) - firstCenter;
+      // End position (progress 1): Last bubble centered in viewport
+      const endX = (viewportWidth / 2) - lastCenter;
       
       const translateX = startX + (progress * (endX - startX));
+      
       bubbleSeq.style.transform = `translate3d(${translateX}px, 0, 0)`;
 
-      // Active state for bubbles
+      // Active state for bubbles based on proximity to viewport center
       bubbles.forEach((bubble) => {
         const rect = bubble.getBoundingClientRect();
         const bubbleCenter = rect.left + rect.width / 2;
-        const viewportCenter = window.innerWidth / 2;
-        const distance = Math.abs(bubbleCenter - viewportCenter);
+        const viewCenter = viewportWidth / 2;
+        const distance = Math.abs(bubbleCenter - viewCenter);
 
+        // Threshold for active state (within 1/3 of bubble width)
         if (distance < rect.width / 3) {
           bubble.classList.add('active');
         } else {
           bubble.classList.remove('active');
         }
       });
+
+      ticking = false;
     };
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    window.addEventListener('resize', handleScroll);
-    handleScroll();
+    const onScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(updateBubbles);
+        ticking = true;
+      }
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    
+    // Initial call after a short delay to ensure layout is settled
+    setTimeout(updateBubbles, 100);
   }
 
   /* ---------------------------------------------
@@ -125,7 +139,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const marquee = document.createElement('div');
     marquee.className = 'bg-marquee';
 
-    // We need 3 copies of the photo sets to ensure seamlessness at large widths
     for (let i = 0; i < 3; i++) {
       for (let j = 0; j < 4; j++) {
         const chunk = images.slice(j * 6, (j + 1) * 6);

@@ -158,42 +158,83 @@
       margin: 0.75rem 0;
     }
 
-    /* Horizontal scroll gallery */
-    .design-scroll-wrapper {
-      width: 100vw;
-      margin-left: calc(-50vw + 50%);
-      overflow: hidden;
+    /* Design gallery with manual controls */
+    .design-gallery-wrapper {
       margin-top: 3rem;
       padding: 2rem 0;
       background: #f5f5f5;
     }
 
-    .design-scroll-container {
+    .design-gallery-controls {
       display: flex;
-      gap: 1.5rem;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .design-nav-btn {
+      background: var(--ink);
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      font-size: 0.95rem;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      font-family: var(--body-font);
+    }
+
+    .design-nav-btn:hover {
+      background: var(--green-3);
+    }
+
+    .design-gallery-container {
+      position: relative;
+      max-width: 900px;
+      margin: 0 auto;
       padding: 0 2rem;
-      overflow-x: auto;
-      scroll-behavior: smooth;
-      scroll-snap-type: x mandatory;
-      -webkit-overflow-scrolling: touch;
+      overflow: hidden;
     }
 
-    .design-scroll-item {
-      flex: 0 0 min(600px, 80vw);
-      scroll-snap-align: start;
+    .design-gallery-item {
+      display: none;
+      animation: fadeIn 0.3s ease;
     }
 
-    .design-scroll-item img {
+    .design-gallery-item.active {
+      display: block;
+    }
+
+    .design-gallery-item img {
       width: 100%;
       height: auto;
       display: block;
       border-radius: 8px;
     }
 
-    @media (max-width: 768px) {
-      .design-scroll-item {
-        flex: 0 0 min(400px, 90vw);
-      }
+    .design-gallery-indicators {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .design-indicator {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #ccc;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .design-indicator.active {
+      background: var(--ink);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
 
     /* Utility: rounded images */
@@ -296,16 +337,21 @@
       </div>
     </div>
 
-    <!-- Horizontal scroll gallery -->
-    <div class="design-scroll-wrapper">
-      <div class="design-scroll-container" id="designScroll">
-        <div class="design-scroll-item"><img src="assets/img/Design/Digital - 2.png" alt="Design work" loading="lazy"></div>
-        <div class="design-scroll-item"><img src="assets/img/Design/Digital - 3.png" alt="Design work" loading="lazy"></div>
-        <div class="design-scroll-item"><img src="assets/img/Design/Fit To Lead - 2.png" alt="Design work" loading="lazy"></div>
-        <div class="design-scroll-item"><img src="assets/img/Design/Fit To Lead - 3.png" alt="Design work" loading="lazy"></div>
-        <div class="design-scroll-item"><img src="assets/img/Design/Sloop Script- Page Headings - 3.png" alt="Design work" loading="lazy"></div>
-        <div class="design-scroll-item"><img src="assets/img/Design/Sloop Script- Page Headings - 4.png" alt="Design work" loading="lazy"></div>
+    <!-- Design gallery with manual controls -->
+    <div class="design-gallery-wrapper">
+      <div class="design-gallery-controls">
+        <button class="design-nav-btn design-nav-prev" id="designPrev">← Prev</button>
+        <button class="design-nav-btn design-nav-next" id="designNext">Next →</button>
       </div>
+      <div class="design-gallery-container" id="designGallery">
+        <div class="design-gallery-item active"><img src="assets/img/Design/Digital - 2.png" alt="Design work"></div>
+        <div class="design-gallery-item"><img src="assets/img/Design/Digital - 3.png" alt="Design work"></div>
+        <div class="design-gallery-item"><img src="assets/img/Design/Fit To Lead - 2.png" alt="Design work"></div>
+        <div class="design-gallery-item"><img src="assets/img/Design/Fit To Lead - 3.png" alt="Design work"></div>
+        <div class="design-gallery-item"><img src="assets/img/Design/Sloop Script- Page Headings - 3.png" alt="Design work"></div>
+        <div class="design-gallery-item"><img src="assets/img/Design/Sloop Script- Page Headings - 4.png" alt="Design work"></div>
+      </div>
+      <div class="design-gallery-indicators" id="designIndicators"></div>
     </div>
   </section>
 
@@ -315,31 +361,43 @@
 
   <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
   
-  <!-- Design scroll animation -->
+  <!-- Design gallery navigation -->
   <script>
-    const designSection = document.getElementById('design');
-    const designScroll = document.getElementById('designScroll');
+    const designGallery = document.getElementById('designGallery');
+    const designPrev = document.getElementById('designPrev');
+    const designNext = document.getElementById('designNext');
+    const designIndicators = document.getElementById('designIndicators');
     
-    if (designSection && designScroll) {
-      window.addEventListener('scroll', () => {
-        const rect = designSection.getBoundingClientRect();
-        const sectionTop = rect.top;
-        const sectionHeight = rect.height;
-        const windowHeight = window.innerHeight;
+    if (designGallery) {
+      const items = designGallery.querySelectorAll('.design-gallery-item');
+      let currentIndex = 0;
+      
+      // Create indicators
+      items.forEach((_, index) => {
+        const indicator = document.createElement('div');
+        indicator.className = 'design-indicator';
+        if (index === 0) indicator.classList.add('active');
+        indicator.addEventListener('click', () => showItem(index));
+        designIndicators.appendChild(indicator);
+      });
+      
+      function showItem(index) {
+        items.forEach(item => item.classList.remove('active'));
+        designIndicators.querySelectorAll('.design-indicator').forEach(ind => ind.classList.remove('active'));
         
-        // Calculate how far down the section is visible (0 to 1)
-        let progress = 0;
-        if (sectionTop < windowHeight && sectionTop > -sectionHeight) {
-          progress = (windowHeight - sectionTop) / (windowHeight + sectionHeight);
-          progress = Math.max(0, Math.min(1, progress));
-        }
-        
-        // Calculate max scroll distance
-        const maxScroll = designScroll.scrollWidth - designScroll.clientWidth;
-        const scrollAmount = maxScroll * progress;
-        
-        // Animate horizontal scroll
-        designScroll.scrollLeft = scrollAmount;
+        items[index].classList.add('active');
+        designIndicators.children[index].classList.add('active');
+        currentIndex = index;
+      }
+      
+      designPrev.addEventListener('click', () => {
+        const newIndex = (currentIndex - 1 + items.length) % items.length;
+        showItem(newIndex);
+      });
+      
+      designNext.addEventListener('click', () => {
+        const newIndex = (currentIndex + 1) % items.length;
+        showItem(newIndex);
       });
     }
   </script>

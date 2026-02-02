@@ -37,94 +37,50 @@ document.addEventListener('DOMContentLoaded', () => {
   setActiveNav();
 
   /* ---------------------------------------------
-   * 3) Bubbles: reveal/hide with very gentle motion (esp. mobile)
-   *    - Hysteresis thresholds + minimum visible time
-   *    - Respects prefers-reduced-motion
+   * 3) Bubbles: Horizontal Sticky Scroll
    * --------------------------------------------- */
-  const bubbles = Array.from(document.querySelectorAll('.bubble.reveal'));
-  if (!bubbles.length) return;
+  const bubbleSection = document.querySelector('.features-bubbles');
+  const bubbleSeq = document.querySelector('.bubble-seq');
+  const bubbles = document.querySelectorAll('.features-bubbles .bubble');
 
-  const reduceMotion =
-    window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const isMobile =
-    window.matchMedia && window.matchMedia('(max-width: 780px)').matches;
+  if (bubbleSection && bubbleSeq && bubbles.length) {
+    const handleScroll = () => {
+      const sectionRect = bubbleSection.getBoundingClientRect();
+      const sectionHeight = bubbleSection.offsetHeight;
+      const viewportHeight = window.innerHeight;
 
-  if (reduceMotion || typeof IntersectionObserver === 'undefined') {
-    bubbles.forEach((el) => el.classList.add('visible'));
-    return;
-  }
+      // Calculate progress (0 to 1) through the scroll track
+      // Start when top of section hits top of viewport
+      // End when bottom of section hits bottom of viewport
+      let progress = -sectionRect.top / (sectionHeight - viewportHeight);
+      progress = Math.max(0, Math.min(1, progress));
 
-  // Tuned for subtle mobile motion
-  const SHOW_RATIO     = isMobile ? 0.16 : 0.22; // show once this much is visible
-  const HIDE_RATIO     = isMobile ? 0.03 : 0.08; // hide only when well out of view
-  const STAGGER_MS     = isMobile ? 120  : 150;  // entrance stagger
-  const HIDE_DELAY     = isMobile ? 320  : 140;  // debounce before hiding
-  const MIN_VISIBLE_MS = isMobile ? 600  : 350;  // minimum time to stay visible once shown
+      // Total distance to slide: from first bubble centered to last bubble centered
+      // The track has padding-left/right of 50vw, so the center of the first bubble
+      // is already at the center of the viewport when translateX is 0.
+      const totalWidth = bubbleSeq.scrollWidth;
+      const containerWidth = bubbleSection.offsetWidth;
+      const slideDistance = totalWidth - containerWidth;
 
-  const THRESHOLDS = isMobile
-    ? [0, HIDE_RATIO, SHOW_RATIO, 0.35, 0.6, 1]
-    : [0, HIDE_RATIO, SHOW_RATIO, 0.5, 0.75, 1];
+      const translateX = -progress * slideDistance;
+      bubbleSeq.style.transform = `translate3d(${translateX}px, 0, 0)`;
 
-  const ROOT_MARGIN = isMobile ? '8% 0px -18% 0px' : '4% 0px -10% 0px';
+      // Active state for bubbles based on proximity to center
+      bubbles.forEach((bubble) => {
+        const rect = bubble.getBoundingClientRect();
+        const bubbleCenter = rect.left + rect.width / 2;
+        const viewportCenter = window.innerWidth / 2;
+        const distance = Math.abs(bubbleCenter - viewportCenter);
 
-  const clearTimers = (el) => {
-    if (el._showTimer) { clearTimeout(el._showTimer); el._showTimer = null; }
-    if (el._hideTimer) { clearTimeout(el._hideTimer); el._hideTimer = null; }
-  };
-
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      const el = entry.target;
-      const idx = Number(el.dataset.seq) || 0;
-
-      if (entry.intersectionRatio > SHOW_RATIO) {
-        // Show (with stagger) and mark when it became visible
-        if (!el.classList.contains('visible')) {
-          clearTimers(el);
-          el._showTimer = setTimeout(() => {
-            // Use View Transition API for smooth reveal if available, fallback to class
-            if (document.startViewTransition) {
-              document.startViewTransition(() => {
-                el.classList.add('visible');
-              });
-            } else {
-              el.classList.add('visible');
-            }
-            el._visibleAt = Date.now();
-          }, idx * STAGGER_MS);
+        if (distance < rect.width / 2) {
+          bubble.classList.add('active');
         } else {
-          // already visible—cancel any pending hide
-          if (el._hideTimer) { clearTimeout(el._hideTimer); el._hideTimer = null; }
+          bubble.classList.remove('active');
         }
-      } else if (entry.intersectionRatio < HIDE_RATIO) {
-        // Schedule a gentle hide, respecting a minimum visible time
-        if (el.classList.contains('visible')) {
-          clearTimeout(el._showTimer);
-          const elapsed = Date.now() - (el._visibleAt || 0);
-          const waitMore = Math.max(0, MIN_VISIBLE_MS - elapsed);
-          clearTimeout(el._hideTimer);
-          el._hideTimer = setTimeout(() => {
-            // Use View Transition API for smooth hide if available, fallback to class removal
-            if (document.startViewTransition) {
-              document.startViewTransition(() => {
-                el.classList.remove('visible');
-              });
-            } else {
-              el.classList.remove('visible');
-            }
-            el._visibleAt = null;
-          }, HIDE_DELAY + waitMore);
-        }
-      } else {
-        // Between thresholds: cancel pending hides (prevents flicker near edges)
-        if (el._hideTimer) { clearTimeout(el._hideTimer); el._hideTimer = null; }
-      }
-    });
-  }, { root: null, rootMargin: ROOT_MARGIN, threshold: THRESHOLDS });
+      });
+    };
 
-  bubbles.forEach((b) => io.observe(b));
-
-  // Safety: clear timers on page hide/unload
-  window.addEventListener('pagehide', () => bubbles.forEach(clearTimers));
-  window.addEventListener('beforeunload', () => bubbles.forEach(clearTimers));
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll(); // Initial check
+  }
 });

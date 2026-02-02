@@ -86,7 +86,46 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     };
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll(); // Initial check
+  /* ---------------------------------------------
+   * 4) Infinite Background Masonry
+   * --------------------------------------------- */
+  const bgCanvas = document.querySelector('.hero-bg-canvas');
+  if (bgCanvas) {
+    const images = [
+      'EI8A9660.jpg', 'EI8A8958.jpg', 'IMG_1643.JPG', 'IMG_1630.JPG',
+      'EI8A8721.jpg', 'IMG_2049.JPG', 'EI8A8851.jpg', 'IMG_2052.JPG',
+      'IMG_2051.JPG', 'EI8A8162.jpg', 'Chase&Emma-7.jpg', 'EI8A7714.jpg',
+      'EI8A4765-2.jpg', 'EI8A0546.jpg', 'EI8A2392.jpg', 'EI8A0591.jpg',
+      'EI8A7836.jpg', 'Chase&Emma.-16.jpg', 'AllenMaternityPhotos-16.jpg', 'IMG_1820.JPG',
+      'EI8A4852.jpg', 'EI8A2361.jpg', 'EI8A7804.jpg', 'EI8A1432.jpg'
+    ];
+
+    const createCol = (imgs) => {
+      const col = document.createElement('div');
+      col.className = 'bg-col';
+      imgs.forEach(src => {
+        const wrap = document.createElement('div');
+        wrap.className = 'bg-photo-wrap';
+        const img = document.createElement('img');
+        img.src = `assets/img/bg-thumbs/${src}`;
+        img.className = 'bg-photo';
+        img.loading = 'lazy';
+        wrap.appendChild(img);
+        col.appendChild(wrap);
+      });
+      return col;
+    };
+
+    const marquee = document.createElement('div');
+    marquee.className = 'bg-marquee';
+
+    // Create 4 columns of photos, repeat set twice for seamless loop
+    for (let i = 0; i < 2; i++) {
+      for (let j = 0; j < 4; j++) {
+        const chunk = images.slice(j * 6, (j + 1) * 6);
+        marquee.appendChild(createCol(chunk));
+      }
+    }
+    bgCanvas.appendChild(marquee);
   }
 });

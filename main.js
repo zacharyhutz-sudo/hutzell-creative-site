@@ -48,10 +48,11 @@ document.addEventListener('DOMContentLoaded', () => {
       const sectionHeight = bubbleSection.offsetHeight;
       const viewportHeight = window.innerHeight;
 
-      // Progress calculation: 
-      // 0 when section starts entering viewport
-      // 1 when section bottom leaves viewport
-      let progress = -sectionRect.top / (sectionHeight - viewportHeight);
+      // Calculate progress (0 to 1) through the scroll track
+      // We want progress 0 exactly when the section top is at the top of the viewport
+      const start = sectionRect.top;
+      const totalScrollable = sectionHeight - viewportHeight;
+      let progress = -start / totalScrollable;
       progress = Math.max(0, Math.min(1, progress));
 
       const containerWidth = bubbleSection.offsetWidth;

@@ -55,12 +55,10 @@ document.addEventListener('DOMContentLoaded', () => {
       progress = Math.max(0, Math.min(1, progress));
 
       const containerWidth = bubbleSection.offsetWidth;
-      const trackWidth = bubbleSeq.scrollWidth;
       const firstBubble = bubbles[0];
       const lastBubble = bubbles[bubbles.length - 1];
 
-      // We want the center of the first bubble to be at the center of the viewport at progress 0
-      // And the center of the last bubble to be at the center of the viewport at progress 1
+      // Precise center calculations
       const firstBubbleCenter = firstBubble.offsetLeft + firstBubble.offsetWidth / 2;
       const lastBubbleCenter = lastBubble.offsetLeft + lastBubble.offsetWidth / 2;
       
@@ -85,6 +83,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       });
     };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll(); // Initial check
+  }
 
   /* ---------------------------------------------
    * 4) Infinite Background Masonry

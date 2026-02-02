@@ -49,20 +49,26 @@ document.addEventListener('DOMContentLoaded', () => {
       const sectionHeight = bubbleSection.offsetHeight;
       const viewportHeight = window.innerHeight;
 
-      // Calculate progress (0 to 1) through the scroll track
-      // Start when top of section hits top of viewport
-      // End when bottom of section hits bottom of viewport
-      let progress = -sectionRect.top / (sectionHeight - viewportHeight);
+      // Calculate progress (0 to 1)
+      const totalScrollable = sectionHeight - viewportHeight;
+      let progress = -sectionRect.top / totalScrollable;
       progress = Math.max(0, Math.min(1, progress));
 
-      // Total distance to slide: from first bubble centered to last bubble centered
-      // The track has padding-left/right of 50vw, so the center of the first bubble
-      // is already at the center of the viewport when translateX is 0.
-      const totalWidth = bubbleSeq.scrollWidth;
       const containerWidth = bubbleSection.offsetWidth;
-      const slideDistance = totalWidth - containerWidth;
+      const trackWidth = bubbleSeq.scrollWidth;
+      const firstBubble = bubbles[0];
+      const lastBubble = bubbles[bubbles.length - 1];
 
-      const translateX = -progress * slideDistance;
+      // We want the center of the first bubble to be at the center of the viewport at progress 0
+      // And the center of the last bubble to be at the center of the viewport at progress 1
+      const firstBubbleCenter = firstBubble.offsetLeft + firstBubble.offsetWidth / 2;
+      const lastBubbleCenter = lastBubble.offsetLeft + lastBubble.offsetWidth / 2;
+      
+      const startX = (containerWidth / 2) - firstBubbleCenter;
+      const endX = (containerWidth / 2) - lastBubbleCenter;
+      
+      const translateX = startX + (progress * (endX - startX));
+      
       bubbleSeq.style.transform = `translate3d(${translateX}px, 0, 0)`;
 
       // Active state for bubbles based on proximity to center
@@ -72,7 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const viewportCenter = window.innerWidth / 2;
         const distance = Math.abs(bubbleCenter - viewportCenter);
 
-        if (distance < rect.width / 2) {
+        if (distance < rect.width / 3) {
           bubble.classList.add('active');
         } else {
           bubble.classList.remove('active');

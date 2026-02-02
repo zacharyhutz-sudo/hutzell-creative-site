@@ -44,44 +44,35 @@ document.addEventListener('DOMContentLoaded', () => {
     let ticking = false;
 
     const updateBubbles = () => {
-      const sectionRect = bubbleSection.getBoundingClientRect();
-      const sectionHeight = bubbleSection.offsetHeight;
       const viewportHeight = window.innerHeight;
       const viewportWidth = window.innerWidth;
-
-      // Progress: 0 when top is at top, 1 when bottom is at bottom
-      const totalScrollable = sectionHeight - viewportHeight;
-      const currentScroll = window.scrollY;
       const sectionTop = bubbleSection.offsetTop;
+      const sectionHeight = bubbleSection.offsetHeight;
+      const currentScroll = window.scrollY;
+
+      // START: Trigger point. We want 0 progress when the top of the section is centered vertically.
+      // This ensures the sticky container is already active and the first bubble is ready.
+      const triggerPoint = sectionTop - (viewportHeight / 2);
+      // END: The distance the section remains sticky.
+      const scrollRange = sectionHeight - viewportHeight;
       
-      let progress = (currentScroll - sectionTop) / totalScrollable;
+      let progress = (currentScroll - triggerPoint) / scrollRange;
       progress = Math.max(0, Math.min(1, progress));
 
-      // BUBBLE TRACKING
-      // We calculate the center point of the viewport
       const viewCenter = viewportWidth / 2;
-      
-      // We want to translate bubbleSeq so that:
-      // At progress 0: first bubble's center is at viewCenter
-      // At progress 1: last bubble's center is at viewCenter
-      
       const first = bubbles[0];
       const last = bubbles[bubbles.length - 1];
       
-      // Calculate distances relative to the sequence container (bubbleSeq)
       const firstCenter = first.offsetLeft + (first.offsetWidth / 2);
       const lastCenter = last.offsetLeft + (last.offsetWidth / 2);
       
-      // The translation needed to put a specific point (X) at the viewport center is:
-      // translate = viewCenter - X
       const startTranslate = viewCenter - firstCenter;
       const endTranslate = viewCenter - lastCenter;
       
       const currentTranslate = startTranslate + (progress * (endTranslate - startTranslate));
-      
       bubbleSeq.style.transform = `translate3d(${currentTranslate}px, 0, 0)`;
 
-      // Active state based on screen position
+      // Active state
       bubbles.forEach((bubble) => {
         const rect = bubble.getBoundingClientRect();
         const bubbleMid = rect.left + rect.width / 2;
@@ -106,10 +97,8 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', updateBubbles);
     
-    // Force a few frames to ensure layout is ready
     updateBubbles();
-    setTimeout(updateBubbles, 50);
-    setTimeout(updateBubbles, 300);
+    setTimeout(updateBubbles, 100);
   }
 
   /* ---------------------------------------------

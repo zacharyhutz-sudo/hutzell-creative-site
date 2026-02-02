@@ -158,41 +158,27 @@
       margin: 0.75rem 0;
     }
 
-    /* Design gallery with manual controls */
+    /* Design gallery with side navigation */
     .design-gallery-wrapper {
       margin-top: 3rem;
       padding: 2rem 0;
       background: #f5f5f5;
     }
 
-    .design-gallery-controls {
+    .design-gallery-viewport {
       display: flex;
+      align-items: center;
       justify-content: center;
-      gap: 1rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .design-nav-btn {
-      background: var(--ink);
-      color: white;
-      border: none;
-      padding: 0.75rem 1.5rem;
-      font-size: 0.95rem;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: background 0.3s ease;
-      font-family: var(--body-font);
-    }
-
-    .design-nav-btn:hover {
-      background: var(--green-3);
+      gap: 1.5rem;
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 0 1rem;
+      position: relative;
     }
 
     .design-gallery-container {
-      position: relative;
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 0 2rem;
+      flex: 1;
+      max-width: 500px;
       overflow: hidden;
     }
 
@@ -210,6 +196,28 @@
       height: auto;
       display: block;
       border-radius: 8px;
+      max-height: 600px;
+      object-fit: contain;
+    }
+
+    .design-nav-arrow {
+      background: none;
+      border: none;
+      font-size: 2.5rem;
+      color: var(--ink);
+      cursor: pointer;
+      padding: 0;
+      opacity: 0.4;
+      transition: opacity 0.3s ease;
+      font-weight: 300;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .design-nav-arrow:hover {
+      opacity: 1;
     }
 
     .design-gallery-indicators {
@@ -230,6 +238,20 @@
 
     .design-indicator.active {
       background: var(--ink);
+    }
+
+    @media (max-width: 600px) {
+      .design-gallery-viewport {
+        gap: 0.75rem;
+      }
+
+      .design-nav-arrow {
+        font-size: 1.75rem;
+      }
+
+      .design-gallery-container {
+        max-width: 100%;
+      }
     }
 
     @keyframes fadeIn {
@@ -337,19 +359,21 @@
       </div>
     </div>
 
-    <!-- Design gallery with manual controls -->
+    <!-- Design gallery with side navigation -->
     <div class="design-gallery-wrapper">
-      <div class="design-gallery-controls">
-        <button class="design-nav-btn design-nav-prev" id="designPrev">← Prev</button>
-        <button class="design-nav-btn design-nav-next" id="designNext">Next →</button>
-      </div>
-      <div class="design-gallery-container" id="designGallery">
-        <div class="design-gallery-item active"><img src="assets/img/Design/digital-2.png" alt="Design work"></div>
-        <div class="design-gallery-item"><img src="assets/img/Design/digital-3.png" alt="Design work"></div>
-        <div class="design-gallery-item"><img src="assets/img/Design/fit-to-lead-2.png" alt="Design work"></div>
-        <div class="design-gallery-item"><img src="assets/img/Design/fit-to-lead-3.png" alt="Design work"></div>
-        <div class="design-gallery-item"><img src="assets/img/Design/sloop-script-headings-3.png" alt="Design work"></div>
-        <div class="design-gallery-item"><img src="assets/img/Design/sloop-script-headings-4.png" alt="Design work"></div>
+      <div class="design-gallery-viewport">
+        <button class="design-nav-arrow design-nav-prev" id="designPrev" aria-label="Previous design">‹</button>
+        
+        <div class="design-gallery-container" id="designGallery">
+          <div class="design-gallery-item active"><img src="assets/img/Design/digital-2.png" alt="Design work"></div>
+          <div class="design-gallery-item"><img src="assets/img/Design/digital-3.png" alt="Design work"></div>
+          <div class="design-gallery-item"><img src="assets/img/Design/fit-to-lead-2.png" alt="Design work"></div>
+          <div class="design-gallery-item"><img src="assets/img/Design/fit-to-lead-3.png" alt="Design work"></div>
+          <div class="design-gallery-item"><img src="assets/img/Design/sloop-script-headings-3.png" alt="Design work"></div>
+          <div class="design-gallery-item"><img src="assets/img/Design/sloop-script-headings-4.png" alt="Design work"></div>
+        </div>
+        
+        <button class="design-nav-arrow design-nav-next" id="designNext" aria-label="Next design">›</button>
       </div>
       <div class="design-gallery-indicators" id="designIndicators"></div>
     </div>

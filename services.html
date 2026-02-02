@@ -143,31 +143,57 @@
     /* ===== DESIGN SECTION ===== */
     .section.design { background: #fff; }
 
-    .design-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
-      margin-top: 2rem;
-      align-items: center;
-    }
-    @media (max-width: 768px) {
-      .design-grid { grid-template-columns: 1fr; }
+    .design-intro {
+      max-width: 600px;
+      margin: 2rem 0 3rem 0;
     }
 
-    .design-content ul {
+    .design-intro ul {
       list-style: disc;
       padding-left: 1.5rem;
       margin: 1rem 0;
     }
 
-    .design-content li {
+    .design-intro li {
       margin: 0.75rem 0;
     }
 
-    .design-image {
+    /* Horizontal scroll gallery */
+    .design-scroll-wrapper {
+      width: 100vw;
+      margin-left: calc(-50vw + 50%);
+      overflow: hidden;
+      margin-top: 3rem;
+      padding: 2rem 0;
+      background: #f5f5f5;
+    }
+
+    .design-scroll-container {
+      display: flex;
+      gap: 1.5rem;
+      padding: 0 2rem;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .design-scroll-item {
+      flex: 0 0 min(600px, 80vw);
+      scroll-snap-align: start;
+    }
+
+    .design-scroll-item img {
       width: 100%;
-      border-radius: 12px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      height: auto;
+      display: block;
+      border-radius: 8px;
+    }
+
+    @media (max-width: 768px) {
+      .design-scroll-item {
+        flex: 0 0 min(400px, 90vw);
+      }
     }
 
     /* Utility: rounded images */
@@ -260,18 +286,25 @@
       <h2 class="section-title">Design</h2>
       <p class="section-kicker">Branding • Logos • Print & Web</p>
 
-      <div class="design-grid">
-        <div class="design-content">
-          <p>Identity systems that feel like you: wordmarks, icons, palettes, and type that work across socials, print, and web.</p>
-          <ul>
-            <li>Logo suites &amp; brand guidelines</li>
-            <li>Social &amp; print collateral</li>
-            <li>Website layout &amp; visual direction</li>
-          </ul>
-        </div>
-        <div>
-          <img src="assets/img/design-sample-1.jpg" alt="Design sample" class="design-image">
-        </div>
+      <div class="design-intro">
+        <p>Identity systems that feel like you: wordmarks, icons, palettes, and type that work across socials, print, and web.</p>
+        <ul>
+          <li>Logo suites &amp; brand guidelines</li>
+          <li>Social &amp; print collateral</li>
+          <li>Website layout &amp; visual direction</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Horizontal scroll gallery -->
+    <div class="design-scroll-wrapper">
+      <div class="design-scroll-container" id="designScroll">
+        <div class="design-scroll-item"><img src="assets/img/Design/Digital - 2.png" alt="Design work" loading="lazy"></div>
+        <div class="design-scroll-item"><img src="assets/img/Design/Digital - 3.png" alt="Design work" loading="lazy"></div>
+        <div class="design-scroll-item"><img src="assets/img/Design/Fit To Lead - 2.png" alt="Design work" loading="lazy"></div>
+        <div class="design-scroll-item"><img src="assets/img/Design/Fit To Lead - 3.png" alt="Design work" loading="lazy"></div>
+        <div class="design-scroll-item"><img src="assets/img/Design/Sloop Script- Page Headings - 3.png" alt="Design work" loading="lazy"></div>
+        <div class="design-scroll-item"><img src="assets/img/Design/Sloop Script- Page Headings - 4.png" alt="Design work" loading="lazy"></div>
       </div>
     </div>
   </section>
@@ -281,6 +314,36 @@
   </footer>
 
   <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+  
+  <!-- Design scroll animation -->
+  <script>
+    const designSection = document.getElementById('design');
+    const designScroll = document.getElementById('designScroll');
+    
+    if (designSection && designScroll) {
+      window.addEventListener('scroll', () => {
+        const rect = designSection.getBoundingClientRect();
+        const sectionTop = rect.top;
+        const sectionHeight = rect.height;
+        const windowHeight = window.innerHeight;
+        
+        // Calculate how far down the section is visible (0 to 1)
+        let progress = 0;
+        if (sectionTop < windowHeight && sectionTop > -sectionHeight) {
+          progress = (windowHeight - sectionTop) / (windowHeight + sectionHeight);
+          progress = Math.max(0, Math.min(1, progress));
+        }
+        
+        // Calculate max scroll distance
+        const maxScroll = designScroll.scrollWidth - designScroll.clientWidth;
+        const scrollAmount = maxScroll * progress;
+        
+        // Animate horizontal scroll
+        designScroll.scrollLeft = scrollAmount;
+      });
+    }
+  </script>
+  
   <script src="main.js"></script>
 </body>
 </html>

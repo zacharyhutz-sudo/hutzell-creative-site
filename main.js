@@ -7,13 +7,11 @@ document.addEventListener('DOMContentLoaded', () => {
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
   /* ---------------------------------------------
-   * 1) Hero: emphasize specific words (non-destructive)
-   *    - Keeps your exact source copy
-   *    - Adds <em class="hero-key"> around target words
+   * 1) Hero: emphasize specific words
    * --------------------------------------------- */
   const heroH1 = document.querySelector('.hero h1');
   if (heroH1 && !heroH1.querySelector('.hero-key')) {
-    const original = heroH1.textContent; // preserve exact text
+    const original = heroH1.textContent;
     const re = /\b(photography|videography|design)\b(?=[^\w]|$)/gi;
     heroH1.innerHTML = original.replace(re, (m) => `<em class="hero-key">${m}</em>`);
   }
@@ -49,40 +47,46 @@ document.addEventListener('DOMContentLoaded', () => {
       const sectionRect = bubbleSection.getBoundingClientRect();
       const sectionHeight = bubbleSection.offsetHeight;
       const viewportHeight = window.innerHeight;
+      const viewportWidth = window.innerWidth;
 
-      // Use absolute scroll position for progress
-      const sectionTop = bubbleSection.offsetTop;
+      // Progress: 0 when top is at top, 1 when bottom is at bottom
+      const totalScrollable = sectionHeight - viewportHeight;
       const currentScroll = window.scrollY;
+      const sectionTop = bubbleSection.offsetTop;
       
-      let progress = (currentScroll - sectionTop) / (sectionHeight - viewportHeight);
+      let progress = (currentScroll - sectionTop) / totalScrollable;
       progress = Math.max(0, Math.min(1, progress));
 
-      const viewportWidth = window.innerWidth;
-      const firstBubble = bubbles[0];
-      const lastBubble = bubbles[bubbles.length - 1];
+      // BUBBLE TRACKING
+      // We calculate the center point of the viewport
+      const viewCenter = viewportWidth / 2;
+      
+      // We want to translate bubbleSeq so that:
+      // At progress 0: first bubble's center is at viewCenter
+      // At progress 1: last bubble's center is at viewCenter
+      
+      const first = bubbles[0];
+      const last = bubbles[bubbles.length - 1];
+      
+      // Calculate distances relative to the sequence container (bubbleSeq)
+      const firstCenter = first.offsetLeft + (first.offsetWidth / 2);
+      const lastCenter = last.offsetLeft + (last.offsetWidth / 2);
+      
+      // The translation needed to put a specific point (X) at the viewport center is:
+      // translate = viewCenter - X
+      const startTranslate = viewCenter - firstCenter;
+      const endTranslate = viewCenter - lastCenter;
+      
+      const currentTranslate = startTranslate + (progress * (endTranslate - startTranslate));
+      
+      bubbleSeq.style.transform = `translate3d(${currentTranslate}px, 0, 0)`;
 
-      // Calculate the center of the first and last bubbles relative to the bubble-seq container
-      const firstCenter = firstBubble.offsetLeft + (firstBubble.offsetWidth / 2);
-      const lastCenter = lastBubble.offsetLeft + (lastBubble.offsetWidth / 2);
-      
-      // Start position (progress 0): First bubble centered in viewport
-      const startX = (viewportWidth / 2) - firstCenter;
-      // End position (progress 1): Last bubble centered in viewport
-      const endX = (viewportWidth / 2) - lastCenter;
-      
-      const translateX = startX + (progress * (endX - startX));
-      
-      bubbleSeq.style.transform = `translate3d(${translateX}px, 0, 0)`;
-
-      // Active state for bubbles based on proximity to viewport center
+      // Active state based on screen position
       bubbles.forEach((bubble) => {
         const rect = bubble.getBoundingClientRect();
-        const bubbleCenter = rect.left + rect.width / 2;
-        const viewCenter = viewportWidth / 2;
-        const distance = Math.abs(bubbleCenter - viewCenter);
-
-        // Threshold for active state (within 1/3 of bubble width)
-        if (distance < rect.width / 3) {
+        const bubbleMid = rect.left + rect.width / 2;
+        const dist = Math.abs(bubbleMid - viewCenter);
+        if (dist < rect.width / 3) {
           bubble.classList.add('active');
         } else {
           bubble.classList.remove('active');
@@ -94,16 +98,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const onScroll = () => {
       if (!ticking) {
-        window.requestAnimationFrame(updateBubbles);
+        requestAnimationFrame(updateBubbles);
         ticking = true;
       }
     };
 
     window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll);
+    window.addEventListener('resize', updateBubbles);
     
-    // Initial call after a short delay to ensure layout is settled
-    setTimeout(updateBubbles, 100);
+    // Force a few frames to ensure layout is ready
+    updateBubbles();
+    setTimeout(updateBubbles, 50);
+    setTimeout(updateBubbles, 300);
   }
 
   /* ---------------------------------------------

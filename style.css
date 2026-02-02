@@ -421,7 +421,9 @@ nav a.active { background: rgba(126,164,147,.10); border-color: transparent; }
   display: flex;
   flex-direction: row;
   gap: 15vw; /* Distance between bubbles */
-  padding: 0; /* Removing large padding that pushed the first bubble away */
+  padding: 0;
+  margin: 0;
+  width: max-content; /* Ensure track doesn't collapse */
   will-change: transform;
   transform: translate3d(0, 0, 0);
 }

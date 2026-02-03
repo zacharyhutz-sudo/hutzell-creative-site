@@ -41,6 +41,20 @@ document.addEventListener('DOMContentLoaded', () => {
   const bubbleSeq = document.querySelector('.bubble-seq');
   const bubbles = document.querySelectorAll('.features-bubbles .bubble');
 
+  // Create a dedicated overlay for the dark background to avoid re-painting the track
+  let bgOverlay = null;
+  if (stickyTrack) {
+    bgOverlay = document.createElement('div');
+    bgOverlay.style.position = 'absolute';
+    bgOverlay.style.inset = '0';
+    bgOverlay.style.backgroundColor = '#1b2a23'; // The dark brand ink color
+    bgOverlay.style.opacity = '0';
+    bgOverlay.style.zIndex = '-1';
+    bgOverlay.style.pointerEvents = 'none';
+    bgOverlay.style.willChange = 'opacity';
+    stickyTrack.appendChild(bgOverlay);
+  }
+
   if (bubbleSection && bubbleSeq && bubbles.length) {
     let ticking = false;
 
@@ -56,21 +70,11 @@ document.addEventListener('DOMContentLoaded', () => {
       let rawProgress = (currentScroll - sectionTop) / totalScrollable;
       rawProgress = Math.max(0, Math.min(1, rawProgress));
 
-      // 2. Dynamic Background Color Shift
-      // We want to fade from --cream (#f7faf8) to --ink (#1b2a23) and back.
-      // Progress 0.0 -> Cream
-      // Progress 0.2 to 0.8 -> Dark (Ink)
-      // Progress 1.0 -> Cream
-      let bgOpacity = 0;
-      if (rawProgress > 0 && rawProgress < 1) {
+      // 2. Dynamic Background Color Shift (Using Opacity on Overlay)
+      if (bgOverlay) {
         // Simple bell curve for opacity: peaks at 0.5
-        bgOpacity = Math.sin(rawProgress * Math.PI) * 0.95; 
-      }
-      
-      if (stickyTrack) {
-        // Interpolate between cream (247, 250, 248) and ink (27, 42, 35)
-        // For simplicity and performance, we'll just toggle a background color with opacity
-        stickyTrack.style.backgroundColor = `rgba(27, 42, 35, ${bgOpacity})`;
+        const targetOpacity = Math.max(0, Math.min(0.95, Math.sin(rawProgress * Math.PI) * 1.1));
+        bgOverlay.style.opacity = targetOpacity;
       }
 
       // 3. Apply Quadratic Ease-In-Out for horizontal motion

@@ -44,13 +44,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let ticking = false;
 
     const updateBubbles = () => {
-      const viewportHeight = window.innerHeight;
-      const viewportWidth = window.innerWidth;
-      const sectionTop = bubbleSection.offsetTop;
-      const sectionHeight = bubbleSection.offsetHeight;
-      const currentScroll = window.scrollY;
-
-      // Calculate progress (0 to 1)
       const sectionTop = bubbleSection.offsetTop;
       const sectionHeight = bubbleSection.offsetHeight;
       const viewportHeight = window.innerHeight;

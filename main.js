@@ -158,12 +158,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const bgCanvas = document.querySelector('.hero-bg-canvas');
   if (bgCanvas) {
     const images = [
-      'EI8A9660.jpg', 'EI8A8958.jpg', 'IMG_1643.JPG', 'IMG_1630.JPG',
-      'EI8A8721.jpg', 'IMG_2049.JPG', 'EI8A8851.jpg', 'IMG_2052.JPG',
-      'IMG_2051.JPG', 'EI8A8162.jpg', 'Chase&Emma-7.jpg', 'EI8A7714.jpg',
-      'EI8A4765-2.jpg', 'EI8A0546.jpg', 'EI8A2392.jpg', 'EI8A0591.jpg',
-      'EI8A7836.jpg', 'Chase&Emma.-16.jpg', 'AllenMaternityPhotos-16.jpg', 'IMG_1820.JPG',
-      'EI8A4852.jpg', 'EI8A2361.jpg', 'EI8A7804.jpg', 'EI8A1432.jpg'
+      'EI8A9660.webp', 'EI8A8958.webp', 'IMG_1643.webp', 'IMG_1630.webp',
+      'EI8A8721.webp', 'IMG_2049.webp', 'EI8A8851.webp', 'IMG_2052.webp',
+      'IMG_2051.webp', 'EI8A8162.webp', 'Chase&Emma-7.webp', 'EI8A7714.webp',
+      'EI8A4765-2.webp', 'EI8A0546.webp', 'EI8A2392.webp', 'EI8A0591.webp',
+      'EI8A7836.webp', 'Chase&Emma.-16.webp', 'AllenMaternityPhotos-16.webp', 'IMG_1820.webp',
+      'EI8A4852.webp', 'EI8A2361.webp', 'EI8A7804.webp', 'EI8A1432.webp'
     ];
 
     const createCol = (imgs) => {

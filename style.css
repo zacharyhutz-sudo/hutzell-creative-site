@@ -687,12 +687,18 @@ nav a.active { background: rgba(126,164,147,.10); border-color: transparent; }
   overflow: hidden;
   position: relative;
   padding: 20px 0;
+  width: 100vw;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
 }
 .reviews-track {
   display: flex;
   gap: 32px;
   width: max-content;
   animation: scrollReviews 40s linear infinite;
+  padding: 0 16px; /* give a little breathing room at the start */
 }
 .reviews-track:hover {
   animation-play-state: paused;

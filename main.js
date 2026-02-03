@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
       
       // SHIFTED MATH: We add a horizontal offset to the startTranslate and endTranslate
       // This shifts the entire "window" of the slider to the right.
-      const horizontalOffset = viewportWidth * 0.12; // 12% of viewport width shift to the right
+      const horizontalOffset = viewportWidth * 0.25; // 25% of viewport width shift to the right
       
       const startTranslate = (viewCenter - firstCenter) + horizontalOffset;
       const endTranslate = (viewCenter - lastCenter) + horizontalOffset;

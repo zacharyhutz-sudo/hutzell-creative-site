@@ -644,6 +644,27 @@ nav a.active { background: rgba(126,164,147,.10); border-color: transparent; }
 }
 .about-us .about-sign { margin-top: 6px; font-size: 1.05rem; color: var(--muted); }
 
+/* Social Links */
+.social-links {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin: 32px 0;
+}
+.social-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--subhead-font);
+  font-size: var(--fs-sm);
+  color: var(--muted);
+  transition: color 0.2s ease;
+  text-transform: lowercase;
+}
+.social-link:hover {
+  color: var(--green-2);
+}
+
 /* Reusable script heading (unchanged) */
 .script-heading { 
   font-family: var(--script-font);

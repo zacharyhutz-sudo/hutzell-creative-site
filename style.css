@@ -356,31 +356,35 @@ nav a.active { background: rgba(126,164,147,.10); border-color: transparent; }
 
 .video-sticky-slider .sticky-header {
   position: absolute;
-  top: 18vh; /* Lowered significantly to clear header */
-  text-align: center;
+  top: 15vh; /* Standardized height to match other section titles */
+  text-align: left; /* Aligned left to match Photography/Design */
   z-index: 10;
   width: 100%;
+  padding-left: 24px; /* Standard container padding */
+  max-width: var(--max);
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .video-sticky-slider .sticky-header h2 {
   color: inherit;
   margin: 0;
-  font-size: clamp(3.5rem, 8vw, 6rem); /* Slightly larger for emphasis */
+  font-size: clamp(3rem, 7vw, 5rem); /* Back to standard section size */
 }
 
 .video-sticky-slider .bubble-seq {
   display: flex;
   flex-direction: row;
-  gap: 12vw; 
+  gap: 20vw; /* Wider gap for less crowded feel */
   padding: 0;
   margin: 0;
   width: max-content;
   will-change: transform;
-  margin-top: 22vh; /* Push videos down further */
+  margin-top: 25vh; /* Pushed down more for mobile visibility */
 }
 
 .video-sticky-slider .video-bubble {
-  flex: 0 0 clamp(300px, 60vw, 800px); /* 60vw as requested */
+  flex: 0 0 clamp(240px, 42vw, 600px); /* Reduced desktop size by ~30% from 60vw */
   aspect-ratio: 16 / 9;
   background: #000;
   border-radius: 24px;
@@ -404,8 +408,17 @@ nav a.active { background: rgba(126,164,147,.10); border-color: transparent; }
 
 @media (max-width: 780px) {
   .video-sticky-slider { height: 350vh; }
-  .video-sticky-slider .video-bubble { flex: 0 0 90vw; }
-  .video-sticky-slider .bubble-seq { gap: 10vw; }
+  .video-sticky-slider .video-bubble { 
+    flex: 0 0 80vw; /* Maintain usable size on mobile */
+  }
+  .video-sticky-slider .bubble-seq { 
+    gap: 15vw;
+    margin-top: 35vh; /* Significant push down for mobile title visibility */
+  }
+  .video-sticky-slider .sticky-header {
+    top: 12vh;
+    padding-left: 20px;
+  }
 }
 
 /* ===========================

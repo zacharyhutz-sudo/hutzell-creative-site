@@ -76,6 +76,13 @@ document.addEventListener('DOMContentLoaded', () => {
       const targetOpacity = Math.max(0, Math.min(0.98, Math.sin(rawProgress * Math.PI) * 1.1));
       bgOverlay.style.opacity = targetOpacity;
 
+      // Toggle text color class based on background darkness (approx > 50% dark)
+      if (targetOpacity > 0.5) {
+        section.classList.add('active-dark');
+      } else {
+        section.classList.remove('active-dark');
+      }
+
       // 3. Apply Quadratic Ease-In-Out for horizontal motion
       const easedProgress = rawProgress < 0.5 
         ? 2 * rawProgress * rawProgress 

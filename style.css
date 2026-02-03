@@ -356,20 +356,26 @@ nav a.active { background: rgba(126,164,147,.10); border-color: transparent; }
 
 .video-sticky-slider .sticky-header {
   position: absolute;
-  top: 15vh; /* Standardized height to match other section titles */
-  text-align: left; /* Aligned left to match Photography/Design */
+  top: 18vh; /* Moved down slightly on desktop */
+  text-align: left;
   z-index: 10;
   width: 100%;
-  padding-left: 24px; /* Standard container padding */
+  padding-left: 24px;
   max-width: var(--max);
   left: 50%;
   transform: translateX(-50%);
+  color: var(--ink); /* Start as ink (dark green) */
+  transition: color 0.4s ease; /* Smooth transition when background darkens */
 }
 
 .video-sticky-slider .sticky-header h2 {
-  color: inherit;
+  color: inherit; /* Use parent color */
   margin: 0;
-  font-size: clamp(3rem, 7vw, 5rem); /* Back to standard section size */
+  font-size: clamp(3rem, 7vw, 5rem);
+}
+
+.video-sticky-slider.active-dark .sticky-header {
+  color: #fff; /* Switch to white once the background is dark */
 }
 
 .video-sticky-slider .bubble-seq {
@@ -413,10 +419,10 @@ nav a.active { background: rgba(126,164,147,.10); border-color: transparent; }
   }
   .video-sticky-slider .bubble-seq { 
     gap: 15vw;
-    margin-top: 35vh; /* Significant push down for mobile title visibility */
+    margin-top: 40vh; /* Pushed down more for mobile title visibility */
   }
   .video-sticky-slider .sticky-header {
-    top: 12vh;
+    top: 15vh; /* Moved down slightly on mobile */
     padding-left: 20px;
   }
 }

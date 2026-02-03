@@ -648,20 +648,36 @@ nav a.active { background: rgba(126,164,147,.10); border-color: transparent; }
 .social-links {
   display: flex;
   justify-content: center;
-  gap: 24px;
+  gap: 16px;
   margin: 32px 0;
 }
 .social-link {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  justify-content: center;
+  padding: 10px 24px;
+  border-radius: 999px;
+  background: rgba(126,164,147,.10);
+  border: 1.5px solid transparent;
   font-family: var(--subhead-font);
   font-size: var(--fs-sm);
-  color: var(--muted);
-  transition: color 0.2s ease;
-  text-transform: lowercase;
+  color: var(--ink);
+  transition: background .2s ease, border-color .2s ease;
 }
 .social-link:hover {
+  background: var(--accent);
+  border-color: var(--green-2);
+}
+
+/* Footer-specific social link override to keep it simple */
+.footer .social-link {
+  background: transparent;
+  border: none;
+  padding: 0;
+  color: var(--muted);
+  text-transform: lowercase;
+}
+.footer .social-link:hover {
   color: var(--green-2);
 }
 

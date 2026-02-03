@@ -44,36 +44,39 @@ document.addEventListener('DOMContentLoaded', () => {
     let ticking = false;
 
     const updateBubbles = () => {
-      const sectionTop = bubbleSection.offsetTop;
+      // 1. Get exact current positions
+      const sectionRect = bubbleSection.getBoundingClientRect();
+      const sectionTop = sectionRect.top + window.scrollY;
       const sectionHeight = bubbleSection.offsetHeight;
       const viewportHeight = window.innerHeight;
       const viewportWidth = window.innerWidth;
       const currentScroll = window.scrollY;
 
-      // 1. Calculate Progress (0 to 1)
+      // 2. Calculate Progress (0 to 1)
       const totalScrollable = sectionHeight - viewportHeight;
       let progress = (currentScroll - sectionTop) / totalScrollable;
       progress = Math.max(0, Math.min(1, progress));
 
-      // 2. Build Translation from Scratch (startX and endX)
+      // 3. Define the "Screen Center" target
+      const halfViewport = viewportWidth / 2;
+
+      // 4. Find the relative centers of the first and last bubbles
       const first = bubbles[0];
       const last = bubbles[bubbles.length - 1];
       
       const firstCenterRel = first.offsetLeft + (first.offsetWidth / 2);
       const lastCenterRel = last.offsetLeft + (last.offsetWidth / 2);
       
-      const halfViewport = viewportWidth / 2;
-
-      // START POSITION: When progress is 0, firstCenterRel is at halfViewport
+      // 5. Calculate Start and End Translation
+      // Since the track starts at the left edge of the screen (0px),
+      // the translation to center a bubble is simply (halfViewport - bubbleCenterRelativeToTrack)
       const startX = halfViewport - firstCenterRel;
-      
-      // END POSITION: When progress is 1, lastCenterRel is at halfViewport
       const endX = halfViewport - lastCenterRel;
       
       const currentTranslate = startX + (progress * (endX - startX));
       bubbleSeq.style.transform = `translate3d(${currentTranslate}px, 0, 0)`;
 
-      // 5. Active States based on viewport proximity
+      // 6. Active States based on proximity to screen center
       bubbles.forEach((bubble) => {
         const rect = bubble.getBoundingClientRect();
         const bubbleMid = rect.left + rect.width / 2;
@@ -98,6 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', updateBubbles);
     
+    // Safety calls for layout stability
     updateBubbles();
     setTimeout(updateBubbles, 100);
     setTimeout(updateBubbles, 500);

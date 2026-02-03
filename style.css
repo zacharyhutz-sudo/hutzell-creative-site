@@ -411,9 +411,9 @@ nav a.active { background: rgba(126,164,147,.10); border-color: transparent; }
 .features-bubbles .bubble-container {
   width: 100%;
   padding: 0;
-  margin: 0 auto;
+  margin: 0;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start; /* Ensure track starts at the very left edge */
   overflow: visible;
 }
 

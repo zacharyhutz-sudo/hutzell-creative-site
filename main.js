@@ -44,44 +44,43 @@ document.addEventListener('DOMContentLoaded', () => {
     let ticking = false;
 
     const updateBubbles = () => {
-      // 1. Get exact current positions
-      const sectionRect = bubbleSection.getBoundingClientRect();
-      const sectionTop = sectionRect.top + window.scrollY;
+      const sectionTop = bubbleSection.offsetTop;
       const sectionHeight = bubbleSection.offsetHeight;
       const viewportHeight = window.innerHeight;
       const viewportWidth = window.innerWidth;
       const currentScroll = window.scrollY;
 
-      // 2. Calculate Progress (0 to 1)
+      // 1. Calculate raw progress (0 to 1)
       const totalScrollable = sectionHeight - viewportHeight;
-      let progress = (currentScroll - sectionTop) / totalScrollable;
-      progress = Math.max(0, Math.min(1, progress));
+      let rawProgress = (currentScroll - sectionTop) / totalScrollable;
+      rawProgress = Math.max(0, Math.min(1, rawProgress));
 
-      // 3. Define the "Screen Center" target
+      // 2. Apply Quadratic Ease-In-Out
+      // This makes the transition slower at the start (Photography) 
+      // and end (Design), with more speed in the middle.
+      const easedProgress = rawProgress < 0.5 
+        ? 2 * rawProgress * rawProgress 
+        : 1 - Math.pow(-2 * rawProgress + 2, 2) / 2;
+
       const halfViewport = viewportWidth / 2;
-
-      // 4. Find the relative centers of the first and last bubbles
       const first = bubbles[0];
       const last = bubbles[bubbles.length - 1];
       
       const firstCenterRel = first.offsetLeft + (first.offsetWidth / 2);
       const lastCenterRel = last.offsetLeft + (last.offsetWidth / 2);
       
-      // 5. Calculate Start and End Translation
-      // Since the track starts at the left edge of the screen (0px),
-      // the translation to center a bubble is simply (halfViewport - bubbleCenterRelativeToTrack)
       const startX = halfViewport - firstCenterRel;
       const endX = halfViewport - lastCenterRel;
       
-      const currentTranslate = startX + (progress * (endX - startX));
+      const currentTranslate = startX + (easedProgress * (endX - startX));
       bubbleSeq.style.transform = `translate3d(${currentTranslate}px, 0, 0)`;
 
-      // 6. Active States based on proximity to screen center
+      // Active state
       bubbles.forEach((bubble) => {
-        const rect = bubble.getBoundingClientRect();
-        const bubbleMid = rect.left + rect.width / 2;
-        const dist = Math.abs(bubbleMid - halfViewport);
-        if (dist < rect.width / 3) {
+        const bRect = bubble.getBoundingClientRect();
+        const bCenter = bRect.left + (bRect.width / 2);
+        const dist = Math.abs(bCenter - halfViewport);
+        if (dist < bRect.width / 3) {
           bubble.classList.add('active');
         } else {
           bubble.classList.remove('active');
@@ -101,7 +100,6 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', updateBubbles);
     
-    // Safety calls for layout stability
     updateBubbles();
     setTimeout(updateBubbles, 100);
     setTimeout(updateBubbles, 500);

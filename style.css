@@ -681,6 +681,61 @@ nav a.active { background: rgba(126,164,147,.10); border-color: transparent; }
   color: var(--green-2);
 }
 
+/* Reviews Slider */
+.reviews-slider {
+  margin: 48px 0;
+  overflow: hidden;
+  position: relative;
+  padding: 20px 0;
+}
+.reviews-track {
+  display: flex;
+  gap: 32px;
+  width: max-content;
+  animation: scrollReviews 40s linear infinite;
+}
+.reviews-track:hover {
+  animation-play-state: paused;
+}
+.review-card {
+  background: #fff;
+  border: 1px solid var(--accent);
+  border-radius: 20px;
+  padding: 32px;
+  width: 400px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.03);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.review-stars {
+  color: #ffc107;
+  font-size: 1.1rem;
+  letter-spacing: 2px;
+}
+.review-text {
+  font-size: var(--fs-md);
+  line-height: 1.6;
+  color: var(--ink);
+  font-style: italic;
+}
+.review-author {
+  font-family: var(--subhead-font);
+  font-weight: 600;
+  font-size: var(--fs-sm);
+  color: var(--muted);
+  margin-top: auto;
+}
+@keyframes scrollReviews {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@media (max-width: 600px) {
+  .review-card { width: 300px; padding: 24px; }
+  .reviews-track { gap: 16px; }
+}
+
 /* Reusable script heading (unchanged) */
 .script-heading { 
   font-family: var(--script-font);

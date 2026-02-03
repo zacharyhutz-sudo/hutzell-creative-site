@@ -70,11 +70,19 @@ document.addEventListener('DOMContentLoaded', () => {
       // 1. Calculate raw progress (0 to 1)
       const totalScrollable = sectionHeight - viewportHeight;
       let rawProgress = (currentScroll - sectionTop) / totalScrollable;
+      
+      // Early exit if section is far out of view
+      if (rawProgress < -0.2 || rawProgress > 1.2) return;
+      
       rawProgress = Math.max(0, Math.min(1, rawProgress));
 
       // 2. Dynamic Background Opacity (Sin curve)
       const targetOpacity = Math.max(0, Math.min(0.98, Math.sin(rawProgress * Math.PI) * 1.1));
-      bgOverlay.style.opacity = targetOpacity;
+      
+      // Only update DOM if change is significant to save CPU
+      if (Math.abs(parseFloat(bgOverlay.style.opacity) - targetOpacity) > 0.001) {
+        bgOverlay.style.opacity = targetOpacity;
+      }
 
       // Toggle text color class based on background darkness (approx > 50% dark)
       if (targetOpacity > 0.5) {
@@ -92,8 +100,6 @@ document.addEventListener('DOMContentLoaded', () => {
       const first = items[0];
       const last = items[items.length - 1];
       
-      // Use relative position within the seq (offsetLeft) plus parent offsets
-      // to find the true starting horizontal point relative to viewport center.
       const firstCenterRel = first.offsetLeft + (first.offsetWidth / 2);
       const lastCenterRel = last.offsetLeft + (last.offsetWidth / 2);
       
@@ -102,14 +108,20 @@ document.addEventListener('DOMContentLoaded', () => {
       
       const currentTranslate = startX + (easedProgress * (endX - startX));
       
-      // Safety: check if currentTranslate is actually a number
       if (!isNaN(currentTranslate)) {
-        seq.style.transform = `translate3d(${currentTranslate}px, 0, 0)`;
+        seq.style.transform = `translate3d(${Math.round(currentTranslate)}px, 0, 0)`;
       }
 
       // Active state for scale/opacity of individual items
       items.forEach((item) => {
         const iRect = item.getBoundingClientRect();
+        
+        // Skip check if item is far off-screen horizontally
+        if (iRect.right < -100 || iRect.left > viewportWidth + 100) {
+          item.classList.remove('active');
+          return;
+        }
+
         const iCenter = iRect.left + (iRect.width / 2);
         const dist = Math.abs(iCenter - halfViewport);
         if (dist < iRect.width / 2) {

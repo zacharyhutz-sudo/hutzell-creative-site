@@ -521,6 +521,7 @@ nav a.active { background: rgba(126,164,147,.10); border-color: transparent; }
   width: max-content; /* Ensure track doesn't collapse */
   will-change: transform;
   transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
 }
 
 .features-bubbles .bubble {
@@ -535,8 +536,9 @@ nav a.active { background: rgba(126,164,147,.10); border-color: transparent; }
   align-items: center;
   text-align: left;
   box-shadow: 0 12px 40px rgba(0,0,0,.04);
-  transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.5s ease;
+  transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s ease, opacity 0.5s ease;
   opacity: 0.4; /* Fade out inactive bubbles */
+  will-change: transform, opacity;
 }
 
 .features-bubbles .bubble.active {

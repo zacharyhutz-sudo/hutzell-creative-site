@@ -49,8 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const viewportHeight = window.innerHeight;
       const viewportWidth = window.innerWidth;
 
-      // Start the horizontal slide only after the section is pinned
-      // 0 progress = top of section hits top of viewport
+      // Calculate progress (0 to 1) based on sticky track
       let progress = (window.scrollY - sectionTop) / (sectionHeight - viewportHeight);
       progress = Math.max(0, Math.min(1, progress));
 
@@ -58,15 +57,14 @@ document.addEventListener('DOMContentLoaded', () => {
       const first = bubbles[0];
       const last = bubbles[bubbles.length - 1];
       
+      // Calculate centers relative to bubbleSeq container
       const firstCenter = first.offsetLeft + (first.offsetWidth / 2);
       const lastCenter = last.offsetLeft + (last.offsetWidth / 2);
       
-      // SHIFTED MATH: We add a horizontal offset to the startTranslate and endTranslate
-      // This shifts the entire "window" of the slider to the right.
-      const horizontalOffset = viewportWidth * 0.25; // 25% of viewport width shift to the right
-      
-      const startTranslate = (viewCenter - firstCenter) + horizontalOffset;
-      const endTranslate = (viewCenter - lastCenter) + horizontalOffset;
+      // Start (progress 0): Center of first bubble at viewport center
+      const startTranslate = viewCenter - firstCenter;
+      // End (progress 1): Center of last bubble at viewport center
+      const endTranslate = viewCenter - lastCenter;
       
       const currentTranslate = startTranslate + (progress * (endTranslate - startTranslate));
       bubbleSeq.style.transform = `translate3d(${currentTranslate}px, 0, 0)`;
@@ -98,6 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     updateBubbles();
     setTimeout(updateBubbles, 100);
+    setTimeout(updateBubbles, 500); // safety for late layout shifts
   }
 
   /* ---------------------------------------------

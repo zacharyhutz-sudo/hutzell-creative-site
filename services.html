@@ -102,44 +102,6 @@
       margin: 0;
     }
 
-    /* ===== VIDEOGRAPHY SECTION ===== */
-    .section.videography {
-      background: #333;
-      color: #fff;
-    }
-    .section.videography .section-title,
-    .section.videography .section-kicker {
-      color: #fff;
-    }
-
-    .video-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
-      margin-top: 2rem;
-    }
-    @media (max-width: 768px) {
-      .video-grid { grid-template-columns: 1fr; }
-    }
-
-    .video-embed {
-      position: relative;
-      aspect-ratio: 16 / 9;
-      width: 100%;
-      overflow: hidden;
-      border-radius: 12px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-      background: #000;
-    }
-
-    .video-embed iframe {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      border: 0;
-    }
-
     /* ===== DESIGN SECTION ===== */
     .section.design { background: #fff; }
 
@@ -327,16 +289,24 @@
   </section>
 
   <!-- VIDEOGRAPHY SECTION -->
-  <section class="section videography" id="videography">
-    <div class="container">
-      <h2 class="section-title">Videography</h2>
-      <p class="section-kicker">Cinematic Wedding Films • Full Ceremony Recordings</p>
-
-      <div class="video-grid">
-        <div class="video-embed">
+  <section class="video-sticky-slider" id="videography">
+    <div class="sticky-track">
+      <div class="sticky-header">
+        <h2 class="section-title">Videography</h2>
+        <p class="section-kicker">Cinematic Wedding Films • Full Ceremony Recordings</p>
+      </div>
+      
+      <div class="bubble-seq">
+        <div class="video-bubble">
+          <iframe src="https://www.youtube.com/embed/XSNpS2tGg_c" allowfullscreen></iframe>
+        </div>
+        <div class="video-bubble">
+          <iframe src="https://www.youtube.com/embed/Xwsedkm-9AI" allowfullscreen></iframe>
+        </div>
+        <div class="video-bubble">
           <iframe src="https://www.youtube.com/embed/Vpdc_gn-qrw" allowfullscreen></iframe>
         </div>
-        <div class="video-embed">
+        <div class="video-bubble">
           <iframe src="https://www.youtube.com/embed/fQBHS2ZIFLU" allowfullscreen></iframe>
         </div>
       </div>

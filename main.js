@@ -34,33 +34,35 @@ document.addEventListener('DOMContentLoaded', () => {
   setActiveNav();
 
   /* ---------------------------------------------
-   * 3) Bubbles: Horizontal Sticky Scroll
+   * 3) Sticky Horizontal Scroll (Bubbles & Videos)
    * --------------------------------------------- */
-  const bubbleSection = document.querySelector('.features-bubbles');
-  const stickyTrack = document.querySelector('.features-bubbles .sticky-track');
-  const bubbleSeq = document.querySelector('.bubble-seq');
-  const bubbles = document.querySelectorAll('.features-bubbles .bubble');
+  const stickySections = document.querySelectorAll('.features-bubbles, .video-sticky-slider');
+  
+  const setupStickySection = (section) => {
+    const stickyTrack = section.querySelector('.sticky-track');
+    const seq = section.querySelector('.bubble-seq');
+    const items = section.querySelectorAll('.bubble, .video-bubble');
 
-  // Create a dedicated overlay for the dark background to avoid re-painting the track
-  let bgOverlay = null;
-  if (stickyTrack) {
-    bgOverlay = document.createElement('div');
-    bgOverlay.style.position = 'absolute';
-    bgOverlay.style.inset = '0';
-    bgOverlay.style.backgroundColor = '#1b2a23'; // The dark brand ink color
-    bgOverlay.style.opacity = '0';
-    bgOverlay.style.zIndex = '-1';
-    bgOverlay.style.pointerEvents = 'none';
-    bgOverlay.style.willChange = 'opacity';
-    stickyTrack.appendChild(bgOverlay);
-  }
+    if (!stickyTrack || !seq || !items.length) return;
 
-  if (bubbleSection && bubbleSeq && bubbles.length) {
-    let ticking = false;
+    // Create a dedicated overlay for the dark background if not present
+    let bgOverlay = section.querySelector('.sticky-bg-overlay');
+    if (!bgOverlay) {
+      bgOverlay = document.createElement('div');
+      bgOverlay.className = 'sticky-bg-overlay';
+      bgOverlay.style.position = 'absolute';
+      bgOverlay.style.inset = '0';
+      bgOverlay.style.backgroundColor = '#1b2a23'; // Dark ink
+      bgOverlay.style.opacity = '0';
+      bgOverlay.style.zIndex = '-1';
+      bgOverlay.style.pointerEvents = 'none';
+      bgOverlay.style.willChange = 'opacity';
+      stickyTrack.appendChild(bgOverlay);
+    }
 
-    const updateBubbles = () => {
-      const sectionTop = bubbleSection.offsetTop;
-      const sectionHeight = bubbleSection.offsetHeight;
+    const update = () => {
+      const sectionTop = section.offsetTop;
+      const sectionHeight = section.offsetHeight;
       const viewportHeight = window.innerHeight;
       const viewportWidth = window.innerWidth;
       const currentScroll = window.scrollY;
@@ -70,12 +72,9 @@ document.addEventListener('DOMContentLoaded', () => {
       let rawProgress = (currentScroll - sectionTop) / totalScrollable;
       rawProgress = Math.max(0, Math.min(1, rawProgress));
 
-      // 2. Dynamic Background Color Shift (Using Opacity on Overlay)
-      if (bgOverlay) {
-        // Simple bell curve for opacity: peaks at 0.5
-        const targetOpacity = Math.max(0, Math.min(0.95, Math.sin(rawProgress * Math.PI) * 1.1));
-        bgOverlay.style.opacity = targetOpacity;
-      }
+      // 2. Dynamic Background Opacity (Sin curve)
+      const targetOpacity = Math.max(0, Math.min(0.98, Math.sin(rawProgress * Math.PI) * 1.1));
+      bgOverlay.style.opacity = targetOpacity;
 
       // 3. Apply Quadratic Ease-In-Out for horizontal motion
       const easedProgress = rawProgress < 0.5 
@@ -83,8 +82,8 @@ document.addEventListener('DOMContentLoaded', () => {
         : 1 - Math.pow(-2 * rawProgress + 2, 2) / 2;
 
       const halfViewport = viewportWidth / 2;
-      const first = bubbles[0];
-      const last = bubbles[bubbles.length - 1];
+      const first = items[0];
+      const last = items[items.length - 1];
       
       const firstCenterRel = first.offsetLeft + (first.offsetWidth / 2);
       const lastCenterRel = last.offsetLeft + (last.offsetWidth / 2);
@@ -93,36 +92,49 @@ document.addEventListener('DOMContentLoaded', () => {
       const endX = halfViewport - lastCenterRel;
       
       const currentTranslate = startX + (easedProgress * (endX - startX));
-      bubbleSeq.style.transform = `translate3d(${currentTranslate}px, 0, 0)`;
+      seq.style.transform = `translate3d(${currentTranslate}px, 0, 0)`;
 
-      // Active state
-      bubbles.forEach((bubble) => {
-        const bRect = bubble.getBoundingClientRect();
-        const bCenter = bRect.left + (bRect.width / 2);
-        const dist = Math.abs(bCenter - halfViewport);
-        if (dist < bRect.width / 3) {
-          bubble.classList.add('active');
+      // Active state for scale/opacity of individual items
+      items.forEach((item) => {
+        const iRect = item.getBoundingClientRect();
+        const iCenter = iRect.left + (iRect.width / 2);
+        const dist = Math.abs(iCenter - halfViewport);
+        // Smaller threshold for "active" state
+        if (dist < iRect.width / 2) {
+          item.classList.add('active');
         } else {
-          bubble.classList.remove('active');
+          item.classList.remove('active');
         }
       });
-
-      ticking = false;
     };
+
+    return update;
+  };
+
+  const stickyUpdaters = Array.from(stickySections).map(setupStickySection).filter(Boolean);
+
+  if (stickyUpdaters.length) {
+    let ticking = false;
 
     const onScroll = () => {
       if (!ticking) {
-        requestAnimationFrame(updateBubbles);
+        requestAnimationFrame(() => {
+          stickyUpdaters.forEach(fn => fn());
+          ticking = false;
+        });
         ticking = true;
       }
     };
 
     window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', updateBubbles);
+    window.addEventListener('resize', () => {
+      stickyUpdaters.forEach(fn => fn());
+    });
     
-    updateBubbles();
-    setTimeout(updateBubbles, 100);
-    setTimeout(updateBubbles, 500);
+    // Initial runs
+    stickyUpdaters.forEach(fn => fn());
+    setTimeout(() => stickyUpdaters.forEach(fn => fn()), 100);
+    setTimeout(() => stickyUpdaters.forEach(fn => fn()), 500);
   }
 
   /* ---------------------------------------------

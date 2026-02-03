@@ -94,7 +94,11 @@ document.addEventListener('DOMContentLoaded', () => {
       const endX = halfViewport - lastCenterRel;
       
       const currentTranslate = startX + (easedProgress * (endX - startX));
-      seq.style.transform = `translate3d(${currentTranslate}px, 0, 0)`;
+      
+      // Safety: check if currentTranslate is actually a number
+      if (!isNaN(currentTranslate)) {
+        seq.style.transform = `translate3d(${currentTranslate}px, 0, 0)`;
+      }
 
       // Active state for scale/opacity of individual items
       items.forEach((item) => {

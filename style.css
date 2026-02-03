@@ -349,14 +349,14 @@ nav a.active { background: rgba(126,164,147,.10); border-color: transparent; }
   height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start; /* Do NOT center horizontally, JS handles this */
   justify-content: center;
   overflow: hidden;
 }
 
 .video-sticky-slider .sticky-header {
   position: absolute;
-  top: 10vh;
+  top: 18vh; /* Lowered significantly to clear header */
   text-align: center;
   z-index: 10;
   width: 100%;
@@ -365,21 +365,22 @@ nav a.active { background: rgba(126,164,147,.10); border-color: transparent; }
 .video-sticky-slider .sticky-header h2 {
   color: inherit;
   margin: 0;
+  font-size: clamp(3.5rem, 8vw, 6rem); /* Slightly larger for emphasis */
 }
 
 .video-sticky-slider .bubble-seq {
   display: flex;
   flex-direction: row;
-  gap: 15vw; /* Slightly tighter gap for smaller videos */
+  gap: 12vw; 
   padding: 0;
   margin: 0;
   width: max-content;
   will-change: transform;
-  margin-top: 15vh; /* Push videos down to make room for header */
+  margin-top: 22vh; /* Push videos down further */
 }
 
 .video-sticky-slider .video-bubble {
-  flex: 0 0 clamp(300px, 70vw, 840px); /* Slightly smaller to fit layout */
+  flex: 0 0 clamp(300px, 60vw, 800px); /* 60vw as requested */
   aspect-ratio: 16 / 9;
   background: #000;
   border-radius: 24px;

@@ -419,10 +419,10 @@ nav a.active { background: rgba(126,164,147,.10); border-color: transparent; }
   }
   .video-sticky-slider .bubble-seq { 
     gap: 15vw;
-    margin-top: 40vh; /* Pushed down more for mobile title visibility */
+    margin-top: 50vh; /* Pushed down further to accommodate lower header */
   }
   .video-sticky-slider .sticky-header {
-    top: 15vh; /* Moved down slightly on mobile */
+    top: 30vh; /* Moved down to 30vh as requested */
     padding-left: 20px;
   }
 }

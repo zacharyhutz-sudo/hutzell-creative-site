@@ -37,6 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
    * 3) Bubbles: Horizontal Sticky Scroll
    * --------------------------------------------- */
   const bubbleSection = document.querySelector('.features-bubbles');
+  const stickyTrack = document.querySelector('.features-bubbles .sticky-track');
   const bubbleSeq = document.querySelector('.bubble-seq');
   const bubbles = document.querySelectorAll('.features-bubbles .bubble');
 
@@ -55,9 +56,24 @@ document.addEventListener('DOMContentLoaded', () => {
       let rawProgress = (currentScroll - sectionTop) / totalScrollable;
       rawProgress = Math.max(0, Math.min(1, rawProgress));
 
-      // 2. Apply Quadratic Ease-In-Out
-      // This makes the transition slower at the start (Photography) 
-      // and end (Design), with more speed in the middle.
+      // 2. Dynamic Background Color Shift
+      // We want to fade from --cream (#f7faf8) to --ink (#1b2a23) and back.
+      // Progress 0.0 -> Cream
+      // Progress 0.2 to 0.8 -> Dark (Ink)
+      // Progress 1.0 -> Cream
+      let bgOpacity = 0;
+      if (rawProgress > 0 && rawProgress < 1) {
+        // Simple bell curve for opacity: peaks at 0.5
+        bgOpacity = Math.sin(rawProgress * Math.PI) * 0.95; 
+      }
+      
+      if (stickyTrack) {
+        // Interpolate between cream (247, 250, 248) and ink (27, 42, 35)
+        // For simplicity and performance, we'll just toggle a background color with opacity
+        stickyTrack.style.backgroundColor = `rgba(27, 42, 35, ${bgOpacity})`;
+      }
+
+      // 3. Apply Quadratic Ease-In-Out for horizontal motion
       const easedProgress = rawProgress < 0.5 
         ? 2 * rawProgress * rawProgress 
         : 1 - Math.pow(-2 * rawProgress + 2, 2) / 2;

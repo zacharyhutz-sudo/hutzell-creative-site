@@ -370,22 +370,23 @@ nav a.active { background: rgba(126,164,147,.10); border-color: transparent; }
 .video-sticky-slider .bubble-seq {
   display: flex;
   flex-direction: row;
-  gap: 20vw;
+  gap: 15vw; /* Slightly tighter gap for smaller videos */
   padding: 0;
   margin: 0;
   width: max-content;
   will-change: transform;
+  margin-top: 15vh; /* Push videos down to make room for header */
 }
 
 .video-sticky-slider .video-bubble {
-  flex: 0 0 clamp(320px, 80vw, 960px);
+  flex: 0 0 clamp(300px, 70vw, 840px); /* Slightly smaller to fit layout */
   aspect-ratio: 16 / 9;
   background: #000;
   border-radius: 24px;
   overflow: hidden;
   box-shadow: 0 20px 60px rgba(0,0,0,0.4);
   opacity: 0.15;
-  transform: scale(0.85);
+  transform: scale(0.9);
   transition: opacity 0.5s ease, transform 0.5s ease;
 }
 

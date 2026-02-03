@@ -85,6 +85,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const first = items[0];
       const last = items[items.length - 1];
       
+      // Use relative position within the seq (offsetLeft) plus parent offsets
+      // to find the true starting horizontal point relative to viewport center.
       const firstCenterRel = first.offsetLeft + (first.offsetWidth / 2);
       const lastCenterRel = last.offsetLeft + (last.offsetWidth / 2);
       
@@ -99,7 +101,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const iRect = item.getBoundingClientRect();
         const iCenter = iRect.left + (iRect.width / 2);
         const dist = Math.abs(iCenter - halfViewport);
-        // Smaller threshold for "active" state
         if (dist < iRect.width / 2) {
           item.classList.add('active');
         } else {
@@ -131,10 +132,13 @@ document.addEventListener('DOMContentLoaded', () => {
       stickyUpdaters.forEach(fn => fn());
     });
     
-    // Initial runs
-    stickyUpdaters.forEach(fn => fn());
-    setTimeout(() => stickyUpdaters.forEach(fn => fn()), 100);
-    setTimeout(() => stickyUpdaters.forEach(fn => fn()), 500);
+    // Initial runs - important for calculation on load
+    const forceUpdate = () => stickyUpdaters.forEach(fn => fn());
+    window.addEventListener('load', forceUpdate);
+    forceUpdate();
+    setTimeout(forceUpdate, 100);
+    setTimeout(forceUpdate, 500);
+    setTimeout(forceUpdate, 1000); // Extra safety for video loading
   }
 
   /* ---------------------------------------------

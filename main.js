@@ -61,9 +61,12 @@ document.addEventListener('DOMContentLoaded', () => {
       const firstCenter = first.offsetLeft + (first.offsetWidth / 2);
       const lastCenter = last.offsetLeft + (last.offsetWidth / 2);
       
-      // SHIFTED MATH: Ensure the last bubble is perfectly centered at the end
-      const startTranslate = viewCenter - firstCenter;
-      const endTranslate = viewCenter - lastCenter;
+      // SHIFTED MATH: We add a horizontal offset to the startTranslate and endTranslate
+      // This shifts the entire "window" of the slider to the right.
+      const horizontalOffset = viewportWidth * 0.12; // 12% of viewport width shift to the right
+      
+      const startTranslate = (viewCenter - firstCenter) + horizontalOffset;
+      const endTranslate = (viewCenter - lastCenter) + horizontalOffset;
       
       const currentTranslate = startTranslate + (progress * (endTranslate - startTranslate));
       bubbleSeq.style.transform = `translate3d(${currentTranslate}px, 0, 0)`;

@@ -33,74 +33,80 @@ document.addEventListener('DOMContentLoaded', () => {
   };
   setActiveNav();
 
-  /* ---------------------------------------------
-   * 3) Bubbles: Horizontal Sticky Scroll
-   * --------------------------------------------- */
-  const bubbleSection = document.querySelector('.features-bubbles');
-  const bubbleSeq = document.querySelector('.bubble-seq');
-  const bubbles = document.querySelectorAll('.features-bubbles .bubble');
+/* ---------------------------------------------
+ * 3) Bubbles: Horizontal Sticky Scroll (Refined)
+ * --------------------------------------------- */
+const bubbleSection = document.querySelector('.features-bubbles');
+const bubbleSeq = document.querySelector('.bubble-seq');
+const bubbles = document.querySelectorAll('.features-bubbles .bubble');
 
-  if (bubbleSection && bubbleSeq && bubbles.length) {
-    let ticking = false;
+if (bubbleSection && bubbleSeq && bubbles.length) {
+  let ticking = false;
 
-    const updateBubbles = () => {
-      const sectionTop = bubbleSection.offsetTop;
-      const sectionHeight = bubbleSection.offsetHeight;
-      const viewportHeight = window.innerHeight;
-      const viewportWidth = window.innerWidth;
-      const currentScroll = window.scrollY;
+  const updateBubbles = () => {
+    const sectionTop = bubbleSection.offsetTop;
+    const sectionHeight = bubbleSection.offsetHeight;
+    const viewportHeight = window.innerHeight;
+    const viewportWidth = window.innerWidth;
+    const currentScroll = window.scrollY;
 
-      // Progress: 0 at top, 1 at bottom of sticky track
-      let progress = (currentScroll - sectionTop) / (sectionHeight - viewportHeight);
-      progress = Math.max(0, Math.min(1, progress));
+    // 1. Calculate Progress (0 to 1)
+    // We subtract viewportHeight to ensure progress hits 1.0 exactly when the bottom hits the screen
+    let progress = (currentScroll - sectionTop) / (sectionHeight - viewportHeight);
+    progress = Math.max(0, Math.min(1, progress));
 
-      const first = bubbles[0];
-      const last = bubbles[bubbles.length - 1];
-      
-      // Get the current center of the first and last bubbles relative to the parent (bubbleSeq)
-      const firstCenterRel = first.offsetLeft + (first.offsetWidth / 2);
-      const lastCenterRel = last.offsetLeft + (last.offsetWidth / 2);
-      
-      const viewCenter = viewportWidth / 2;
+    const first = bubbles[0];
+    const last = bubbles[bubbles.length - 1];
+    const viewCenter = viewportWidth / 2;
 
-      // The translation needed to put firstCenterRel at viewCenter is (viewCenter - firstCenterRel)
-      const startX = viewCenter - firstCenterRel;
-      const endX = viewCenter - lastCenterRel;
-      
-      const translateX = startX + (progress * (endX - startX));
-      
-      bubbleSeq.style.transform = `translate3d(${translateX}px, 0, 0)`;
-
-      // Active state based on viewport center
-      bubbles.forEach((bubble) => {
-        const bRect = bubble.getBoundingClientRect();
-        const bCenter = bRect.left + (bRect.width / 2);
-        const dist = Math.abs(bCenter - viewCenter);
-        if (dist < bRect.width / 3) {
-          bubble.classList.add('active');
-        } else {
-          bubble.classList.remove('active');
-        }
-      });
-
-      ticking = false;
-    };
-
-    const onScroll = () => {
-      if (!ticking) {
-        requestAnimationFrame(updateBubbles);
-        ticking = true;
-      }
-    };
-
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', updateBubbles);
+    // 2. Calculate Center-Points
+    // offsetLeft is relative to the .bubble-seq container
+    const firstCenterRel = first.offsetLeft + (first.offsetWidth / 2);
+    const lastCenterRel = last.offsetLeft + (last.offsetWidth / 2);
     
-    // Force recalculations to ensure absolute stability
-    updateBubbles();
-    setTimeout(updateBubbles, 50);
-    setTimeout(updateBubbles, 500);
-  }
+    // 3. Define the Start and End Translation points
+    // startX: What translation puts the first bubble in the center?
+    // endX: What translation puts the last bubble in the center?
+    const startX = viewCenter - firstCenterRel;
+    const endX = viewCenter - lastCenterRel;
+    
+    // 4. Interpolate based on scroll progress
+    const translateX = startX + (progress * (endX - startX));
+    
+    bubbleSeq.style.transform = `translate3d(${translateX}px, 0, 0)`;
+
+    // 5. Active State (Optional: Highlights the "centered" bubble)
+    bubbles.forEach((bubble) => {
+      const bRect = bubble.getBoundingClientRect();
+      const bCenter = bRect.left + (bRect.width / 2);
+      const dist = Math.abs(bCenter - viewCenter);
+      
+      // If the bubble's center is within 20% of the viewport center, mark active
+      if (dist < viewportWidth * 0.2) {
+        bubble.classList.add('active');
+      } else {
+        bubble.classList.remove('active');
+      }
+    });
+
+    ticking = false;
+  };
+
+  const onScroll = () => {
+    if (!ticking) {
+      window.requestAnimationFrame(updateBubbles);
+      ticking = true;
+    }
+  };
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', updateBubbles);
+  
+  // Initial calls to set position correctly on load
+  updateBubbles();
+  // Small delay to account for dynamic content/images loading and shifting widths
+  window.addEventListener('load', updateBubbles); 
+}
 
   /* ---------------------------------------------
    * 4) Infinite Background Masonry

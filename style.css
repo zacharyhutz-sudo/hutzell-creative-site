@@ -415,14 +415,14 @@ nav a.active { background: rgba(126,164,147,.10); border-color: transparent; }
 @media (max-width: 780px) {
   .video-sticky-slider { height: 350vh; }
   .video-sticky-slider .video-bubble { 
-    flex: 0 0 80vw; /* Maintain usable size on mobile */
+    flex: 0 0 96vw; /* Increased from 80vw (+20%) */
   }
   .video-sticky-slider .bubble-seq { 
     gap: 15vw;
-    margin-top: 50vh; /* Pushed down further to accommodate lower header */
+    margin-top: 30vh; /* Raised from 50vh (moved up by 20vh) */
   }
   .video-sticky-slider .sticky-header {
-    top: 30vh; /* Moved down to 30vh as requested */
+    top: 20vh; /* Raised from 30vh (moved up by 10vh) */
     padding-left: 20px;
   }
 }

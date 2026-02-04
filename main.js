@@ -149,6 +149,8 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     };
 
+    const sectionSensitivity = section.classList.contains('video-sticky-slider') ? 0.8 : 0.4;
+
     section.addEventListener('touchstart', (e) => {
       stopInertia();
       touchStartX = e.touches[0].clientX;
@@ -179,8 +181,7 @@ document.addEventListener('DOMContentLoaded', () => {
       // (Simplified check: if we've moved > 10px horizontally)
       if (Math.abs(deltaX) > 10) {
         const totalScrollable = section.offsetHeight - window.innerHeight;
-        const sensitivity = 0.4; 
-        const scrollAmount = (deltaX / window.innerWidth) * totalScrollable * sensitivity;
+        const scrollAmount = (deltaX / window.innerWidth) * totalScrollable * sectionSensitivity;
         
         window.scrollTo({
           top: initialScrollY + scrollAmount,
@@ -195,12 +196,11 @@ document.addEventListener('DOMContentLoaded', () => {
       // Start inertia if velocity is high enough
       if (Math.abs(velocity) > 0.1) {
         const totalScrollable = section.offsetHeight - window.innerHeight;
-        const sensitivity = 0.4;
         let currentVelocity = velocity;
         const friction = 0.95; // Higher = slides longer
 
         const step = () => {
-          const scrollStep = (currentVelocity * 16) / window.innerWidth * totalScrollable * sensitivity;
+          const scrollStep = (currentVelocity * 16) / window.innerWidth * totalScrollable * sectionSensitivity;
           window.scrollBy(0, scrollStep);
           
           currentVelocity *= friction;

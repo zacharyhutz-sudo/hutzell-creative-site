@@ -149,7 +149,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     };
 
-    const sectionSensitivity = section.classList.contains('video-sticky-slider') ? 0.8 : 0.4;
+    const sectionSensitivity = section.classList.contains('video-sticky-slider') ? 3.0 : 0.4;
 
     section.addEventListener('touchstart', (e) => {
       stopInertia();
@@ -181,6 +181,7 @@ document.addEventListener('DOMContentLoaded', () => {
       // (Simplified check: if we've moved > 10px horizontally)
       if (Math.abs(deltaX) > 10) {
         const totalScrollable = section.offsetHeight - window.innerHeight;
+        // Map horizontal pixels to vertical scroll distance
         const scrollAmount = (deltaX / window.innerWidth) * totalScrollable * sectionSensitivity;
         
         window.scrollTo({

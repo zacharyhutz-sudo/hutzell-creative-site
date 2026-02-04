@@ -159,7 +159,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Map horizontal pixels to vertical scroll distance
         // A full swipe (viewport width) should move roughly 30% of the section height
-        const sensitivity = 1.5; 
+        const sensitivity = 0.4; 
         const scrollAmount = (deltaX / window.innerWidth) * totalScrollable * sensitivity;
         
         window.scrollTo({

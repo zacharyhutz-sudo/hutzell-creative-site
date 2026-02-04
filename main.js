@@ -149,7 +149,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     };
 
-    const sectionSensitivity = section.classList.contains('video-sticky-slider') ? 3.0 : 0.4;
+    const sectionSensitivity = section.classList.contains('video-sticky-slider') ? 10.0 : 0.4;
 
     section.addEventListener('touchstart', (e) => {
       stopInertia();

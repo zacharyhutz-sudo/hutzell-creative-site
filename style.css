@@ -581,7 +581,7 @@ nav a.active { background: rgba(126,164,147,.10); border-color: transparent; }
     flex: 0 0 85vw;
   }
   .features-bubbles .bubble-icon {
-    max-width: 180px;
+    max-width: 270px;
     margin: 0 auto 15px;
   }
   .features-bubbles .bubble-seq { gap: 10vw; }
@@ -644,7 +644,7 @@ nav a.active { background: rgba(126,164,147,.10); border-color: transparent; }
   font-size: clamp(18px, 2vw, 22px);
   color: var(--ink);
 }
-.about-us .about-sign { margin-top: 6px; font-size: 2.1rem; color: var(--muted); }
+.about-us .about-sign { margin-top: 6px; font-size: 4.2rem; color: var(--muted); }
 
 /* Social Links */
 .social-links {

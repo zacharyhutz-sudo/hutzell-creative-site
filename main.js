@@ -132,6 +132,46 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     };
 
+    /* ---------------------------------------------
+     * Touch-to-Scroll Bridge (Mobile Swipe)
+     * --------------------------------------------- */
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let initialScrollY = 0;
+
+    section.addEventListener('touchstart', (e) => {
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+      initialScrollY = window.scrollY;
+    }, { passive: true });
+
+    section.addEventListener('touchmove', (e) => {
+      const touchX = e.touches[0].clientX;
+      const touchY = e.touches[0].clientY;
+      
+      const deltaX = touchStartX - touchX;
+      const deltaY = touchStartY - touchY;
+
+      // If user is swiping more horizontally than vertically
+      if (Math.abs(deltaX) > Math.abs(deltaY)) {
+        const sectionHeight = section.offsetHeight;
+        const totalScrollable = sectionHeight - window.innerHeight;
+        
+        // Map horizontal pixels to vertical scroll distance
+        // A full swipe (viewport width) should move roughly 30% of the section height
+        const sensitivity = 1.5; 
+        const scrollAmount = (deltaX / window.innerWidth) * totalScrollable * sensitivity;
+        
+        window.scrollTo({
+          top: initialScrollY + scrollAmount,
+          behavior: 'auto'
+        });
+        
+        // Prevent default browser behavior if swiping horizontally inside the slider
+        if (e.cancelable) e.preventDefault();
+      }
+    }, { passive: false });
+
     return update;
   };
 

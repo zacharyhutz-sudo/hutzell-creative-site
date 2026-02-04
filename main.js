@@ -133,32 +133,52 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     /* ---------------------------------------------
-     * Touch-to-Scroll Bridge (Mobile Swipe)
+     * Touch-to-Scroll Bridge (Mobile Swipe with Inertia)
      * --------------------------------------------- */
     let touchStartX = 0;
-    let touchStartY = 0;
     let initialScrollY = 0;
+    let lastTouchX = 0;
+    let lastTouchTime = 0;
+    let velocity = 0;
+    let inertiaId = null;
+
+    const stopInertia = () => {
+      if (inertiaId) {
+        cancelAnimationFrame(inertiaId);
+        inertiaId = null;
+      }
+    };
 
     section.addEventListener('touchstart', (e) => {
+      stopInertia();
       touchStartX = e.touches[0].clientX;
-      touchStartY = e.touches[0].clientY;
+      lastTouchX = touchStartX;
+      lastTouchTime = Date.now();
       initialScrollY = window.scrollY;
+      velocity = 0;
     }, { passive: true });
 
     section.addEventListener('touchmove', (e) => {
       const touchX = e.touches[0].clientX;
-      const touchY = e.touches[0].clientY;
+      const currentTime = Date.now();
       
       const deltaX = touchStartX - touchX;
-      const deltaY = touchStartY - touchY;
+      const deltaTime = currentTime - lastTouchTime;
+      
+      // Calculate instantaneous velocity (px per ms)
+      if (deltaTime > 0) {
+        const instantVelocity = (lastTouchX - touchX) / deltaTime;
+        // Simple smoothing for velocity
+        velocity = (velocity * 0.6) + (instantVelocity * 0.4);
+      }
+      
+      lastTouchX = touchX;
+      lastTouchTime = currentTime;
 
-      // If user is swiping more horizontally than vertically
-      if (Math.abs(deltaX) > Math.abs(deltaY)) {
-        const sectionHeight = section.offsetHeight;
-        const totalScrollable = sectionHeight - window.innerHeight;
-        
-        // Map horizontal pixels to vertical scroll distance
-        // A full swipe (viewport width) should move roughly 30% of the section height
+      // Only bridge if swiping is primarily horizontal
+      // (Simplified check: if we've moved > 10px horizontally)
+      if (Math.abs(deltaX) > 10) {
+        const totalScrollable = section.offsetHeight - window.innerHeight;
         const sensitivity = 0.4; 
         const scrollAmount = (deltaX / window.innerWidth) * totalScrollable * sensitivity;
         
@@ -167,10 +187,33 @@ document.addEventListener('DOMContentLoaded', () => {
           behavior: 'auto'
         });
         
-        // Prevent default browser behavior if swiping horizontally inside the slider
         if (e.cancelable) e.preventDefault();
       }
     }, { passive: false });
+
+    section.addEventListener('touchend', () => {
+      // Start inertia if velocity is high enough
+      if (Math.abs(velocity) > 0.1) {
+        const totalScrollable = section.offsetHeight - window.innerHeight;
+        const sensitivity = 0.4;
+        let currentVelocity = velocity;
+        const friction = 0.95; // Higher = slides longer
+
+        const step = () => {
+          const scrollStep = (currentVelocity * 16) / window.innerWidth * totalScrollable * sensitivity;
+          window.scrollBy(0, scrollStep);
+          
+          currentVelocity *= friction;
+          
+          if (Math.abs(currentVelocity) > 0.05) {
+            inertiaId = requestAnimationFrame(step);
+          } else {
+            inertiaId = null;
+          }
+        };
+        inertiaId = requestAnimationFrame(step);
+      }
+    }, { passive: true });
 
     return update;
   };

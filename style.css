@@ -520,7 +520,7 @@ nav a.active { background: rgba(126,164,147,.10); border-color: transparent; }
   margin: 0;
   width: max-content; /* Ensure track doesn't collapse */
   will-change: transform;
-  transform: translate3d(0, 0, 0);
+  transform: translate3d(calc(50vw - clamp(300px, 60vw, 800px) / 2), 0, 0);
   backface-visibility: hidden;
 }
 

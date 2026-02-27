@@ -221,6 +221,99 @@
       to { opacity: 1; }
     }
 
+
+    /* ===== WEBSITE CASE STUDIES ===== */
+    .website-cases {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 3rem 1rem 1rem;
+    }
+
+    .website-cases-title {
+      font-family: 'Pinyon Script', cursive;
+      font-weight: 400;
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      letter-spacing: 1px;
+      margin: 0 0 0.5rem 0;
+      text-align: left;
+      color: var(--ink);
+    }
+
+    .website-cases-kicker {
+      font-family: var(--body-font, 'Della Respira', serif);
+      color: var(--muted, #51645c);
+      margin: 0 0 2rem 0;
+      font-size: 1.1rem;
+      text-align: center;
+    }
+
+    .website-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    @media (max-width: 768px) {
+      .website-cards { grid-template-columns: 1fr; }
+    }
+
+    .website-card {
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #fff;
+      border: 1px solid var(--accent, #e6efe9);
+    }
+
+    .website-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 28px rgba(0,0,0,0.12);
+    }
+
+    .website-card img {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      object-position: top;
+      display: block;
+    }
+
+    .website-card-info {
+      padding: 1.25rem;
+      background: #fafafa;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .website-card-title {
+      font-family: var(--subhead-font, 'Della Respira', serif);
+      font-size: 1.15rem;
+      font-weight: 600;
+      margin: 0;
+      color: var(--ink);
+    }
+
+    .website-card-desc {
+      font-size: 0.9rem;
+      color: var(--muted, #51645c);
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    .website-card-link {
+      font-family: var(--subhead-font, 'Della Respira', serif);
+      font-size: 0.85rem;
+      color: var(--green, #7ea493);
+      margin-top: auto;
+      padding-top: 0.5rem;
+    }
     /* Utility: rounded images */
     .rounded {
       border-radius: 12px;
@@ -347,6 +440,42 @@
       </div>
       <div class="design-gallery-indicators" id="designIndicators"></div>
     </div>
+
+    <!-- Website Case Studies -->
+    <div class="website-cases">
+      <h3 class="website-cases-title">Websites We've Built</h3>
+      <p class="website-cases-kicker">Custom Design • Hosting • Managed Domains</p>
+
+      <div class="website-cards">
+        <a class="website-card" href="https://theresalwaystimeforthesea.com/" target="_blank" rel="noopener">
+          <img src="assets/img/Design/sherri-beach-home-website.webp" alt="Custom vacation rental website design for There's Always Time for the Sea in Cape San Blas, FL" width="900" height="506" loading="lazy">
+          <div class="website-card-info">
+            <h4 class="website-card-title">There's Always Time for the Sea</h4>
+            <p class="website-card-desc">Vacation rental website with booking integration for a beachfront property in Cape San Blas, FL.</p>
+            <span class="website-card-link">Visit Site &rarr;</span>
+          </div>
+        </a>
+
+        <a class="website-card" href="https://nicksammonsrealestate.com/" target="_blank" rel="noopener">
+          <img src="assets/img/Design/nick-sammons-website.webp" alt="Custom real estate website design for Nick Sammons Realty in North Georgia" width="900" height="506" loading="lazy">
+          <div class="website-card-info">
+            <h4 class="website-card-title">Nick Sammons Real Estate</h4>
+            <p class="website-card-desc">Modern real estate portfolio with listings, testimonials, and contact for a North Georgia REALTOR&reg;.</p>
+            <span class="website-card-link">Visit Site &rarr;</span>
+          </div>
+        </a>
+
+        <a class="website-card" href="https://cantrellsautodetailingllc.com/" target="_blank" rel="noopener">
+          <img src="assets/img/Design/cantrell-auto-detailing-website.webp" alt="Custom auto detailing business website design for Cantrell Auto Detailing in Taylors, SC" width="900" height="506" loading="lazy">
+          <div class="website-card-info">
+            <h4 class="website-card-title">Cantrell Auto Detailing</h4>
+            <p class="website-card-desc">Professional service website with reviews and scheduling for an auto detailing business in Taylors, SC.</p>
+            <span class="website-card-link">Visit Site &rarr;</span>
+          </div>
+        </a>
+      </div>
+    </div>
+
   </section>
 
   <footer class="footer">

@@ -270,6 +270,10 @@
       border: 1px solid var(--accent, #e6efe9);
     }
 
+    .website-card .website-card-info {
+      order: -1;
+    }
+
     .website-card:hover {
       transform: translateY(-4px);
       box-shadow: 0 12px 28px rgba(0,0,0,0.12);
@@ -284,7 +288,6 @@
     .website-card-info {
       padding: 1.25rem;
       background: #fafafa;
-      flex-grow: 1;
       display: flex;
       flex-direction: column;
       gap: 0.35rem;
@@ -309,8 +312,7 @@
       font-family: var(--subhead-font, 'Della Respira', serif);
       font-size: 0.85rem;
       color: var(--green, #7ea493);
-      margin-top: auto;
-      padding-top: 0.5rem;
+      padding-top: 0.25rem;
     }
     /* Utility: rounded images */
     .rounded {

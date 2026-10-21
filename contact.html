@@ -12,11 +12,11 @@
   <meta property="og:image" content="https://hutzellcreativeco.com/assets/logo.png"/>
 
   <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Della+Respira&family=Pinyon+Script&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  
 
   <!-- Site CSS -->
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=20261021">
 
   <style>
     .contact-wrapper {
@@ -141,12 +141,16 @@ form select {
   <!-- Favicons -->
   <link rel="icon" type="image/png" href="favicon.png"/>
   <link rel="shortcut icon" href="favicon.ico"/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Della+Respira&family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Pinyon+Script&display=swap" rel="stylesheet">
 </head>
 
 <body>
+<a class="skip-link" href="#main">Skip to content</a>
 <header>
   <div class="container nav">
-    <div class="brand"><a href="index.html" class="brand-link"><img src="assets/logo.png" alt="Hutzell Creative Co. logo" class="brand-logo"></a></div>
+    <div class="brand"><a href="index.html" class="brand-link"><img decoding="async" src="assets/logo.png" alt="Hutzell Creative Co. logo" class="brand-logo" width="1080" height="1080"></a></div>
     <nav>
       <ul>
         <li><a class="nav-script" href="index.html">Home</a></li>
@@ -156,21 +160,22 @@ form select {
     </nav>
   </div>
 </header>
+<main id="main" tabindex="-1">
 
   <div class="contact-wrapper">
     <h1 class="contact-title">Let’s Connect</h1>
     <p class="contact-intro">We’d love to hear from you. Select a service and fill out the form below.</p>
     
     <!-- Service Selection (kept full width) -->
-    <div class="service-options">
-      <button type="button" class="service-btn" data-value="Photography">Photography</button>
-      <button type="button" class="service-btn" data-value="Videography">Videography</button>
-      <button type="button" class="service-btn" data-value="Graphic Design">Graphic Design</button>
-      <button type="button" class="service-btn" data-value="Website">Website</button>
-      <button type="button" class="service-btn" data-value="Other">Other</button>
+    <div class="service-options" role="group" aria-label="Choose a service">
+      <button type="button" class="service-btn" aria-pressed="false" data-value="Photography">Photography</button>
+      <button type="button" class="service-btn" aria-pressed="false" data-value="Videography">Videography</button>
+      <button type="button" class="service-btn" aria-pressed="false" data-value="Graphic Design">Graphic Design</button>
+      <button type="button" class="service-btn" aria-pressed="false" data-value="Website">Website</button>
+      <button type="button" class="service-btn" aria-pressed="false" data-value="Other">Other</button>
     </div>
     
-    <form action="https://formspree.io/f/xvgqjkno" method="POST">
+    <form id="inquiryForm" action="https://formspree.io/f/xvgqjkno" method="POST">
       <!-- hidden field to capture service -->
       <input type="hidden" name="service" id="serviceField">
 
@@ -222,28 +227,18 @@ form select {
       </div>
 
       <button type="submit" class="submit-btn">Send Inquiry</button>
+      <p id="formStatus" class="form-status" role="status" aria-live="polite"></p>
     </form>
   </div>
 
-  <footer class="footer">
+  </main>
+<footer class="footer">
     <div class="container">© <span id="year"></span> Hutzell Creative Co.</div>
   </footer>
 
   <script>document.getElementById('year').textContent=new Date().getFullYear();</script>
 
-  <script>
-    // Toggle active service button + set hidden field
-    const serviceBtns = document.querySelectorAll('.service-btn');
-    const serviceField = document.getElementById('serviceField');
-    serviceBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        serviceBtns.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        serviceField.value = btn.dataset.value;
-      });
-    });
-  </script>
 
-  <script src="main.js"></script>
+  <script src="main.js?v=20261021"></script>
 </body>
 </html>

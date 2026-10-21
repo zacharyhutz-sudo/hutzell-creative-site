@@ -35,17 +35,15 @@
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;600;700&family=Della+Respira&family=Pinyon+Script&display=swap" rel="stylesheet">
+  
 
   <!-- Site CSS -->
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=20261021">
   <link rel="preload" href="assets/fonts/SloopScriptPro-Regular.otf" as="font" type="font/otf" crossorigin>
 
   <!-- Page-specific CSS -->
   <style>
     html { scroll-behavior: smooth; }
-    :root { --sticky-offset: 110px; }
-    section[id] { scroll-margin-top: var(--sticky-offset); }
 
     /* Section titles — Pinyon Script (cursive brand font) */
     .section-title {
@@ -343,14 +341,16 @@
   <!-- Favicons -->
   <link rel="icon" type="image/png" href="favicon.png"/>
   <link rel="shortcut icon" href="favicon.ico"/>
+<link href="https://fonts.googleapis.com/css2?family=Della+Respira&family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Pinyon+Script&display=swap" rel="stylesheet">
 </head>
 
 <body class="services-page">
+<a class="skip-link" href="#main">Skip to content</a>
   <header>
     <div class="container nav">
       <div class="brand">
         <a href="index.html" class="brand-link">
-          <img src="assets/logo.png" alt="Hutzell Creative Co. logo" class="brand-logo">
+          <img decoding="async" src="assets/logo.png" alt="Hutzell Creative Co. logo" class="brand-logo" width="1080" height="1080">
         </a>
       </div>
       <nav class="site-nav">
@@ -362,6 +362,11 @@
       </nav>
     </div>
   </header>
+<main id="main" tabindex="-1">
+
+  <nav class="service-shortcuts container" aria-label="Explore services">
+    <a href="#photography">Photography</a><a href="#videography">Videography</a><a href="#design">Design</a><a href="#websites">Websites</a>
+  </nav>
 
   <!-- PHOTOGRAPHY SECTION -->
   <section class="section photography" id="photography">
@@ -371,59 +376,73 @@
 
       <div class="photo-cards">
         <a href="portfolio-families.html" class="photo-card">
-          <img src="assets/img/Families/EI8A1522.webp" alt="Family photography" width="450" height="450">
+          <img decoding="async" src="assets/img/Families/EI8A1522.webp" alt="Family photography" width="450" height="450">
           <div class="photo-card-info">
             <h3 class="photo-card-title">Families</h3>
           </div>
         </a>
 
         <a href="portfolio-couples.html" class="photo-card">
-          <img src="assets/img/Couples/EI8A4852.webp" alt="Couples photography" width="450" height="450">
+          <img decoding="async" src="assets/img/Couples/EI8A4852.webp" alt="Couples photography" width="450" height="450">
           <div class="photo-card-info">
             <h3 class="photo-card-title">Couples</h3>
           </div>
         </a>
 
         <a href="portfolio-seniors.html" class="photo-card">
-          <img src="assets/img/Seniors/s2.webp" alt="Senior photography" width="450" height="450">
+          <img decoding="async" src="assets/img/Seniors/s2.webp" alt="Senior photography" width="450" height="450">
           <div class="photo-card-info">
             <h3 class="photo-card-title">Seniors</h3>
           </div>
         </a>
 
         <a href="portfolio-weddings.html" class="photo-card">
-          <img src="assets/img/Weddings/IMG_2052.webp" alt="Wedding photography" width="450" height="450">
+          <img decoding="async" src="assets/img/Weddings/IMG_2052.webp" alt="Wedding photography" width="450" height="450">
           <div class="photo-card-info">
             <h3 class="photo-card-title">Weddings</h3>
           </div>
         </a>
       </div>
     </div>
+    <p class="section-inquiry"><a class="button" href="contact.html?service=Photography">Inquire about photography</a></p>
   </section>
 
   <!-- VIDEOGRAPHY SECTION -->
-  <section class="video-sticky-slider" id="videography">
-    <div class="sticky-track">
-      <div class="sticky-header">
+  <section class="films" id="videography">
+    <div class="container">
+      <div class="films-header">
         <h2 class="section-title">Videography</h2>
         <p class="section-kicker">Cinematic Wedding Films • Full Ceremony Recordings</p>
       </div>
       
-      <div class="bubble-seq">
-        <div class="video-bubble">
-          <iframe src="https://www.youtube.com/embed/XSNpS2tGg_c" allowfullscreen></iframe>
+      <div class="film-grid">
+        <div class="film-player">
+          <a class="video-launch" href="https://www.youtube.com/watch?v=XSNpS2tGg_c" data-video="XSNpS2tGg_c" aria-label="Play wedding film 1">
+            <img src="https://i.ytimg.com/vi/XSNpS2tGg_c/hqdefault.jpg" alt="" width="480" height="360" loading="lazy">
+            <span>▶ Watch wedding film 1</span>
+          </a>
         </div>
-        <div class="video-bubble">
-          <iframe src="https://www.youtube.com/embed/Xwsedkm-9AI" allowfullscreen></iframe>
+        <div class="film-player">
+          <a class="video-launch" href="https://www.youtube.com/watch?v=Xwsedkm-9AI" data-video="Xwsedkm-9AI" aria-label="Play wedding film 2">
+            <img src="https://i.ytimg.com/vi/Xwsedkm-9AI/hqdefault.jpg" alt="" width="480" height="360" loading="lazy">
+            <span>▶ Watch wedding film 2</span>
+          </a>
         </div>
-        <div class="video-bubble">
-          <iframe src="https://www.youtube.com/embed/Vpdc_gn-qrw" allowfullscreen></iframe>
+        <div class="film-player">
+          <a class="video-launch" href="https://www.youtube.com/watch?v=Vpdc_gn-qrw" data-video="Vpdc_gn-qrw" aria-label="Play wedding film 3">
+            <img src="https://i.ytimg.com/vi/Vpdc_gn-qrw/hqdefault.jpg" alt="" width="480" height="360" loading="lazy">
+            <span>▶ Watch wedding film 3</span>
+          </a>
         </div>
-        <div class="video-bubble">
-          <iframe src="https://www.youtube.com/embed/fQBHS2ZIFLU" allowfullscreen></iframe>
+        <div class="film-player">
+          <a class="video-launch" href="https://www.youtube.com/watch?v=fQBHS2ZIFLU" data-video="fQBHS2ZIFLU" aria-label="Play wedding film 4">
+            <img src="https://i.ytimg.com/vi/fQBHS2ZIFLU/hqdefault.jpg" alt="" width="480" height="360" loading="lazy">
+            <span>▶ Watch wedding film 4</span>
+          </a>
         </div>
       </div>
     </div>
+    <p class="section-inquiry"><a class="button" href="contact.html?service=Videography">Inquire about a film</a></p>
   </section>
 
   <!-- DESIGN SECTION -->
@@ -442,33 +461,42 @@
       </div>
     </div>
 
+    <noscript><style>
+      .services-page .design-gallery-container { aspect-ratio: auto; }
+      .services-page .design-gallery-item { display: block; position: static; margin-bottom: 16px; }
+      .services-page .design-gallery-item img { height: auto; }
+      .design-nav-arrow, .design-gallery-indicators { display: none; }
+    </style></noscript>
     <!-- Design gallery with side navigation -->
-    <div class="design-gallery-wrapper">
+    <div class="design-gallery-wrapper" role="region" aria-roledescription="carousel" aria-label="Design portfolio">
       <div class="design-gallery-viewport">
         <button class="design-nav-arrow design-nav-prev" id="designPrev" aria-label="Previous design">‹</button>
         
-        <div class="design-gallery-container" id="designGallery">
-          <div class="design-gallery-item active"><img src="assets/img/Design/digital-2.webp" alt="Digital branding and social media design by Hutzell Creative Co."></div>
-          <div class="design-gallery-item"><img src="assets/img/Design/digital-3.webp" alt="Custom digital marketing design for small business"></div>
-          <div class="design-gallery-item"><img src="assets/img/Design/fit-to-lead-2.webp" alt="Fit to Lead brand identity and logo design"></div>
-          <div class="design-gallery-item"><img src="assets/img/Design/fit-to-lead-3.webp" alt="Fit to Lead brand collateral and print design"></div>
-          <div class="design-gallery-item"><img src="assets/img/Design/sloop-script-headings-3.webp" alt="Custom typography and heading design for brand identity"></div>
-          <div class="design-gallery-item"><img src="assets/img/Design/sloop-script-headings-4.webp" alt="Script typography design for creative branding"></div>
+        <div class="design-gallery-container" id="designGallery" tabindex="0" aria-label="Design images. Use left and right arrow keys to browse.">
+          <div class="design-gallery-item active"><img decoding="async" src="assets/img/Design/digital-2.webp" alt="Digital branding and social media design by Hutzell Creative Co." width="1200" height="1500"></div>
+          <div class="design-gallery-item"><img loading="lazy" decoding="async" src="assets/img/Design/digital-3.webp" alt="Custom digital marketing design for small business" width="1200" height="1500"></div>
+          <div class="design-gallery-item"><img loading="lazy" decoding="async" src="assets/img/Design/fit-to-lead-2.webp" alt="Fit to Lead brand identity and logo design" width="1200" height="1500"></div>
+          <div class="design-gallery-item"><img loading="lazy" decoding="async" src="assets/img/Design/fit-to-lead-3.webp" alt="Fit to Lead brand collateral and print design" width="1200" height="1500"></div>
+          <div class="design-gallery-item"><img loading="lazy" decoding="async" src="assets/img/Design/sloop-script-headings-3.webp" alt="Custom typography and heading design for brand identity" width="1200" height="1500"></div>
+          <div class="design-gallery-item"><img loading="lazy" decoding="async" src="assets/img/Design/sloop-script-headings-4.webp" alt="Script typography design for creative branding" width="1200" height="1500"></div>
         </div>
         
         <button class="design-nav-arrow design-nav-next" id="designNext" aria-label="Next design">›</button>
       </div>
-      <div class="design-gallery-indicators" id="designIndicators"></div>
+      <div class="design-gallery-indicators" id="designIndicators" aria-label="Choose a design"></div>
+      <p class="gallery-status" id="designStatus" role="status" aria-live="polite"></p>
     </div>
 
+    <p class="section-inquiry"><a class="button" href="contact.html?service=Graphic%20Design">Inquire about design</a></p>
+
     <!-- Website Case Studies -->
-    <div class="website-cases">
+    <div class="website-cases" id="websites">
       <h3 class="website-cases-title">Websites</h3>
       <p class="website-cases-kicker">Custom Design • Hosting • Managed Domains</p>
 
       <div class="website-cards">
         <a class="website-card" href="https://theresalwaystimeforthesea.com/" target="_blank" rel="noopener">
-          <img src="assets/img/Design/sherri-beach-home-website.webp" alt="Custom vacation rental website design for There's Always Time for the Sea in Cape San Blas, FL" width="900" loading="lazy">
+          <img decoding="async" src="assets/img/Design/sherri-beach-home-website.webp" alt="Custom vacation rental website design for There's Always Time for the Sea in Cape San Blas, FL" loading="lazy" width="900" height="2214">
           <div class="website-card-info">
             <h4 class="website-card-title">There's Always Time for the Sea</h4>
             <p class="website-card-desc">Vacation rental website with booking integration for a beachfront property in Cape San Blas, FL.</p>
@@ -477,7 +505,7 @@
         </a>
 
         <a class="website-card" href="https://nicksammonsrealestate.com/" target="_blank" rel="noopener">
-          <img src="assets/img/Design/nick-sammons-website.webp" alt="Custom real estate website design for Nick Sammons Realty in North Georgia" width="900" loading="lazy">
+          <img decoding="async" src="assets/img/Design/nick-sammons-website.webp" alt="Custom real estate website design for Nick Sammons Realty in North Georgia" loading="lazy" width="900" height="2963">
           <div class="website-card-info">
             <h4 class="website-card-title">Nick Sammons Real Estate</h4>
             <p class="website-card-desc">Modern real estate portfolio with listings, testimonials, and contact for a North Georgia REALTOR&reg;.</p>
@@ -486,7 +514,7 @@
         </a>
 
         <a class="website-card" href="https://cantrellsautodetailingllc.com/" target="_blank" rel="noopener">
-          <img src="assets/img/Design/cantrell-auto-detailing-website.webp" alt="Custom auto detailing business website design for Cantrell Auto Detailing in Taylors, SC" width="900" loading="lazy">
+          <img decoding="async" src="assets/img/Design/cantrell-auto-detailing-website.webp" alt="Custom auto detailing business website design for Cantrell Auto Detailing in Taylors, SC" loading="lazy" width="900" height="1017">
           <div class="website-card-info">
             <h4 class="website-card-title">Cantrell Auto Detailing</h4>
             <p class="website-card-desc">Professional service website with reviews and scheduling for an auto detailing business in Taylors, SC.</p>
@@ -496,9 +524,11 @@
       </div>
     </div>
 
+    <p class="section-inquiry"><a class="button" href="contact.html?service=Website">Inquire about a website</a></p>
   </section>
 
-  <footer class="footer">
+  </main>
+<footer class="footer">
     <div class="container">
       <div class="social-links" style="margin: 0 0 16px 0;">
         <a href="https://www.instagram.com/hutzellcreativeco" target="_blank" class="social-link">Instagram</a>
@@ -510,47 +540,6 @@
 
   <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
   
-  <!-- Design gallery navigation -->
-  <script>
-    const designGallery = document.getElementById('designGallery');
-    const designPrev = document.getElementById('designPrev');
-    const designNext = document.getElementById('designNext');
-    const designIndicators = document.getElementById('designIndicators');
-    
-    if (designGallery) {
-      const items = designGallery.querySelectorAll('.design-gallery-item');
-      let currentIndex = 0;
-      
-      // Create indicators
-      items.forEach((_, index) => {
-        const indicator = document.createElement('div');
-        indicator.className = 'design-indicator';
-        if (index === 0) indicator.classList.add('active');
-        indicator.addEventListener('click', () => showItem(index));
-        designIndicators.appendChild(indicator);
-      });
-      
-      function showItem(index) {
-        items.forEach(item => item.classList.remove('active'));
-        designIndicators.querySelectorAll('.design-indicator').forEach(ind => ind.classList.remove('active'));
-        
-        items[index].classList.add('active');
-        designIndicators.children[index].classList.add('active');
-        currentIndex = index;
-      }
-      
-      designPrev.addEventListener('click', () => {
-        const newIndex = (currentIndex - 1 + items.length) % items.length;
-        showItem(newIndex);
-      });
-      
-      designNext.addEventListener('click', () => {
-        const newIndex = (currentIndex + 1) % items.length;
-        showItem(newIndex);
-      });
-    }
-  </script>
-  
-  <script src="main.js"></script>
+  <script src="main.js?v=20261021"></script>
 </body>
 </html>

@@ -1,4 +1,13 @@
-HCC USER EXPERIENCE PATCH — October 21, 2026
+HCC USER EXPERIENCE PATCH — REVISED: HERO AND REVIEWS RESTORED
+October 21, 2026
+
+RESTORATION IN THIS REVISION
+- Restored the original moving photo collage behind the hero: same 24 photos, tile dimensions, tilted arrangement, pale overlay, and 60-second linear motion.
+- Restored the full-width scrolling review strip: original card widths, padding, shadows, gold stars, type treatment, and 40-second linear motion.
+- Made each repeat include its full trailing gap, removing the jump at the loop boundary. Extra offscreen copies prevent blank space on wide screens.
+- Pause motion when its section is offscreen or the tab is hidden, preserving the current position. Hover or keyboard focus pauses reviews for reading.
+- Respect reduced-motion preferences; reviews stay readable without animation when that preference is enabled.
+- This ZIP supersedes the previous ZIP and includes all 11 replacement files. The other changes from the previous patch remain; this correction restores the hero and review animations specifically.
 
 INSTALLATION
 1. Back up your current site files or keep your previous Git commit.
@@ -10,10 +19,10 @@ INSTALLATION
 WHAT CHANGED
 - Replaced the homepage's long pinned horizontal service sequence with three normal-flow service cards: a row on desktop, a stack on phones.
 - Replaced the pinned video sequence with a responsive grid of four film previews. YouTube players are created only after clicking a preview; without JavaScript, links open the original films on YouTube.
-- Removed scroll-time position calculations, scaling, dark-background transitions, and the constantly moving hero/review tracks.
-- Reduced the hero collage from 72 image elements to 12, with low-priority asynchronous decoding.
+- Removed the pinned service/video sections' scroll-time position calculations, scaling, and dark-background transitions; restored the original moving hero/review treatments.
+- Repeated the original hero photo set as needed for continuous coverage, with low-priority asynchronous decoding and animation starting after its thumbnails are decoded.
 - Added subtle one-time entrances below the initial viewport, with full reduced-motion support and visible keyboard focus.
-- Kept testimonials stationary and removed their duplicate copies.
+- Restored continuously scrolling testimonials; duplicate copies are hidden from assistive technology.
 - Added actual image dimensions and predeclared landscape spans so photo galleries do not rearrange after images load.
 - Kept design gallery dimensions stable and added keyboard navigation, touch swipes, accessible 44px indicator buttons, and a slide counter. All designs remain visible when JavaScript is disabled.
 - Cropped tall website screenshots into consistent preview frames.
@@ -22,7 +31,13 @@ WHAT CHANGED
 - Made the mobile header and form more compact, improved focus/selected states, and added skip-to-content links and main landmarks.
 - Consolidated duplicate Google Fonts requests, added local font-display: swap, repaired missing favicon references, and removed surplus gallery closing tags.
 
-VERIFICATION
+ADDITIONAL RESTORATION CHECKS
+- Hero and reviews checked at 320, 390, 768, 1440, and 1920 CSS pixels in Chromium.
+- Confirmed active movement, original styling values, complete hero/review coverage at loop end, and no horizontal page overflow.
+- Compared rendered images immediately before/after the loop boundaries to verify continuous alignment.
+- Checked review hover/focus pause, offscreen pause, reduced motion, and JavaScript-disabled reviews.
+
+PREVIOUS PATCH VERIFICATION
 - Headless Chromium: all nine HTML pages at 320, 390, 768, and 1440 CSS pixels.
 - No horizontal overflow, missing local image assets, duplicate IDs, unbalanced HTML tags, local 404s, or JavaScript exceptions in the checked pages.
 - Gallery arrows, indicators, keyboard navigation, synthetic touch swipe events, stable frame dimensions, video creation on click, and service anchor offsets.

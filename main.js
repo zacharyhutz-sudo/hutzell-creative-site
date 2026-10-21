@@ -20,19 +20,27 @@ document.addEventListener('DOMContentLoaded', () => {
     }).observe(header);
   }
 
-  // Twelve decorative images replace the old 72-node infinite marquee.
+  // Original photo selection, dimensions, tilt, wash and 60-second motion.
+  // Each repeated set includes its trailing gap; no fractional reset distance.
   const canvas = document.querySelector('.hero-bg-canvas');
   if (canvas) {
     canvas.setAttribute('aria-hidden', 'true');
-    const images = ['EI8A9660.webp', 'EI8A8958.webp', 'IMG_1643.webp', 'IMG_1630.webp',
-      'EI8A8721.webp', 'IMG_2049.webp', 'Chase&Emma-7.webp', 'EI8A7714.webp',
-      'EI8A4765-2.webp', 'EI8A0546.webp', 'EI8A2392.webp', 'EI8A0591.webp'];
-    const grid = document.createElement('div');
-    grid.className = 'bg-marquee';
-    for (let i = 0; i < 6; i++) {
+    const images = [
+      'EI8A9660.webp', 'EI8A8958.webp', 'IMG_1643.webp', 'IMG_1630.webp',
+      'EI8A8721.webp', 'IMG_2049.webp', 'EI8A8851.webp', 'IMG_2052.webp',
+      'IMG_2051.webp', 'EI8A8162.webp', 'Chase&Emma-7.webp', 'EI8A7714.webp',
+      'EI8A4765-2.webp', 'EI8A0546.webp', 'EI8A2392.webp', 'EI8A0591.webp',
+      'EI8A7836.webp', 'Chase&Emma.-16.webp', 'AllenMaternityPhotos-16.webp', 'IMG_1820.webp',
+      'EI8A4852.webp', 'EI8A2361.webp', 'EI8A7804.webp', 'EI8A1432.webp'
+    ];
+    const track = document.createElement('div');
+    track.className = 'bg-marquee is-loading';
+    const group = document.createElement('div');
+    group.className = 'bg-set';
+    for (let columnIndex = 0; columnIndex < 4; columnIndex++) {
       const column = document.createElement('div');
       column.className = 'bg-col';
-      images.slice(i * 2, i * 2 + 2).forEach(file => {
+      images.slice(columnIndex * 6, columnIndex * 6 + 6).forEach(file => {
         const wrap = document.createElement('div');
         wrap.className = 'bg-photo-wrap';
         const img = document.createElement('img');
@@ -41,16 +49,74 @@ document.addEventListener('DOMContentLoaded', () => {
         img.alt = '';
         img.width = 200;
         img.height = 300;
-        img.loading = 'lazy';
         img.decoding = 'async';
         img.setAttribute('fetchpriority', 'low');
         wrap.append(img);
         column.append(wrap);
       });
-      grid.append(column);
+      group.append(column);
     }
-    canvas.replaceChildren(grid);
+    track.append(group);
+    canvas.replaceChildren(track);
+    const ensureCoverage = () => {
+      const period = group.offsetWidth;
+      if (!period) return;
+      track.style.setProperty('--hero-loop-width', `${period}px`);
+      // Extra repeated sets cover wide screens throughout the complete loop.
+      const required = Math.max(3, Math.ceil(canvas.getBoundingClientRect().width / period) + 1);
+      while (track.children.length < required) track.append(group.cloneNode(true));
+    };
+    ensureCoverage();
+    if ('ResizeObserver' in window) new ResizeObserver(ensureCoverage).observe(canvas);
+    else window.addEventListener('resize', ensureCoverage, { passive: true });
+    // Start after decoding the unique thumbnail set to avoid moving blank tiles.
+    Promise.all(Array.from(group.querySelectorAll('img')).map(img => {
+      if (typeof img.decode === 'function') return img.decode().catch(() => {});
+      if (img.complete) return Promise.resolve();
+      return new Promise(resolve => {
+        img.addEventListener('load', resolve, { once: true });
+        img.addEventListener('error', resolve, { once: true });
+      });
+    })).then(() => track.classList.remove('is-loading'));
   }
+
+  // Match the content viewport, excluding the desktop scrollbar, for the
+  // original full-width reviews strip without horizontal page overflow.
+  const reviewTrack = document.querySelector('.reviews-track');
+  const updatePageWidth = () => {
+    const value = `${document.documentElement.clientWidth}px`;
+    if (document.documentElement.style.getPropertyValue('--page-width') !== value) {
+      document.documentElement.style.setProperty('--page-width', value);
+    }
+    if (reviewTrack) {
+      const group = reviewTrack.querySelector('.reviews-group');
+      const period = group.offsetWidth;
+      if (period) {
+        reviewTrack.style.setProperty('--reviews-loop-width', `${period}px`);
+        const copies = Math.max(3, Math.ceil(document.documentElement.clientWidth / period) + 1);
+        while (reviewTrack.children.length < copies) {
+          const clone = group.cloneNode(true);
+          clone.setAttribute('aria-hidden', 'true');
+          clone.setAttribute('inert', '');
+          reviewTrack.append(clone);
+        }
+      }
+    }
+  };
+  updatePageWidth();
+  if ('ResizeObserver' in window) new ResizeObserver(updatePageWidth).observe(document.documentElement);
+  else window.addEventListener('resize', updatePageWidth, { passive: true });
+
+  // Pause outside the viewport or in a background tab, preserving loop position.
+  if ('IntersectionObserver' in window) {
+    const motionObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => entry.target.classList.toggle('motion-offscreen', !entry.isIntersecting));
+    });
+    document.querySelectorAll('.hero, .reviews-slider').forEach(el => motionObserver.observe(el));
+  }
+  const updatePageVisibility = () => document.documentElement.classList.toggle('page-hidden', document.hidden);
+  document.addEventListener('visibilitychange', updatePageVisibility);
+  updatePageVisibility();
 
   // Small, one-time entrances only below the initial viewport. No scroll handler.
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
